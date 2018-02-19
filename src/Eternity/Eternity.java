@@ -54,14 +54,20 @@ public class Eternity {
     */
     //To be developed by Jonathan Bedard Schami
     public static double eCos(double x, double precision){
-        int temp = 0;
-        int retVal = 0;
+        double temp;
+        double retVal = 0;
+        double delta;
         int n = 0;
         do{
             temp = retVal;
-            retVal = temp + ((eExpY((double)(-1), n) * eExpY(x, (double)(2*n)))/(eFactorial(2*n)))*eExpY(x, (double)(2*n+1));
+            retVal = temp + (eExpY((-1), n)*eExpY(x, 2*n))/eFactorial(2*n);
+            System.out.println(retVal);
             n++;
-        }while(retVal-temp > precision);
+            if (retVal-temp < 0)
+                delta = (-1)*(retVal-temp);
+            else
+                delta = retVal-temp;
+        }while((delta) > precision);
         return retVal;
     }
     /*
@@ -84,8 +90,9 @@ public class Eternity {
 	}
 	*/
     public static void main(String[] args) {
-        System.out.println(eFactorial(10));
-        System.out.println(eFactorial(3));
+        System.out.println(eCos(0.785398, 0.00000001));
+        System.out.println("Cos(0.785398) =  0.70710678118");
+
         
         //System.out.println(ePI());
     }
