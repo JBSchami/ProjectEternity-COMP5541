@@ -36,12 +36,19 @@ public class Eternity {
     public static double eBaseTenExp(double x){
 
     }
-
+    */
     //To be developed by Jonathan Bedard Schami
-    public static double eCos(double x){
+    public static double eCos(double x, double precision){
+        int temp = 0;
+        int retVal = 0;
+        int n = 0;
 
+        do{
+            (-1)
+        }while(retVal-temp > precision);
+        return retVal;
     }
-
+    /*
     //To be developed by Julien Fagnan
     public static double eExpY(double x, double y){
 
