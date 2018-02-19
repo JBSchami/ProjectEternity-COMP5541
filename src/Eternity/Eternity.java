@@ -42,9 +42,10 @@ public class Eternity {
         int temp = 0;
         int retVal = 0;
         int n = 0;
-
         do{
-            (-1)
+            temp = retVal;
+            retVal = temp + ((eExpY((double)(-1), n) * eExpY(x, (double)(2*n)))/(eFactorial(2*n)))*eExpY(x, (double)(2*n+1));
+            n++;
         }while(retVal-temp > precision);
         return retVal;
     }
