@@ -69,7 +69,7 @@ public class Eternity {
 	public static final double ePI(){
 	double e = 0, res = 0;
 	for (int i = 0; i<5; i++) {
-		e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i),i) * eExpY(396,4*i));
+		e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i), 4) * eExpY(396,4*i));
 	}
 	res = 9801 / (e * eExpY(8, 0.5));
 	return res;
@@ -78,7 +78,7 @@ public class Eternity {
     public static void main(String[] args) {
         System.out.println(eFactorial(10));
         System.out.println(eFactorial(3));
-        
+
         //System.out.println(ePI());
     }
 }
