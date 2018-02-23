@@ -14,29 +14,74 @@ public class MainApp {
 
             if (choice.equals("1")) {
                 System.out.println("log(x) selected. Please enter x:");
-                double x = s.nextDouble();
+                String input = s.next();
+                double x = 0;
+                try{
+                   x = Double.parseDouble(input);
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid input");
+                    continue;
+                }
+                if(Eternity.eLog(x)==-1) {
+                    continue;
+                }
                 System.out.println("log(" + x + ") = " + Eternity.eLog(x));
             }
             else if (choice.equals("2")) {
                 System.out.println("e^x selected. Please enter x:");
-                double x = s.nextDouble();
+                String input = s.next();
+                double x = 0;
+                try{
+                    x = Double.parseDouble(input);
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid input");
+                    continue;
+                }
                 System.out.println("e^" + x + " = " + Eternity.exponentialCalc(x,10000));
             }
             else if (choice.equals("3")) {
                 System.out.println("10^x selected. Please enter x:");
-                double x = s.nextDouble();
+                String input = s.next();
+                double x = 0;
+                try{
+                    x = Double.parseDouble(input);
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid input");
+                    continue;
+                }
                 System.out.println("10^" + x + " = " + Eternity.eBaseTenExp(x));
             }
             else if (choice.equals("4")) {
                 System.out.println("cos(x) selected. Please enter x:");
-                double x = s.nextDouble();
-                System.out.println("cos(" + x + ") = " + Eternity.eCos(x, 0.0001));
+                String input = s.next();
+                double x = 0;
+                try{
+                    x = Double.parseDouble(input);
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid input");
+                    continue;
+                }
+                System.out.println("cos(" + x + ") = " + Eternity.eCos(x, 0.00001));
             }
             else if (choice.equals("5")) {
                 System.out.println("x^y selected. Please enter x:");
-                double x = s.nextDouble();
+                String input = s.next();
+                double x = 0;
+                try{
+                    x = Double.parseDouble(input);
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid input");
+                    continue;
+                }
                 System.out.println("Please enter y:");
-                double y = s.nextDouble();
+                input = s.next();
+                double y = 0;
+                try{
+                    y = Double.parseDouble(input);
+                } catch (NumberFormatException e){
+                    System.out.println("Invalid input");
+                    continue;
+                }
                 System.out.println(x + "^" + y + " = " + Eternity.eExpY(x, y));
             }
             else if (choice.equalsIgnoreCase("q")){
