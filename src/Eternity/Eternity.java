@@ -83,11 +83,7 @@ public class Eternity {
 	    return answer;
 	    
 	  }
-    /*
-    //To be developed by Daniel Witkowski
-    public static double eLog(double x){
 
-    }
 	*/
     /**
      * Function to calculate exponents with base 10 i.e. 10^x
@@ -155,7 +151,7 @@ public class Eternity {
 
         return retVal;
     }
-    public static double log10x(double x) {
+    public static double eLog(double x) {
         if(x<=0) {
             System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
             return -1;
@@ -209,7 +205,7 @@ public class Eternity {
     //To be developed by Julien Fagnan
     public static double eExpY(double x, double y){
     	//converting ln to log
-    	double lnInLog = log10x(x)/(0.43429448190325182765112891891661);
+    	double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
     	double values = y * lnInLog;
 		return exponentialCalc(values, 2500);
     }
