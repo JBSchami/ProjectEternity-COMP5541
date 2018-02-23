@@ -37,7 +37,7 @@ public class MainApp {
                     System.out.println("Invalid input");
                     continue;
                 }
-                System.out.println("e^" + x + " = " + Eternity.exponentialCalc(x,10000));
+                System.out.println("e^" + x + " = " + Eternity.exponentialCalc(x));
             }
             else if (choice.equals("3")) {
                 System.out.println("10^x selected. Please enter x:");
