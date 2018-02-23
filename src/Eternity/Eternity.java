@@ -67,59 +67,33 @@ public class Eternity {
 
     /**
      * This is the function that performs e^x
-     * To be developed by Brandon Handfield
+     * @author Brandon Handfield
      * @param x The value for which we want to calculate the value
      * @return the value of e^x
      */
-	//calculator method
-	  public static double exponentialCalc(double x){
-	    
-	    //initialize the return value of answer to 0
+    public static double exponentialCalc(double x){
+
 	    double answer = 0;
-	    
 	    double numerator = 1;
-	    
 	    double denominator = 1;
-	    
-	    //as will be evident later in the code, the term will be comprised of the numerator divide by the denominator
 	    double term = 0;
 	    
 	    int i = 1;
-	    
-	    //check for the sepcial case that the input for x is 0
-	    if (x == 0){
-	      //set the answer to 0, despite e^0 being ==1, we will be adding +1 at the very end to compensate
-	      answer = 0;
-	    }
-	    
+
+	    if (x == 0)
+	      answer = 0;//Ignore first term = 1, to be added at end
 	    else{
-	      
 	      do{
-	        //here the numerator tabulates the exponential of base x, increasing the exponent of x by 1 through each
-	        //iteration by the nature of multiplying by x an addition time at each loop
 	        numerator = numerator * x;
-	        
-	        //here the denominator tabulates a factorial incremented 1 higher at each iteration, as denotes by "i"
 	        denominator = denominator * i;
 	        i++;
-	             
 	        term = numerator/denominator;
-	      
 	        answer = answer + term;
-	            
 	      } while (term > 0.000001);
-	      //here we are running the do while loop until we reach a point where the term being added is smaller than
-	      //the precision we care about for our calculator, making further calculations arbitrary
-	      //(this includes one term smaller than the precision limit seeing as the while checks the condition after the
-	      //loop simply by its nature)
 	    }
-	    
-	    //here we add +1 to the return value, this compensates for the above equations neglecting the case of the first
-	    //term in the Taylor Series always being equal to 1
+	    //Add 1 because first term always 1 and not computed in answer
 	    return (answer+1);
-	    
-	  }
-
+    }
 
     /**
      * Function to calculate exponents with base 10 i.e. 10^x
@@ -134,8 +108,6 @@ public class Eternity {
     /**
      * Cos(x) = sum(from n = 0 to n = infinity) of :
      *  (((-1)^n)/(2n!))*(x^2n)
-     *
-     *  Currently limited due to system limitations.
      *
      * @author Jonathan Bedard Schami
      * @param x the angle in degree which we want to obtain the cosine of
@@ -193,9 +165,9 @@ public class Eternity {
 
     /**
      * Logarithm Base 10 implementation.
+     * @author Daniel Witkowski
      * @param x The value for which we want to obtain the log base 10 value
      * @return The result of the log_10(x)
-     * @author Daniel Witkowski
      */
     public static double eLog(double x) {
         if(x<=0) {
@@ -214,13 +186,14 @@ public class Eternity {
         answer = roundNumber(answer, 5);
         return answer;
     }
+
     /**
-     * currently calculates the natural logarithm of a number between 0 and 2 (exclusive) using a power series
-     * significant inaccuracy remains for very small numbers
+     * currently calculates the natural logarithm of a number between 0 and 2 (exclusive)
+     * using a power series significant inaccuracy remains for very small numbers
      * method is required for logx function
+     * @author Daniel Witkowski
      * @param num input must be between 0 and 2, exclusive
      * @return result of power series
-     * @author Daniel Witkowski
      */
     public static double naturalLog(double num) {
         double x = num - 1;
@@ -230,8 +203,10 @@ public class Eternity {
         }
         return sum;
     }
+
     /**
      * Rounds a floating point number to the specified number of decimal places
+     * @author Edip Tac
      * @param unroundedNumber the number before rounding
      * @param decimalPlaces the number of decimal places to round to
      * @return the rounded number
@@ -261,9 +236,11 @@ public class Eternity {
 		return exponentialCalc(values);
     }
     
-
-    //Developped by Julien Fagnan
-	//Ramanujan-Sato formulas
+    /**
+     * Some functions require the value of Pi
+     * @author Julien Fagnan
+     * @return A value of pi based on the Ramanujan-Sato formulas
+     */
 	public static final double ePI(){
 	double e = 0, res = 0;
 	for (int i = 0; i<5; i++) {
@@ -272,10 +249,4 @@ public class Eternity {
 	res = 9801 / (e * eExpY(8, 0.5));
 	return res;
 	}
-
-    public static void main(String[] args){
-        for(int i = 270; i <= 360; i++){
-            System.out.println(eCos(i, 1e-5));
-        }
-    }
 }
