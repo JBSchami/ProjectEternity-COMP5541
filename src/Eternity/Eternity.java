@@ -1,7 +1,5 @@
 package Eternity;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 public class Eternity {
     /**
      * Factorial is required for many of the other functions
@@ -263,27 +261,16 @@ public class Eternity {
 
     //Developped by Julien Fagnan
 	//Ramanujan-Sato formulas
-    /*
 	public static final double ePI(){
 	double e = 0, res = 0;
 	for (int i = 0; i<5; i++) {
 		e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i), 4) * eExpY(396,4*i));
 	}
-	res = 9801 / (e * eExpY(8, (long)0.5));
+	res = 9801 / (e * eExpY(8, 0.5));
 	return res;
 	}
-    */
-
 
     public static void main(String[] args) {
-        System.out.println(eFactorial(10));
-        System.out.println(eFactorial(3));
-
-        //System.out.println(ePI());
-
-       System.out.println(eBaseTenExp(4.5));
-       System.out.println(exponentialCalc(50));
-
+        System.out.println(ePI());
 	}
-	
 }
