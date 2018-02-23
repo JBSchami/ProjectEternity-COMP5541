@@ -84,7 +84,7 @@ public class Eternity {
 	    
 	  }
 
-	*/
+
     /**
      * Function to calculate exponents with base 10 i.e. 10^x
      * @author Edip Tac
