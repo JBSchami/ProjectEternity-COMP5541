@@ -264,17 +264,22 @@ public class Eternity {
     	int [] multiplicand = {1,2,3,4,5};
     	
     	int [] answer = eMult(multiplier, multiplicand);
-    	
-    	System.out.print("Multiplication of: ");
+
+		System.out.println("Multiplication:");
+
+
     	for(int i=0; i < multiplicand.length; i++){
     		System.out.print(multiplicand[i]);
+
     	}
-    	System.out.print("\nBy:   ");
+		System.out.print(" x ");
+
     	for(int i=0; i < multiplier.length; i++){
     		System.out.print(multiplier[i]);
+
     	}
     	
-    	System.out.print("\nAnswer:");
+    	System.out.print("\nAnswer: ");
     	
     	for(int i=0; i < answer.length; i++){
     		System.out.print(answer[i]);
