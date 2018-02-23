@@ -276,19 +276,14 @@ public class Eternity {
 
 
     public static void main(String[] args) {
-<<<<<<< HEAD
         System.out.println(eFactorial(10));
         System.out.println(eFactorial(3));
 
         //System.out.println(ePI());
-    }
-=======
 
        System.out.println(eBaseTenExp(4.5));
        System.out.println(exponentialCalc(50));
 
 	}
-
-
->>>>>>> master
+	
 }
