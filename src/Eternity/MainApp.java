@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class MainApp {
 
+    static int precision = 5;
+
     public static void main(String[] args) {
         System.out.println("Welcome to the calculator. Please type in the number of the function you would like to compute, or type 'q' to quit:");
         Scanner s = new Scanner(System.in);
@@ -25,7 +27,7 @@ public class MainApp {
                 if(Eternity.eLog(x)==-1) {
                     continue;
                 }
-                System.out.println("log(" + x + ") = " + Eternity.eLog(x));
+                System.out.println("log(" + x + ") = " + Eternity.roundNumber(Eternity.eLog(x), precision));
             }
             else if (choice.equals("2")) {
                 System.out.println("e^x selected. Please enter x:");

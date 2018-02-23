@@ -66,6 +66,20 @@ public class Eternity {
 	}
 
     /**
+     * eExpY works for non-integers
+     * @author Julien Fagnan
+     * @param x base number
+     * @param y exponent number
+     * @return the value of base x to the power of y
+     */
+    public static double eExpY(double x, double y){
+        //converting ln to log
+        double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
+        double values = y * lnInLog;
+        return exponentialCalc(values);
+    }
+
+    /**
      * This is the function that performs e^x
      * @author Brandon Handfield
      * @param x The value for which we want to calculate the value
@@ -212,7 +226,7 @@ public class Eternity {
      * @return the rounded number
      */
     public static double roundNumber(double unroundedNumber, int decimalPlaces){
-        unroundedNumber = unroundedNumber*eExpY(10,decimalPlaces);
+        unroundedNumber *= eExpY(10,decimalPlaces);
         if(unroundedNumber<0)
             unroundedNumber -= 0.5;
         else
@@ -220,20 +234,6 @@ public class Eternity {
         double roundedNumber = (int) unroundedNumber;
         roundedNumber /= eExpY(10,decimalPlaces);
         return roundedNumber;
-    }
-    
-    /**
-     * Most functions require natural number power function
-     * @author Julien Fagnan
-     * @param x base number
-     * @param y exponent number
-     * @return the value of base x to the power of y
-     */
-    public static double eExpY(double x, double y){
-    	//converting ln to log
-    	double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
-    	double values = y * lnInLog;
-		return exponentialCalc(values);
     }
     
     /**
