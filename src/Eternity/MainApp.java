@@ -22,6 +22,9 @@ public class MainApp {
                     System.out.println("Invalid input");
                     continue;
                 }
+                if(Eternity.eLog(x)==-1) {
+                    continue;
+                }
                 System.out.println("log(" + x + ") = " + Eternity.eLog(x));
             }
             else if (choice.equals("2")) {
@@ -58,7 +61,7 @@ public class MainApp {
                     System.out.println("Invalid input");
                     continue;
                 }
-                System.out.println("cos(" + x + ") = " + Eternity.eCos(x, 0.0001));
+                System.out.println("cos(" + x + ") = " + Eternity.eCos(x, 0.00001));
             }
             else if (choice.equals("5")) {
                 System.out.println("x^y selected. Please enter x:");
