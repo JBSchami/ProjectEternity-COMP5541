@@ -6,9 +6,9 @@ public class MainApp {
 
     public static void main(String[] args) {
         System.out.println("Welcome to the calculator. Please type in the number of the function you would like to compute, or type 'q' to quit:");
+        Scanner s = new Scanner(System.in);
 
         while (true) {
-            Scanner s = new Scanner(System.in);
             System.out.println("\nSelect a function ('q' to quit):\n1. log(x)\n2. e^x\n3. 10^x\n4. cos(x)\n5. x^y");
             String choice = s.next();
 
