@@ -138,22 +138,24 @@ public class Eternity {
      *  Currently limited due to system limitations.
      *
      * @author Jonathan Bedard Schami
-     * @param x the angle in radians which we want to obtain the cosine of
+     * @param x the angle in degree which we want to obtain the cosine of
      * @param precision the precision to which we want to calculate the value
      * @return the value to the precision determined.
      */
     public static double eCos(double x, double precision){
         boolean isLeftSideQuadrant = false;
+        x = x%360;
+        x = (x*ePI())/180; //Convert degree to radians
+        double piVal = ePI();
         //from 90 to 180 cos(x) = -cos(pi-x)
-        if(x > 1.5708 && x <= 3.14159){
-            x = 3.14159-x;
+        if(x > piVal/2 && x <= piVal){
+            x = piVal-x;
             isLeftSideQuadrant = true;
         }
-        boolean isThirdQuadrant = false;
         //from 180 to 270 cos(x) = -cos((-1)*(pi-x))
-        if(x > 3.14159 && x <= 4.71239){
+        if(x > piVal && x <= 1.5*piVal){
             isLeftSideQuadrant = true;
-            x = (-1)*(3.14159-x);
+            x = (-1)*(piVal-x);
         }
 
         double temp;
@@ -176,15 +178,12 @@ public class Eternity {
 
         }while((delta) > precision);
 
-        if(isLeftSideQuadrant){
+        if(retVal < precision)
+            retVal = 0;
+
+        if(isLeftSideQuadrant && retVal != 0){
             retVal = retVal*(-1);
         }
-
-        if(retVal < 0 && (-1)*retVal < 1e-5)
-            retVal = 0;
-        if(retVal >= 0 && retVal > 1e-10)
-            retVal = 0;
-
         return retVal;
     }
 
@@ -270,7 +269,4 @@ public class Eternity {
 	return res;
 	}
 
-    public static void main(String[] args) {
-        System.out.println(ePI());
-	}
 }
