@@ -158,6 +158,10 @@ public class Eternity {
             x = (-1)*(piVal-x);
         }
 
+        if(x > 1.5*piVal && x <= 2*piVal){
+            x = 2*piVal - x;
+        }
+
         double temp;
         double retVal = 0;
         double delta;
@@ -269,4 +273,9 @@ public class Eternity {
 	return res;
 	}
 
+    public static void main(String[] args){
+        for(int i = 270; i <= 360; i++){
+            System.out.println(eCos(i, 1e-5));
+        }
+    }
 }
