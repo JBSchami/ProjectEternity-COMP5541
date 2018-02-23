@@ -287,6 +287,7 @@ public class Eternity {
 	}
     */
 
+<<<<<<< HEAD
     public static void main(String[] args) {
 <<<<<<< HEAD
         //System.out.println(eCos(0, 0.0001));
@@ -305,25 +306,36 @@ public class Eternity {
     	int [] answer = eMult(multiplier, multiplicand);
 
 		System.out.println("Multiplication:");
+=======
+    public static void multiplyTester(){
+		int [] multiplier = {1,2,3,4,5};
+		int [] multiplicand = {1,2,3,4,5};
+>>>>>>> arrayMult
 
+		int [] answer = eMult(multiplier, multiplicand);
 
-    	for(int i=0; i < multiplicand.length; i++){
-    		System.out.print(multiplicand[i]);
+		System.out.println("Multiplication:");
+		for(int i=0; i < multiplicand.length; i++){
+			System.out.print(multiplicand[i]);
+		}
 
-    	}
 		System.out.print(" x ");
+		for(int i=0; i < multiplier.length; i++){
+			System.out.print(multiplier[i]);
+		}
 
-    	for(int i=0; i < multiplier.length; i++){
-    		System.out.print(multiplier[i]);
+		System.out.print("\nAnswer: ");
+		for(int i=0; i < answer.length; i++){
+			System.out.print(answer[i]);
+		}
+	}
 
-    	}
-    	
-    	System.out.print("\nAnswer: ");
-    	
-    	for(int i=0; i < answer.length; i++){
-    		System.out.print(answer[i]);
-    	}
+    public static void main(String[] args) {
+ 
+    	multiplyTester();
     	
 >>>>>>> arrayMult
     }
+
+
 }
