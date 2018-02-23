@@ -68,6 +68,14 @@ public class Eternity {
 	}
 	//NOTE: This was added roughly by Edip Tac for now to test eBaseTenExp
     //To be developed by Brandon Handfield
+
+    /**
+     * NOTE: current version is rough draft by Edip Tac
+     * To be developed by Brandon Handfield
+     * @param x The value for which we want to calculate the value
+     * @param seriesCounter how many terms in the series
+     * @return the value of e^x
+     */
 	public static double exponentialCalc(double x, int seriesCounter){
 	    
 	    //initialize the return value of answer to 1, seeing as e^0 is equal to 1
@@ -151,6 +159,13 @@ public class Eternity {
 
         return retVal;
     }
+
+    /**
+     * Logarithm Base 10 implementation.
+     * @param x The value for which we want to obtain the log base 10 value
+     * @return The result of the log_10(x)
+     * @author Daniel Witkowski
+     */
     public static double eLog(double x) {
         if(x<=0) {
             System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
@@ -229,8 +244,7 @@ public class Eternity {
 
        System.out.println(eBaseTenExp(4.5));
        System.out.println(exponentialCalc(50,2500));
-       
-		
+
 	}
 
 
