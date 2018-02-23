@@ -66,29 +66,59 @@ public class Eternity {
 			return x * z * z;
 		}
 	}
-	//NOTE: This was added roughly by Edip Tac for now to test eBaseTenExp
-    //To be developed by Brandon Handfield
 
     /**
-     * NOTE: current version is rough draft by Edip Tac
+     * This is the function that performs e^x
      * To be developed by Brandon Handfield
      * @param x The value for which we want to calculate the value
-     * @param seriesCounter how many terms in the series
      * @return the value of e^x
      */
-	public static double exponentialCalc(double x, int seriesCounter){
+	//calculator method
+	  public static double exponentialCalc(double x){
 	    
-	    //initialize the return value of answer to 1, seeing as e^0 is equal to 1
-	    double answer = 1;
+	    //initialize the return value of answer to 0
+	    double answer = 0;
 	    
-	    //here the for loop starts at setting i to n-1, we are doing -1 because by already setting answer=1 we have already
-	    //accounted for the first term of the Taylor Series that approximates the answer
-	    for (int i = seriesCounter -1; i > 0; i--){
-	      
-	      answer = 1 + x*answer/i;
+	    double numerator = 1;
+	    
+	    double denominator = 1;
+	    
+	    //as will be evident later in the code, the term will be comprised of the numerator divide by the denominator
+	    double term = 0;
+	    
+	    int i = 1;
+	    
+	    //check for the sepcial case that the input for x is 0
+	    if (x == 0){
+	      //set the answer to 0, despite e^0 being ==1, we will be adding +1 at the very end to compensate
+	      answer = 0;
 	    }
 	    
-	    return answer;
+	    else{
+	      
+	      do{
+	        //here the numerator tabulates the exponential of base x, increasing the exponent of x by 1 through each
+	        //iteration by the nature of multiplying by x an addition time at each loop
+	        numerator = numerator * x;
+	        
+	        //here the denominator tabulates a factorial incremented 1 higher at each iteration, as denotes by "i"
+	        denominator = denominator * i;
+	        i++;
+	             
+	        term = numerator/denominator;
+	      
+	        answer = answer + term;
+	            
+	      } while (term > 0.000001);
+	      //here we are running the do while loop until we reach a point where the term being added is smaller than
+	      //the precision we care about for our calculator, making further calculations arbitrary
+	      //(this includes one term smaller than the precision limit seeing as the while checks the condition after the
+	      //loop simply by its nature)
+	    }
+	    
+	    //here we add +1 to the return value, this compensates for the above equations neglecting the case of the first
+	    //term in the Taylor Series always being equal to 1
+	    return (answer+1);
 	    
 	  }
 
@@ -216,13 +246,18 @@ public class Eternity {
         return roundedNumber;
     }
     
-    //NOTE: This was done roughly by Edip Tac for now to test eBaseTenExp
-    //To be developed by Julien Fagnan
+    /**
+     * Most functions require natural number power function
+     * @author Julien Fagnan
+     * @param x base number
+     * @param y exponent number
+     * @return the value of base x to the power of y
+     */
     public static double eExpY(double x, double y){
     	//converting ln to log
     	double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
     	double values = y * lnInLog;
-		return exponentialCalc(values, 2500);
+		return exponentialCalc(values);
     }
     
 
@@ -250,7 +285,7 @@ public class Eternity {
 =======
 
        System.out.println(eBaseTenExp(4.5));
-       System.out.println(exponentialCalc(50,2500));
+       System.out.println(exponentialCalc(50));
 
 	}
 
