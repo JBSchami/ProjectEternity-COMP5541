@@ -66,22 +66,39 @@ public class Eternity {
 			return x * z * z;
 		}
 	}
-    /*
+	//NOTE: This was added roughly by Edip Tac for now to test eBaseTenExp
     //To be developed by Brandon Handfield
-    public static double eExpEuler(double x){
-
-    }
-
+	public static double exponentialCalc(double x, int seriesCounter){
+	    
+	    //initialize the return value of answer to 1, seeing as e^0 is equal to 1
+	    double answer = 1;
+	    
+	    //here the for loop starts at setting i to n-1, we are doing -1 because by already setting answer=1 we have already
+	    //accounted for the first term of the Taylor Series that approximates the answer
+	    for (int i = seriesCounter -1; i > 0; i--){
+	      
+	      answer = 1 + x*answer/i;
+	    }
+	    
+	    return answer;
+	    
+	  }
+    /*
     //To be developed by Daniel Witkowski
     public static double eLog(double x){
 
     }
-
-    //To be developed by Edip Tac
+	*/
+    /**
+     * Function to calculate exponents with base 10 i.e. 10^x
+     * @author Edip Tac
+     * @param x Exponent
+     * @return 10^x
+     */
     public static double eBaseTenExp(double x){
-
+    	return eExpY(10.0,x);
     }
-    */
+    
 	 /**
      * Function to reverse the contents of an array. 
      * This function does not change the array passed as param.
@@ -266,13 +283,65 @@ public class Eternity {
 
         return retVal;
     }
-
-    /*
+    public static double log10x(double x) {
+        if(x<=0) {
+            System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
+            return -1;
+        }
+        double factor = 10;
+        int counter = 1;
+        while (factor < x) {
+            counter++;
+            factor *= 10;
+        }
+        double seriesInput = x / factor;
+        double partialAnswer = naturalLog(seriesInput) / 2.3025850929940456840179914546844;
+        double answer = partialAnswer + counter;
+        answer = roundNumber(answer, 5);
+        return answer;
+    }
+    /**
+     * currently calculates the natural logarithm of a number between 0 and 2 (exclusive) using a power series
+     * significant inaccuracy remains for very small numbers
+     * method is required for logx function
+     * @param num input must be between 0 and 2, exclusive
+     * @return result of power series
+     * @author Daniel Witkowski
+     */
+    public static double naturalLog(double num) {
+        double x = num - 1;
+        double sum = 0;
+        for (int i = 1; i <= 1000000; i++) {
+            sum += eExpY((-1), (i - 1)) * eExpY(x, i) / i;
+        }
+        return sum;
+    }
+    /**
+     * Rounds a floating point number to the specified number of decimal places
+     * @param unroundedNumber the number before rounding
+     * @param decimalPlaces the number of decimal places to round to
+     * @return the rounded number
+     */
+    public static double roundNumber(double unroundedNumber, int decimalPlaces){
+        unroundedNumber = unroundedNumber*eExpY(10,decimalPlaces);
+        if(unroundedNumber<0)
+            unroundedNumber -= 0.5;
+        else
+            unroundedNumber += 0.5;
+        double roundedNumber = (int) unroundedNumber;
+        roundedNumber /= eExpY(10,decimalPlaces);
+        return roundedNumber;
+    }
+    
+    //NOTE: This was done roughly by Edip Tac for now to test eBaseTenExp
     //To be developed by Julien Fagnan
     public static double eExpY(double x, double y){
-		return eExpEuler(y * eLog(x));
+    	//converting ln to log
+    	double lnInLog = log10x(x)/(0.43429448190325182765112891891661);
+    	double values = y * lnInLog;
+		return exponentialCalc(values, 2500);
     }
-    */
+    
 
     //Developped by Julien Fagnan
 	//Ramanujan-Sato formulas
@@ -290,13 +359,9 @@ public class Eternity {
 
     public static void main(String[] args) {
 
-		//System.out.println(eCos(0, 0.0001));
-		System.out.println(eCos(1.5708, 0.0001));
-		System.out.println(eCos(3.14159, 0.0001));
-		System.out.println(eCos(2.7, 0.0001));
-		System.out.println(eCos(4.71239, 0.0001));
-		System.out.println(eCos(3.2, 0.0001));
-
+       System.out.println(eBaseTenExp(4.5));
+       System.out.println(exponentialCalc(50,2500));
+       
 		multiplyTester();
 	}
 
