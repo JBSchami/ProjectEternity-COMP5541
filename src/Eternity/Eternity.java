@@ -287,16 +287,16 @@ public class Eternity {
 	}
     */
 
-<<<<<<< HEAD
+
     public static void main(String[] args) {
-<<<<<<< HEAD
+
         //System.out.println(eCos(0, 0.0001));
         System.out.println(eCos(1.5708, 0.0001));
         System.out.println(eCos(3.14159, 0.0001));
         System.out.println(eCos(2.7, 0.0001));
         System.out.println(eCos(4.71239, 0.0001));
         System.out.println(eCos(3.2, 0.0001));
-=======
+
         /*
          * Edip trials for the array multiplication
          */
@@ -306,11 +306,10 @@ public class Eternity {
     	int [] answer = eMult(multiplier, multiplicand);
 
 		System.out.println("Multiplication:");
-=======
+
     public static void multiplyTester(){
 		int [] multiplier = {1,2,3,4,5};
 		int [] multiplicand = {1,2,3,4,5};
->>>>>>> arrayMult
 
 		int [] answer = eMult(multiplier, multiplicand);
 
@@ -333,8 +332,7 @@ public class Eternity {
     public static void main(String[] args) {
  
     	multiplyTester();
-    	
->>>>>>> arrayMult
+
     }
 
 
