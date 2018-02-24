@@ -76,7 +76,7 @@ public class Eternity {
         //converting ln to log
         double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
         double values = y * lnInLog;
-        return exponentialCalc(values);
+        return eEulerExp(values);
     }
 
     /**
@@ -85,28 +85,20 @@ public class Eternity {
      * @param x The value for which we want to calculate the value
      * @return the value of e^x
      */
-    public static double exponentialCalc(double x){
+    public static double eEulerExp(double x){
 
-	    double answer = 0;
-	    double numerator = 1;
-	    double denominator = 1;
-	    double term = 0;
-	    
-	    int i = 1;
+        //initialize the return value of answer to 1, seeing as e^0 is equal to 1
+        double answer = 1;
+        int seriesCounter = 99999999;
+        //here the for loop starts at setting i to n-1, we are doing -1 because by already setting answer=1 we have already
+        //accounted for the first term of the Taylor Series that approximates the answer
+        for (int i = seriesCounter -1; i > 0; i--){
 
-	    if (x == 0)
-	      answer = 0;//Ignore first term = 1, to be added at end
-	    else{
-	      do{
-	        numerator = numerator * x;
-	        denominator = denominator * i;
-	        i++;
-	        term = numerator/denominator;
-	        answer = answer + term;
-	      } while (term > 0.000001);
-	    }
-	    //Add 1 because first term always 1 and not computed in answer
-	    return (answer+1);
+            answer = 1 + x*answer/i;
+        }
+
+        return answer;
+
     }
 
     /**
