@@ -177,8 +177,8 @@ public class Eternity {
      */
     public static double eLog(double x) {
         if(x<=0) {
-            System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
-            return -1;
+            //System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
+            return Double.longBitsToDouble(0xfff0000000000000L);
         }
         double factor = 10;
         int counter = 1;
