@@ -41,6 +41,7 @@ public class Testing {
         printSeperator();
         System.out.println("2^4      = 16          vs test output: " + Eternity.eExpY(2, 4));
         System.out.println("2.5^4.16 = 45.23040079 vs test output: " + Eternity.eExpY(2.5, (double)4.16, 0.000001));
+        System.out.println("3.4^-2.06 = 0.080381004 vs test output: " + Eternity.eExpY(3.4, (double)-2.06, 0.000001));
     }
 
     private static void printSeperator(){

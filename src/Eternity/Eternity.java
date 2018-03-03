@@ -13,8 +13,9 @@ public class Eternity {
      * @param x value of which to find factorial
      * @return factorial value of x
      */
-    public static long eFactorial(long x){
-        int runningTotal = 1;
+	
+    public static double eFactorial(long x){
+    	double runningTotal = 1;
         if (x==0){
             return runningTotal;
         }
@@ -36,7 +37,8 @@ public class Eternity {
      * @param runningTotal the accumulated value
      * @return factorial value of x
      */
-    private static long eFactorial(long x, long runningTotal){
+	
+    private static double eFactorial(double x, double runningTotal){
         if (x==0){
             return runningTotal;
         }
@@ -44,6 +46,7 @@ public class Eternity {
             return eFactorial(x-1, runningTotal*x);
         }
     }
+
 
     /**
      * Perform x^y for natural numbers.
