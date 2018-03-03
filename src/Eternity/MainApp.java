@@ -24,10 +24,10 @@ public class MainApp {
                     System.out.println("Invalid input");
                     continue;
                 }
-                if(Eternity.eLog(x)==-1) {
+                if(Eternity.eLog(x, 0.00001)==-1) {
                     continue;
                 }
-                System.out.println("log(" + x + ") = " + Eternity.eLog(x));
+                System.out.println("log(" + x + ") = " + Eternity.eLog(x, 0.00001));
             }
             else if (choice.equals("2")) {
                 System.out.println("e^x selected. Please enter x:");
@@ -39,7 +39,7 @@ public class MainApp {
                     System.out.println("Invalid input");
                     continue;
                 }
-                System.out.println("e^" + x + " = " + Eternity.eEulerExp(x));
+                System.out.println("e^" + x + " = " + Eternity.eEulerExp(x, 0.00001));
             }
             else if (choice.equals("3")) {
                 System.out.println("10^x selected. Please enter x:");
@@ -51,7 +51,7 @@ public class MainApp {
                     System.out.println("Invalid input");
                     continue;
                 }
-                System.out.println("10^" + x + " = " + Eternity.eBaseTenExp(x));
+                System.out.println("10^" + x + " = " + Eternity.eBaseTenExp(x, 0.00001));
             }
             else if (choice.equals("4")) {
                 System.out.println("cos(x) selected. Please enter x:");
@@ -87,7 +87,7 @@ public class MainApp {
                 if(x%1.0 == 0 && y%1.0 == 0)
                     System.out.println(x + "^" + y + " = " + Eternity.eExpY(x, (long)y));
                 else
-                    System.out.println(x + "^" + y + " = " + Eternity.roundNumber(Eternity.eExpY(x, y),precision));
+                    System.out.println(x + "^" + y + " = " + Eternity.roundNumber(Eternity.eExpY(x, y , 0.00001),precision));
             }
             else if (choice.equalsIgnoreCase("q")){
                 break;

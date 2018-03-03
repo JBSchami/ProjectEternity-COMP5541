@@ -13,7 +13,7 @@ public class Eternity {
      * @param x value of which to find factorial
      * @return factorial value of x
      */
-    public static int eFactorial(int x){
+    public static long eFactorial(long x){
         int runningTotal = 1;
         if (x==0){
             return runningTotal;
@@ -36,7 +36,7 @@ public class Eternity {
      * @param runningTotal the accumulated value
      * @return factorial value of x
      */
-    private static int eFactorial(int x, int runningTotal){
+    private static long eFactorial(long x, long runningTotal){
         if (x==0){
             return runningTotal;
         }
@@ -46,16 +46,16 @@ public class Eternity {
     }
 
     /**
-     * Most functions require natural number power function
+     * Perform x^y for natural numbers.
      * @author Julien Fagnan
-     * @param x base number
-     * @param y exponent number
-     * @return the value of base x to the power of y
+     * @param x Base
+     * @param y Exponent
+     * @return x^y
      */
 	public static double eExpY(double x, long y) {
 		double z;
 		boolean neg = false;
-		
+		//x^-y = 1/x^y
 		if (y<0) {
 			neg = true;
 			y = -y;
@@ -71,7 +71,6 @@ public class Eternity {
 			z *= x * z;
 		}
 		
-		//x^-y = 1/x^y
 		if (neg) {
 			return 1/z;
 		} else {
@@ -80,28 +79,19 @@ public class Eternity {
 	}
 
     /**
-     * eExpY works for non-integers
+     * Performs x^y for real numbers.
      * @author Julien Fagnan
-     * @param x base number
-     * @param y exponent number
-     * @return the value of base x to the power of y
+     * @param x Base
+     * @param y Exponent
+     * @param precision Level of precision
+     * @return x^y
      */
-    public static double eExpY(double x, double y){
-    	boolean neg = false;
-    	
-    	if (y<0) {
-    		neg =true;
-    		y = -y;
-    	}
+    public static double eExpY(double x, double y, double precision){
         //converting ln to log
-        double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
+        double lnInLog = eLog(x, precision)/(0.43429448190325182765112891891661);
         double values = y * lnInLog;
-        
-        if (neg) {
-        	return 1/eEulerExp(values);
-        }else {
-        	return eEulerExp(values);
-        }
+
+        return eEulerExp(values, precision);
     }
 
     /**
@@ -110,6 +100,7 @@ public class Eternity {
      * @param x The value for which we want to calculate the value
      * @return the value of e^x
      */
+    /*
     public static double eEulerExp(double x){
 
         //initialize the return value of answer to 1, seeing as e^0 is equal to 1
@@ -125,15 +116,33 @@ public class Eternity {
         return answer;
 
     }
-
+	*/
+    /**
+     * Perform e^x to a given level of precision.
+     * @author Julien Fagnan
+     * @param x Exponent
+     * @param precision Level of precision
+     * @return e^x
+     */
+    public static double eEulerExp(double x, double precision) {
+		double e = 0, res = 0;
+		long i=0;
+		do {
+			res += (e=eExpY(x, i) / eFactorial(i));
+			i++;
+		} while ((precision < e || -precision > e));
+		return res;
+	}
+    
     /**
      * Function to calculate exponents with base 10 i.e. 10^x
      * @author Edip Tac
      * @param x Exponent
+     * @param precision Level of precision
      * @return 10^x
      */
-    public static double eBaseTenExp(double x){
-    	return eExpY(10.0,x);
+    public static double eBaseTenExp(double x, double precision){
+    	return eExpY(10.0,x, precision);
     }
 
     /**
@@ -198,9 +207,10 @@ public class Eternity {
      * Logarithm Base 10 implementation.
      * @author Daniel Witkowski
      * @param x The value for which we want to obtain the log base 10 value
+     * @param precision Level of precision
      * @return The result of the log_10(x)
      */
-    public static double eLog(double x) {
+    public static double eLog(double x, double precision) {
         if(x<=0) {
             //System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
             return Double.longBitsToDouble(0xfff0000000000000L);
@@ -212,7 +222,7 @@ public class Eternity {
             factor *= 10;
         }
         double seriesInput = x / factor;
-        double partialAnswer = naturalLog(seriesInput) / 2.3025850929940456840179914546844;
+        double partialAnswer = naturalLog(seriesInput, precision) / 2.3025850929940456840179914546844;
         double answer = partialAnswer + counter;
         answer = roundNumber(answer, 5);
         return answer;
@@ -224,14 +234,18 @@ public class Eternity {
      * method is required for logx function
      * @author Daniel Witkowski
      * @param num input must be between 0 and 2, exclusive
+     * @param precision Level of precision
      * @return result of power series
      */
-    public static double naturalLog(double num) {
+    public static double naturalLog(double num, double precision) {
         double x = num - 1;
         double sum = 0;
-        for (int i = 1; i <= 1000000; i++) {
-            sum += eExpY((-1), (i - 1)) * eExpY(x, i) / i;
-        }
+        double e=0;
+        long i = 1;
+        do {
+            sum += (e = eExpY((-1), (i - 1)) * eExpY(x, i) / i);
+            i++;
+        } while ((precision < e || -precision > e));
         return sum;
     }
 
@@ -263,7 +277,7 @@ public class Eternity {
 	for (int i = 0; i<5; i++) {
 		e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i), 4) * eExpY(396,4*i));
 	}
-	res = 9801 / (e * eExpY(8, 0.5));
+	res = 9801 / (e * eExpY(8, 0.5, 0.0000000001));
 	return res;
 	}
 }
