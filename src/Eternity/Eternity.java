@@ -54,14 +54,28 @@ public class Eternity {
      */
 	public static double eExpY(double x, long y) {
 		double z;
+		boolean neg = false;
+		
+		if (y<0) {
+			neg = true;
+			y = -y;
+		}
+		
 		if (y == 0) {
-			return 1;
+			z = 1;
 		} else if (y % 2 == 0) {
 			z = eExpY(x, y/2);
-			return z * z;
+			z *= z;
 		} else {
 			z = eExpY(x, (y-1)/2);
-			return x * z * z;
+			z *= x * z;
+		}
+		
+		//x^-y = 1/x^y
+		if (neg) {
+			return 1/z;
+		} else {
+			return z;
 		}
 	}
 
@@ -73,10 +87,21 @@ public class Eternity {
      * @return the value of base x to the power of y
      */
     public static double eExpY(double x, double y){
+    	boolean neg = false;
+    	
+    	if (y<0) {
+    		neg =true;
+    		y = -y;
+    	}
         //converting ln to log
         double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
         double values = y * lnInLog;
-        return eEulerExp(values);
+        
+        if (neg) {
+        	return 1/eEulerExp(values);
+        }else {
+        	return eEulerExp(values);
+        }
     }
 
     /**
