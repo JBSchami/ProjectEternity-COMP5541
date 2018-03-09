@@ -1,0 +1,102 @@
+.numButton{
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+    -fx-border-color: none;
+    -fx-background-color: #555555;
+    -fx-font-size: 20px;
+    -fx-border-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-text-fill: white;
+    -fx-background-radius: 3px;
+    -fx-effect: dropshadow(two-pass-box, black, 10, 0, 0, 0);
+}
+
+.numButton:focused{
+    -fx-translate-y: 0;
+}
+
+.mainWrapper{
+    -fx-padding: 10px 10px 0px 10px;
+}
+
+.allButtons{
+    -fx-vgap: 10px;
+    -fx-hgap: 10px;
+    -fx-padding: 10 0 10 0;
+}
+
+.numButton:hover{
+    -fx-background-color: #323232;
+}
+
+.numButton:pressed{
+    -fx-background-color: #AAAAAA;
+}
+
+.fxButton{
+    -fx-pref-width: 100px;
+    -fx-pref-height: 60px;
+    -fx-background-color: grey;
+    -fx-border-color: none;
+    -fx-font-size: 20px;
+}
+
+.fxButton:hover{
+    -fx-background-color: orange;
+}
+
+.fxButton:pressed{
+    -fx-background-color: gold;
+}
+
+.equationField{
+    -fx-alignment: center;
+    -fx-pref-height: 200px;
+    -fx-pref-width: 500px;
+    -fx-background-color: lightgrey;
+    -fx-text-fill: black;
+    -fx-text-alignment: left;
+    -fx-font-size: 2em;
+    -fx-padding: 0 0 0 0;
+}
+
+.teamLabel{
+    -fx-text-alignment: right;
+}
+
+.operatorButton{
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+    -fx-border-color: none;
+    -fx-background-color: #323232;
+    -fx-font-size: 20px;
+    -fx-border-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-text-fill: white;
+    -fx-background-radius: 3px;
+    -fx-padding: 0 0 0 0;
+}
+
+.operatorButton:hover{
+    -fx-background-color: #002266;
+}
+
+#equals{
+    -fx-background-color: #004400;
+}
+
+#equals:hover{
+    -fx-background-color: #664d00;
+}
+
+#clear{
+    -fx-background-color: #700018;
+}
+
+#clear:hover{
+    -fx-background-color: #ff0036;
+}
+
+#teamLabel{
+    -fx-font-size: 0.75em;
+}

@@ -1,0 +1,47 @@
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:controller="GUI.Controller"
+      xmlns:fx="http://javafx.com/fxml" alignment="center" styleClass="mainWrapper">
+
+    <stylesheets>
+        <URL value = "@test.css"/>
+    </stylesheets>
+
+    <TextField fx:id="equationField" styleClass="equationField" editable="false"/>
+
+    <!--Number Buttons -->
+    <GridPane alignment="center" styleClass="allButtons">
+        <Button fx:id="zero" text="0" GridPane.rowIndex="3" GridPane.columnIndex="3"  onAction="#BtnZeroPress" styleClass="numButton"/>
+        <Button fx:id="one" text="1" GridPane.rowIndex="2" GridPane.columnIndex="2" onAction="#BtnOnePress" styleClass="numButton"/>
+        <Button fx:id="two" text="2" GridPane.rowIndex="2" GridPane.columnIndex="3" onAction="#BtnTwoPress" styleClass="numButton"/>
+        <Button fx:id="three" text="3" GridPane.rowIndex="2" GridPane.columnIndex="4" onAction="#BtnThreePress" styleClass="numButton"/>
+        <Button fx:id="four" text="4" GridPane.rowIndex="1" GridPane.columnIndex="2" onAction="#BtnFourPress" styleClass="numButton"/>
+        <Button fx:id="five" text="5" GridPane.rowIndex="1" GridPane.columnIndex="3" onAction="#BtnFivePress" styleClass="numButton"/>
+        <Button fx:id="six" text="6" GridPane.rowIndex="1" GridPane.columnIndex="4" onAction="#BtnSixPress" styleClass="numButton"/>
+        <Button fx:id="seven" text="7" GridPane.rowIndex="0" GridPane.columnIndex="2" onAction="#BtnSevenPress" styleClass="numButton"/>
+        <Button fx:id="eight" text="8" GridPane.rowIndex="0" GridPane.columnIndex="3" onAction="#BtnEightPress" styleClass="numButton"/>
+        <Button fx:id="nine" text="9" GridPane.rowIndex="0" GridPane.columnIndex="4" onAction="#BtnNinePress" styleClass="numButton"/>
+    <!--Function Buttons-->
+        <Button fx:id="cos" text="Cos" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="fxButton" onAction="#BtnCosPress"/>
+        <Button fx:id="xPowY" text="x^y" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="fxButton" onAction="#BtnXPowYPress"/>
+        <Button fx:id="logBaseTen" text="log_10" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="fxButton" onAction="#BtnLogTenPress"/>
+        <Button fx:id="eulerExp" text="e^x" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="fxButton" onAction="#BtnEulerExpPress"/>
+        <Button fx:id="factorial" text="n!" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="fxButton" onAction="#BtnFactorialPress"/>
+
+    <!--Basic Operator Buttons-->
+        <Button fx:id="plus" text="+" GridPane.rowIndex="0" GridPane.columnIndex="5" onAction="#BtnPlusPress" styleClass="operatorButton"/>
+        <Button fx:id="minus" text="-" GridPane.rowIndex="1" GridPane.columnIndex="5" onAction="#BtnMinusPress" styleClass="operatorButton"/>
+        <Button fx:id="multiply" text="*" GridPane.rowIndex="2" GridPane.columnIndex="5" onAction="#BtnMultPress" styleClass="operatorButton"/>
+        <Button fx:id="divide" text="/" GridPane.rowIndex="3" GridPane.columnIndex="5" onAction="#BtnDivPress" styleClass="operatorButton"/>
+        <Button fx:id="equals" text="=" GridPane.rowIndex="3" GridPane.columnIndex="4" onAction="#BtnEqualPress" styleClass="numButton"/>
+        <Button fx:id="clear" text="AC" GridPane.rowIndex="3" GridPane.columnIndex="2" onAction="#BtnClearPress" styleClass="numButton"/>
+    </GridPane>
+
+    <HBox alignment="BOTTOM_RIGHT">
+    <Label fx:id="teamLabel" text="Eternity - Team G" styleClass="teamLabel"/>
+    </HBox>
+</VBox>
