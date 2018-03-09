@@ -1,7 +1,16 @@
 package Eternity;
 
 public class Eternity {
-    private double static precision;
+    static double precision;
+    static int decimal;
+
+    private void setDecimal(){
+        double temp = precision;
+        while(temp < 0){
+            temp+=10;
+            decimal++;
+        }
+    }
 
     /**
      * Get the current precisoin of the calculator
@@ -17,6 +26,8 @@ public class Eternity {
      */
     public void setPrecision(double precision) {
         this.precision = precision;
+        this.decimal = 0;
+        setDecimal();
     }
 
     /**
@@ -24,6 +35,8 @@ public class Eternity {
      */
     public Eternity(){
         this.precision = 0.000000001;
+        this.decimal = 0;
+        setDecimal();
     }
 
     /**
@@ -32,6 +45,8 @@ public class Eternity {
      */
     public Eternity(double precision){
         this.precision = precision;
+        this.decimal = 0;
+        setDecimal();
     }
 
     /**
@@ -88,7 +103,7 @@ public class Eternity {
      * @param y Exponent
      * @return x^y
      */
-	public static double eExpY(double x, long y) {
+	public double eExpY(double x, long y) {
 		double z;
 		boolean neg = false;
 		//x^-y = 1/x^y
@@ -119,15 +134,14 @@ public class Eternity {
      * @author Julien Fagnan
      * @param x Base
      * @param y Exponent
-     * @param precision Level of precision
      * @return x^y
      */
     public double eExpY(double x, double y){
         //converting ln to log
-        double lnInLog = eLog(x, precision)/(0.43429448190325182765112891891661);
+        double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
         double values = y * lnInLog;
 
-        return eEulerExp(values, precision);
+        return roundNumber(eEulerExp(values));
     }
 
     /**
@@ -157,7 +171,6 @@ public class Eternity {
      * Perform e^x to a given level of precision.
      * @author Julien Fagnan
      * @param x Exponent
-     * @param precision Level of precision
      * @return e^x
      */
     public double eEulerExp(double x) {
@@ -167,6 +180,8 @@ public class Eternity {
 			res += (e=eExpY(x, i) / eFactorial(i));
 			i++;
 		} while ((precision < e || -precision > e));
+
+		res = roundNumber(res);
 		return res;
 	}
     
@@ -174,7 +189,6 @@ public class Eternity {
      * Function to calculate exponents with base 10 i.e. 10^x
      * @author Edip Tac
      * @param x Exponent
-     * @param precision Level of precision
      * @return 10^x
      */
     public double eBaseTenExp(double x){
@@ -187,7 +201,6 @@ public class Eternity {
      *
      * @author Jonathan Bedard Schami
      * @param x the angle in degree which we want to obtain the cosine of
-     * @param precision the precision to which we want to calculate the value
      * @return the value to the precision determined.
      */
     public double eCos(double x){
@@ -236,6 +249,7 @@ public class Eternity {
         if(isLeftSideQuadrant && retVal != 0){
             retVal = retVal*(-1);
         }
+        retVal = roundNumber(retVal);
         return retVal;
     }
 
@@ -243,7 +257,6 @@ public class Eternity {
      * Logarithm Base 10 implementation.
      * @author Daniel Witkowski
      * @param x The value for which we want to obtain the log base 10 value
-     * @param precision Level of precision
      * @return The result of the log_10(x)
      */
     public double eLog(double x) {
@@ -258,9 +271,10 @@ public class Eternity {
             factor *= 10;
         }
         double seriesInput = x / factor;
-        double partialAnswer = naturalLog(seriesInput, precision) / 2.3025850929940456840179914546844;
+        double partialAnswer = naturalLog(seriesInput) / 2.3025850929940456840179914546844;
         double answer = partialAnswer + counter;
-        answer = roundNumber(answer, 5);
+
+        answer = roundNumber(answer);
         return answer;
     }
 
@@ -270,7 +284,6 @@ public class Eternity {
      * method is required for logx function
      * @author Daniel Witkowski
      * @param num input must be between 0 and 2, exclusive
-     * @param precision Level of precision
      * @return result of power series
      */
     public double naturalLog(double num) {
@@ -282,6 +295,8 @@ public class Eternity {
             sum += (e = eExpY((-1), (i - 1)) * eExpY(x, i) / i);
             i++;
         } while ((precision < e || -precision > e));
+
+        sum = roundNumber(sum);
         return sum;
     }
 
@@ -289,17 +304,16 @@ public class Eternity {
      * Rounds a floating point number to the specified number of decimal places
      * @author Edip Tac
      * @param unroundedNumber the number before rounding
-     * @param decimalPlaces the number of decimal places to round to
      * @return the rounded number
      */
-    private static double roundNumber(double unroundedNumber, int decimalPlaces){
-        unroundedNumber *= eExpY(10,decimalPlaces);
+    private double roundNumber(double unroundedNumber){
+        unroundedNumber *= eExpY(10,decimal);
         if(unroundedNumber<0)
             unroundedNumber -= 0.5;
         else
             unroundedNumber += 0.5;
         double roundedNumber = (int) unroundedNumber;
-        roundedNumber /= eExpY(10,decimalPlaces);
+        roundedNumber /= eExpY(10,decimal);
         return roundedNumber;
     }
     
@@ -314,6 +328,8 @@ public class Eternity {
 		e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i), 4) * eExpY(396,4*i));
 	}
 	res = 9801 / (e * eExpY(8, 0.5));
+
+	res = roundNumber(res);
 	return res;
 	}
 }
