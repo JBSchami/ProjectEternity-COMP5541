@@ -145,7 +145,7 @@ public class Eternity {
         double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
         double values = y * lnInLog;
 
-        return roundNumber(eEulerExp(values));
+        return eEulerExp(values);
     }
 
     /**
@@ -199,7 +199,10 @@ public class Eternity {
      * @return 10^x
      */
     public double eBaseTenExp(double x){
-    	return eExpY(10.0,x);
+        if(x%1 == 0) //if x is integer
+    	    return eExpY(10.0,(long)x);
+        else
+            return eExpY(10.0,x);
     }
 
     /**
