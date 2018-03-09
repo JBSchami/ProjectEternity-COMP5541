@@ -2,13 +2,17 @@ package Eternity;
 
 public class Eternity {
     static double precision;
-    static int decimal;
+    static long decimal;
 
     private void setDecimal(){
         double temp = precision;
-        while(temp < 0){
-            temp+=10;
+        System.out.println(temp);
+        System.out.println(temp < 1);
+        while(temp < 1){
+            temp*=10;
+            System.out.println(temp);
             decimal++;
+            System.out.println(decimal);
         }
     }
 
@@ -177,11 +181,14 @@ public class Eternity {
 		double e = 0, res = 0;
 		long i=0;
 		do {
+		    double temp = res;
 			res += (e=eExpY(x, i) / eFactorial(i));
 			i++;
-		} while ((precision < e || -precision > e));
+			e = res-temp;
+			if(e < 0){e = -e;}
+		} while ((precision < e));
 
-		res = roundNumber(res);
+		//res = roundNumber(res);
 		return res;
 	}
     
@@ -249,7 +256,7 @@ public class Eternity {
         if(isLeftSideQuadrant && retVal != 0){
             retVal = retVal*(-1);
         }
-        retVal = roundNumber(retVal);
+        //retVal = roundNumber(retVal);
         return retVal;
     }
 
@@ -274,7 +281,7 @@ public class Eternity {
         double partialAnswer = naturalLog(seriesInput) / 2.3025850929940456840179914546844;
         double answer = partialAnswer + counter;
 
-        answer = roundNumber(answer);
+        //answer = roundNumber(answer);
         return answer;
     }
 
@@ -296,7 +303,7 @@ public class Eternity {
             i++;
         } while ((precision < e || -precision > e));
 
-        sum = roundNumber(sum);
+        //sum = roundNumber(sum);
         return sum;
     }
 
@@ -329,7 +336,7 @@ public class Eternity {
 	}
 	res = 9801 / (e * eExpY(8, 0.5));
 
-	res = roundNumber(res);
+	//res = roundNumber(res);
 	return res;
 	}
 }
