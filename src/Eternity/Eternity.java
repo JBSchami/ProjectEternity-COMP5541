@@ -1,6 +1,39 @@
 package Eternity;
 
 public class Eternity {
+    private double static precision;
+
+    /**
+     * Get the current precisoin of the calculator
+     * @return the current precision setting for the calculator
+     */
+    public double getPrecision() {
+        return precision;
+    }
+
+    /**
+     * setter for precision
+     * @param precision the desired precision of the calculator
+     */
+    public void setPrecision(double precision) {
+        this.precision = precision;
+    }
+
+    /**
+     * Default constructor sets a base precision of 9 decimal places
+     */
+    public Eternity(){
+        this.precision = 0.000000001;
+    }
+
+    /**
+     * Parametered constructo allows for precision to be set at initialization.
+     * @param precision
+     */
+    public Eternity(double precision){
+        this.precision = precision;
+    }
+
     /**
      * Factorial is required for many of the other functions
      * being developed. This function is a starting point
@@ -89,7 +122,7 @@ public class Eternity {
      * @param precision Level of precision
      * @return x^y
      */
-    public static double eExpY(double x, double y, double precision){
+    public double eExpY(double x, double y){
         //converting ln to log
         double lnInLog = eLog(x, precision)/(0.43429448190325182765112891891661);
         double values = y * lnInLog;
@@ -127,7 +160,7 @@ public class Eternity {
      * @param precision Level of precision
      * @return e^x
      */
-    public static double eEulerExp(double x, double precision) {
+    public double eEulerExp(double x) {
 		double e = 0, res = 0;
 		long i=0;
 		do {
@@ -144,8 +177,8 @@ public class Eternity {
      * @param precision Level of precision
      * @return 10^x
      */
-    public static double eBaseTenExp(double x, double precision){
-    	return eExpY(10.0,x, precision);
+    public double eBaseTenExp(double x){
+    	return eExpY(10.0,x);
     }
 
     /**
@@ -157,7 +190,7 @@ public class Eternity {
      * @param precision the precision to which we want to calculate the value
      * @return the value to the precision determined.
      */
-    public static double eCos(double x, double precision){
+    public double eCos(double x){
         boolean isLeftSideQuadrant = false;
         x = x%360;
         x = (x*ePI())/180; //Convert degree to radians
@@ -213,7 +246,7 @@ public class Eternity {
      * @param precision Level of precision
      * @return The result of the log_10(x)
      */
-    public static double eLog(double x, double precision) {
+    public double eLog(double x) {
         if(x<=0) {
             //System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
             return Double.longBitsToDouble(0xfff0000000000000L);
@@ -240,7 +273,7 @@ public class Eternity {
      * @param precision Level of precision
      * @return result of power series
      */
-    public static double naturalLog(double num, double precision) {
+    public double naturalLog(double num) {
         double x = num - 1;
         double sum = 0;
         double e=0;
@@ -259,7 +292,7 @@ public class Eternity {
      * @param decimalPlaces the number of decimal places to round to
      * @return the rounded number
      */
-    public static double roundNumber(double unroundedNumber, int decimalPlaces){
+    private static double roundNumber(double unroundedNumber, int decimalPlaces){
         unroundedNumber *= eExpY(10,decimalPlaces);
         if(unroundedNumber<0)
             unroundedNumber -= 0.5;
@@ -275,12 +308,12 @@ public class Eternity {
      * @author Julien Fagnan
      * @return A value of pi based on the Ramanujan-Sato formulas
      */
-	public static final double ePI(){
+	public final double ePI(){
 	double e = 0, res = 0;
 	for (int i = 0; i<5; i++) {
 		e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i), 4) * eExpY(396,4*i));
 	}
-	res = 9801 / (e * eExpY(8, 0.5, 0.0000000001));
+	res = 9801 / (e * eExpY(8, 0.5));
 	return res;
 	}
 }
