@@ -6,13 +6,9 @@ public class Eternity {
 
     private void setDecimal(){
         double temp = precision;
-        System.out.println(temp);
-        System.out.println(temp < 1);
         while(temp < 1){
             temp*=10;
-            System.out.println(temp);
             decimal++;
-            System.out.println(decimal);
         }
     }
 
@@ -186,7 +182,7 @@ public class Eternity {
 			i++;
 			e = res-temp;
 			if(e < 0){e = -e;}
-		} while ((precision < e));
+		} while (precision < e);
 
 		//res = roundNumber(res);
 		return res;
@@ -297,6 +293,33 @@ public class Eternity {
      * @return result of power series
      */
     public double naturalLog(double num) {
+        double N,P,L,R,base;
+        base = eEulerExp(1);
+        P = num;
+        N = 0;
+
+        while (P>=base) {
+            P/=base;
+            N++;
+        }
+
+        N+=(P/base);
+        P = num;
+
+        double temp;
+        double e = 0;
+        do{
+            temp = N;
+            L = (P / eEulerExp(N-1));
+            R = (N-1) * base;
+            N = (L+R)/base;
+            e = N-temp;
+            if(e<0){e*=-1;}
+        }while(precision < e);
+
+        return N;
+
+        /*
         double x = num - 1;
         double sum = 0;
         double e=0;
@@ -305,9 +328,8 @@ public class Eternity {
             sum += (e = eExpY((-1), (i - 1)) * eExpY(x, i) / i);
             i++;
         } while ((precision < e || -precision > e));
-
-        //sum = roundNumber(sum);
         return sum;
+        */
     }
 
     /**

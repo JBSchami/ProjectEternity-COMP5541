@@ -1,5 +1,11 @@
 package Eternity;
 
+import net.objecthunter.exp4j.ExpressionBuilder;
+import net.objecthunter.exp4j.function.Function;
+import net.objecthunter.exp4j.function.Functions;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainApp {
@@ -7,11 +13,56 @@ public class MainApp {
     static int cutoff = 5;
 
     private final static Eternity engine = new Eternity(0.000000001);
+    private final static semanticsParser parser = new semanticsParser();
+    private final static ArrayList<Function> customFunctions = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println("Welcome to the calculator. Please type in the number of the function you would like to compute, or type 'q' to quit:");
-        Scanner s = new Scanner(System.in);
 
+        customFunctions.add(parser.eBaseTenExp);
+        customFunctions.add(parser.eCos);
+        customFunctions.add(parser.eEulerExp);
+        customFunctions.add(parser.eLog);
+        customFunctions.add(parser.eNaturalLog);
+
+        double X, P, Frac, I, L;
+        X = 1;
+        Frac = X;
+        P = (1.0+X);
+        I = 1.0;
+
+        do{
+            I++;
+            Frac*=(X/I);
+            L = P;
+            P+=Frac;
+        }while(L != P);
+
+        System.out.println(P);
+
+        System.out.println("Welcome to the calculator. Please your equation, or type 'q' to quit:");
+        System.out.println("Note the following syntax:\nCos\nLog\nLn\nTen\nExp");
+        Scanner s = new Scanner(System.in);
+        while(true) {
+            String input = s.next();
+            if(input.equals("q"))
+                break;
+            else{
+                try {
+                    double result = new ExpressionBuilder(input)
+                            .functions(customFunctions)
+                            .operator(parser.eFactorial)
+                            .build()
+                            .evaluate();
+
+                    System.out.println(result);
+                } catch (java.lang.IllegalArgumentException error){
+                    System.out.println(error.getMessage());
+                }
+            }
+
+
+        }
+        /*
         while (true) {
             System.out.println("\nSelect a function ('q' to quit):\n1. log(x)\n2. e^x\n3. 10^x\n4. cos(x)\n5. x^y");
             String choice = s.next();
@@ -97,6 +148,6 @@ public class MainApp {
             else{
                 System.out.println("Invalid input");
             }
-        }
+        }*/
     }
 }
