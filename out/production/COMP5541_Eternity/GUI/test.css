@@ -8,7 +8,6 @@
 .buttonHolder{
     -fx-vgap:10px;
     -fx-hgap:10px;
-    -fx-padding: 10px 0 10px 0;
 }
 
 /* =====================================================
@@ -25,6 +24,8 @@
  *  Small buttons ======================================
  * ================================================== */
 .smallButton{
+    -fx-min-width: 60px;
+    -fx-min-height: 60px;
     -fx-pref-width: 60px;
     -fx-pref-height: 60px;
 }
@@ -33,7 +34,9 @@
  *  large buttons ======================================
  * ================================================== */
 .largeButton{
-    -fx-pref-width: 120px;
+    -fx-min-width: 130px;
+    -fx-min-height:60px;
+    -fx-pref-width: 130px;
     -fx-pref-height: 60px;
 }
 

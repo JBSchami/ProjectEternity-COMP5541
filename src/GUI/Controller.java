@@ -100,25 +100,37 @@ public class Controller {
     @FXML
     protected void BtnCosPress(){
         System.out.println("Cos");
-        equationField.setText(equationField.getText().concat("Cos("));
+        equationField.setText(equationField.getText().concat("cos("));
     }
 
     @FXML
     protected void BtnXPowYPress(){
         System.out.println("x^y");
-        equationField.setText(equationField.getText().concat("^"));
+        equationField.setText(equationField.getText().concat("^("));
     }
 
     @FXML
     protected void BtnLogTenPress(){
         System.out.println("Log_10");
-        equationField.setText(equationField.getText().concat("Log("));
+        equationField.setText(equationField.getText().concat("log("));
     }
 
     @FXML
     protected void BtnEulerExpPress(){
         System.out.println("e^x");
-        equationField.setText(equationField.getText().concat("Exp("));
+        equationField.setText(equationField.getText().concat("e^("));
+    }
+
+    @FXML
+    protected void BtnNaturalLogPress(){
+        System.out.println("ln");
+        equationField.setText(equationField.getText().concat("ln("));
+    }
+
+    @FXML
+    protected void BtnBaseTenExpPress(){
+        System.out.println("10^");
+        equationField.setText(equationField.getText().concat("10^("));
     }
 
     @FXML
@@ -136,7 +148,8 @@ public class Controller {
         customFunctions.add(parser.eLog);
         customFunctions.add(parser.eNaturalLog);
         try {
-            result = new ExpressionBuilder(equationField.getText())
+            String input = parser.preFormatInput(equationField.getText());
+            result = new ExpressionBuilder(input)
                     .functions(customFunctions)
                     .operator(parser.eFactorial)
                     .build()
