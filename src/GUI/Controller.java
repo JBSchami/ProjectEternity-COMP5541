@@ -3,7 +3,6 @@ package GUI;
 import Eternity.semanticsParser;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -17,125 +16,121 @@ import java.util.StringTokenizer;
 
 public class Controller {
 
-    private final static semanticsParser parser = new semanticsParser(0.000000001);
+    private final static semanticsParser parser = new semanticsParser(0.000000001, false);
     private static ArrayList<Function> customFunctions = new ArrayList<>();
 
     private static double result;
-
-    public void initialize(Stage primaryStage){
-        installEventHandler(primaryStage);
-    }
 
     @FXML
     protected TextField equationField;
 
     @FXML
-    protected void BtnZeroPress(ActionEvent event){
+    protected void BtnZeroPress(){
         System.out.println("0");
         equationField.setText(equationField.getText().concat("0"));
     }
     @FXML
-    protected void BtnOnePress(ActionEvent event){
+    protected void BtnOnePress(){
         System.out.println("1");
         equationField.setText(equationField.getText().concat("1"));
     }
     @FXML
-    protected void BtnTwoPress(ActionEvent event){
+    protected void BtnTwoPress(){
         System.out.println("2");
         equationField.setText(equationField.getText().concat("2"));
     }
     @FXML
-    protected void BtnThreePress(ActionEvent event){
+    protected void BtnThreePress(){
         System.out.println("3");
         equationField.setText(equationField.getText().concat("3"));
     }
     @FXML
-    protected void BtnFourPress(ActionEvent event){
+    protected void BtnFourPress(){
         System.out.println("4");
         equationField.setText(equationField.getText().concat("4"));
     }
     @FXML
-    protected void BtnFivePress(ActionEvent event){
+    protected void BtnFivePress(){
         System.out.println("5");
         equationField.setText(equationField.getText().concat("5"));
     }
     @FXML
-    protected void BtnSixPress(ActionEvent event){
+    protected void BtnSixPress(){
         System.out.println("6");
         equationField.setText(equationField.getText().concat("6"));
     }
     @FXML
-    protected void BtnSevenPress(ActionEvent event){
+    protected void BtnSevenPress(){
         System.out.println("7");
         equationField.setText(equationField.getText().concat("7"));
     }
     @FXML
-    protected void BtnEightPress(ActionEvent event){
+    protected void BtnEightPress(){
         System.out.println("8");
         equationField.setText(equationField.getText().concat("8"));
     }
     @FXML
-    protected void BtnNinePress(ActionEvent event){
+    protected void BtnNinePress(){
         System.out.println("9");
         equationField.setText(equationField.getText().concat("9"));
     }
 
     @FXML
-    protected void BtnPlusPress(ActionEvent event){
+    protected void BtnPlusPress(){
         System.out.println("+");
         equationField.setText(equationField.getText().concat("+"));
     }
 
     @FXML
-    protected void BtnMinusPress(ActionEvent event){
+    protected void BtnMinusPress(){
         System.out.println("-");
         equationField.setText(equationField.getText().concat("-"));
     }
 
     @FXML
-    protected void BtnMultPress(ActionEvent event){
+    protected void BtnMultPress(){
         System.out.println("*");
         equationField.setText(equationField.getText().concat("*"));
     }
 
     @FXML
-    protected void BtnDivPress(ActionEvent event){
+    protected void BtnDivPress(){
         System.out.println("/");
         equationField.setText(equationField.getText().concat("/"));
     }
 
     @FXML
-    protected void BtnCosPress(ActionEvent event){
+    protected void BtnCosPress(){
         System.out.println("Cos");
         equationField.setText(equationField.getText().concat("Cos("));
     }
 
     @FXML
-    protected void BtnXPowYPress(ActionEvent event){
+    protected void BtnXPowYPress(){
         System.out.println("x^y");
         equationField.setText(equationField.getText().concat("^"));
     }
 
     @FXML
-    protected void BtnLogTenPress(ActionEvent event){
+    protected void BtnLogTenPress(){
         System.out.println("Log_10");
         equationField.setText(equationField.getText().concat("Log("));
     }
 
     @FXML
-    protected void BtnEulerExpPress(ActionEvent event){
+    protected void BtnEulerExpPress(){
         System.out.println("e^x");
         equationField.setText(equationField.getText().concat("Exp("));
     }
 
     @FXML
-    protected void BtnFactorialPress(ActionEvent event){
+    protected void BtnFactorialPress(){
         System.out.println("n!");
         equationField.setText(equationField.getText().concat("!"));
     }
 
     @FXML
-    protected void BtnEqualPress(ActionEvent event){
+    protected void BtnEqualPress(){
         System.out.println("=");
         customFunctions.add(parser.eBaseTenExp);
         customFunctions.add(parser.eCos);
@@ -155,42 +150,144 @@ public class Controller {
     }
 
     @FXML
-    protected void BtnBracketOpenPress(ActionEvent event){
+    protected void BtnBracketOpenPress(){
         System.out.println("(");
         equationField.setText(equationField.getText().concat("("));
     }
 
     @FXML
-    protected void BtnBracketClosePress(ActionEvent event){
+    protected void BtnBracketClosePress(){
         System.out.println(")");
         equationField.setText(equationField.getText().concat(")"));
     }
 
     @FXML
-    protected void BtnDotPress(ActionEvent event){
+    protected void BtnDotPress(){
         System.out.println(".");
         equationField.setText(equationField.getText().concat("."));
     }
 
     @FXML
-    protected void BtnClearPress(ActionEvent event){
+    protected void BtnClearPress(){
         System.out.println("Clear");
         result = 0;
         equationField.setText("");
     }
 
-    private void installEventHandler(Stage primaryStage) {
-        // handler for enter key press / release events, other keys are
-        // handled by the parent (keyboard) node handler
-        final EventHandler<KeyEvent> keyEventHandler =
-                new EventHandler<KeyEvent>() {
-                    public void handle(final KeyEvent keyEvent) {
-                        if (keyEvent.getCode() == KeyCode.ENTER) {
-                            System.out.println("Enter Pressed");
-                            keyEvent.consume();
-                        }
-                    }
-                };
+
+    @FXML
+    protected void keyHandler(KeyEvent event) {
+        switch (event.getCode()) {
+            case DIGIT0:
+                BtnZeroPress();
+                break;
+            case NUMPAD0:
+                BtnZeroPress();
+                break;
+
+            case DIGIT1:
+                BtnOnePress();
+                break;
+
+            case NUMPAD1:
+                BtnOnePress();
+                break;
+
+            case DIGIT2:
+                BtnTwoPress();
+                break;
+
+            case NUMPAD2:
+                BtnTwoPress();
+                break;
+
+            case DIGIT3:
+                BtnThreePress();
+                break;
+
+            case NUMPAD3:
+                BtnThreePress();
+                break;
+
+            case DIGIT4:
+                BtnFourPress();
+                break;
+
+            case NUMPAD4:
+                BtnFourPress();
+                break;
+
+            case DIGIT5:
+                BtnFivePress();
+                break;
+
+            case NUMPAD5:
+                BtnFivePress();
+                break;
+
+            case DIGIT6:
+                BtnSixPress();
+                break;
+
+            case NUMPAD6:
+                BtnSixPress();
+                break;
+
+            case DIGIT7:
+                BtnSevenPress();
+                break;
+
+            case NUMPAD7:
+                BtnSevenPress();
+                break;
+
+            case DIGIT8:
+                BtnEightPress();
+                break;
+
+            case NUMPAD8:
+                BtnEightPress();
+                break;
+
+            case DIGIT9:
+                BtnNinePress();
+                break;
+
+            case NUMPAD9:
+                BtnNinePress();
+                break;
+
+            case PLUS:
+                BtnPlusPress();
+                break;
+
+            case MINUS:
+                BtnMinusPress();
+                break;
+
+            case STAR:
+                BtnMultPress();
+                break;
+
+            case DIVIDE:
+                BtnDivPress();
+                break;
+
+            case PERIOD:
+                BtnDotPress();
+                break;
+
+            case OPEN_BRACKET:
+                BtnBracketOpenPress();
+                break;
+
+            case CLOSE_BRACKET:
+                BtnBracketClosePress();
+                break;
+            default:
+                System.out.println("Invalid Key");
+                break;
+        }
     }
 
     private static String basicParse(String input){
