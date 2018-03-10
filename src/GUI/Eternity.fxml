@@ -6,7 +6,9 @@
 
 <VBox fx:controller="GUI.Controller"
       onKeyPressed="#keyHandler"
-      xmlns:fx="http://javafx.com/fxml" alignment="center" styleClass="mainWrapper">
+      xmlns:fx="http://javafx.com/fxml"
+      alignment="center"
+      styleClass="mainWrapper">
 
     <stylesheets>
         <URL value = "@test.css"/>
@@ -15,34 +17,34 @@
     <TextField fx:id="equationField" styleClass="equationField" editable="false"/>
 
     <!--Number Buttons -->
-    <GridPane alignment="center" styleClass="allButtons">
-        <Button fx:id="zero" text="0" GridPane.rowIndex="3" GridPane.columnIndex="3"  onAction="#BtnZeroPress" styleClass="numButton"/>
-        <Button fx:id="one" text="1" GridPane.rowIndex="2" GridPane.columnIndex="2" onAction="#BtnOnePress" styleClass="numButton"/>
-        <Button fx:id="two" text="2" GridPane.rowIndex="2" GridPane.columnIndex="3" onAction="#BtnTwoPress" styleClass="numButton"/>
-        <Button fx:id="three" text="3" GridPane.rowIndex="2" GridPane.columnIndex="4" onAction="#BtnThreePress" styleClass="numButton"/>
-        <Button fx:id="four" text="4" GridPane.rowIndex="1" GridPane.columnIndex="2" onAction="#BtnFourPress" styleClass="numButton"/>
-        <Button fx:id="five" text="5" GridPane.rowIndex="1" GridPane.columnIndex="3" onAction="#BtnFivePress" styleClass="numButton"/>
-        <Button fx:id="six" text="6" GridPane.rowIndex="1" GridPane.columnIndex="4" onAction="#BtnSixPress" styleClass="numButton"/>
-        <Button fx:id="seven" text="7" GridPane.rowIndex="0" GridPane.columnIndex="2" onAction="#BtnSevenPress" styleClass="numButton"/>
-        <Button fx:id="eight" text="8" GridPane.rowIndex="0" GridPane.columnIndex="3" onAction="#BtnEightPress" styleClass="numButton"/>
-        <Button fx:id="nine" text="9" GridPane.rowIndex="0" GridPane.columnIndex="4" onAction="#BtnNinePress" styleClass="numButton"/>
+    <GridPane alignment="center" styleClass="buttonHolder">
+        <Button fx:id="zero" text="0" GridPane.rowIndex="3" GridPane.columnIndex="3"  onAction="#BtnZeroPress" styleClass="button, smallButton, numButton"/>
+        <Button fx:id="one" text="1" GridPane.rowIndex="2" GridPane.columnIndex="2" onAction="#BtnOnePress" styleClass="button, smallButton, numButton"/>
+        <Button fx:id="two" text="2" GridPane.rowIndex="2" GridPane.columnIndex="3" onAction="#BtnTwoPress" styleClass="button, smallButton, numButton"/>
+        <Button fx:id="three" text="3" GridPane.rowIndex="2" GridPane.columnIndex="4" onAction="#BtnThreePress" styleClass="button, smallButton, numButton"/>
+        <Button fx:id="four" text="4" GridPane.rowIndex="1" GridPane.columnIndex="2" onAction="#BtnFourPress" styleClass="button, smallButton, numButton"/>
+        <Button fx:id="five" text="5" GridPane.rowIndex="1" GridPane.columnIndex="3" onAction="#BtnFivePress" styleClass="button, smallButton, numButton"/>
+        <Button fx:id="six" text="6" GridPane.rowIndex="1" GridPane.columnIndex="4" onAction="#BtnSixPress" styleClass="button, smallButton, numButton"/>
+        <Button fx:id="seven" text="7" GridPane.rowIndex="0" GridPane.columnIndex="2" onAction="#BtnSevenPress" styleClass="button, smallButton, numButton"/>
+        <Button fx:id="eight" text="8" GridPane.rowIndex="0" GridPane.columnIndex="3" onAction="#BtnEightPress" styleClass="button, smallButton, numButton"/>
+        <Button fx:id="nine" text="9" GridPane.rowIndex="0" GridPane.columnIndex="4" onAction="#BtnNinePress" styleClass="button, smallButton, numButton"/>
     <!--Function Buttons-->
-        <Button fx:id="cos" text="Cos" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="fxButton" onAction="#BtnCosPress"/>
-        <Button fx:id="xPowY" text="x^y" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="fxButton" onAction="#BtnXPowYPress"/>
-        <Button fx:id="logBaseTen" text="log_10" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="fxButton" onAction="#BtnLogTenPress"/>
-        <Button fx:id="eulerExp" text="e^x" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="fxButton" onAction="#BtnEulerExpPress"/>
-        <Button fx:id="factorial" text="n!" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="fxButton" onAction="#BtnFactorialPress"/>
+        <Button fx:id="cos" text="Cos" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="button, largeButton, fxButton" onAction="#BtnCosPress"/>
+        <Button fx:id="xPowY" text="x^y" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="button, largeButton, fxButton" onAction="#BtnXPowYPress"/>
+        <Button fx:id="logBaseTen" text="log_10" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="button, largeButton, fxButton" onAction="#BtnLogTenPress"/>
+        <Button fx:id="eulerExp" text="e^x" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="button, largeButton, fxButton" onAction="#BtnEulerExpPress"/>
+        <Button fx:id="factorial" text="n!" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="button, largeButton, fxButton" onAction="#BtnFactorialPress"/>
 
     <!--Basic Operator Buttons-->
-        <Button fx:id="plus" text="+" GridPane.rowIndex="0" GridPane.columnIndex="5" onAction="#BtnPlusPress" styleClass="operatorButton"/>
-        <Button fx:id="minus" text="-" GridPane.rowIndex="1" GridPane.columnIndex="5" onAction="#BtnMinusPress" styleClass="operatorButton"/>
-        <Button fx:id="multiply" text="*" GridPane.rowIndex="2" GridPane.columnIndex="5" onAction="#BtnMultPress" styleClass="operatorButton"/>
-        <Button fx:id="divide" text="/" GridPane.rowIndex="3" GridPane.columnIndex="5" onAction="#BtnDivPress" styleClass="operatorButton"/>
-        <Button fx:id="equals" text="=" GridPane.rowIndex="3" GridPane.columnIndex="4" onAction="#BtnEqualPress" styleClass="numButton"/>
-        <Button fx:id="clear" text="AC" GridPane.rowIndex="3" GridPane.columnIndex="2" onAction="#BtnClearPress" styleClass="numButton"/>
-        <Button fx:id="closeBracket" text=")" GridPane.rowIndex="3" GridPane.columnIndex="1" onAction="#BtnBracketClosePress" styleClass = "fxButton"/>
-        <Button fx:id="openBracket" text="(" GridPane.rowIndex="3" GridPane.columnIndex="0" onAction="#BtnBracketOpenPress" styleClass="fxButton"/>
-        <Button fx:id="dot" text="." GridPane.rowIndex="2" GridPane.columnIndex="1" onAction="#BtnDotPress" styleClass="fxButton"/>
+        <Button fx:id="plus" text="+" GridPane.rowIndex="0" GridPane.columnIndex="5" onAction="#BtnPlusPress" styleClass="button, smallButton, operatorButton"/>
+        <Button fx:id="minus" text="-" GridPane.rowIndex="1" GridPane.columnIndex="5" onAction="#BtnMinusPress" styleClass="button, smallButton, operatorButton"/>
+        <Button fx:id="multiply" text="*" GridPane.rowIndex="2" GridPane.columnIndex="5" onAction="#BtnMultPress" styleClass="button, smallButton, operatorButton"/>
+        <Button fx:id="divide" text="/" GridPane.rowIndex="3" GridPane.columnIndex="5" onAction="#BtnDivPress" styleClass="button, smallButton, operatorButton"/>
+        <Button fx:id="equals" text="=" GridPane.rowIndex="3" GridPane.columnIndex="4" onAction="#BtnEqualPress" styleClass="button, smallButton, operatorButton"/>
+        <Button fx:id="clear" text="AC" GridPane.rowIndex="3" GridPane.columnIndex="2" onAction="#BtnClearPress" styleClass="button, smallButton, operatorButton"/>
+        <Button fx:id="closeBracket" text=")" GridPane.rowIndex="3" GridPane.columnIndex="1" onAction="#BtnBracketClosePress" styleClass = "button, largeButton, operatorButton"/>
+        <Button fx:id="openBracket" text="(" GridPane.rowIndex="3" GridPane.columnIndex="0" onAction="#BtnBracketOpenPress" styleClass="button, largeButton, operatorButton"/>
+        <Button fx:id="dot" text="." GridPane.rowIndex="2" GridPane.columnIndex="1" onAction="#BtnDotPress" styleClass="button, largeButton, operatorButton"/>
     </GridPane>
 
     <HBox alignment="BOTTOM_RIGHT">

@@ -16,8 +16,9 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader();
         Controller controller = (Controller) fxmlLoader.getController();
         primaryStage.setTitle("Eternity");
-        primaryStage.setScene(new Scene(root, 500, 485));
+        primaryStage.setScene(new Scene(root, 550, 485));
         primaryStage.show();
+        root.requestFocus();
     }
 
     public static void main(String[] args) {

@@ -1,15 +1,13 @@
 package GUI;
 
 import Eternity.semanticsParser;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
-
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -143,10 +141,11 @@ public class Controller {
                     .operator(parser.eFactorial)
                     .build()
                     .evaluate();
+            equationField.setText(Double.toString(result));
         } catch (java.lang.IllegalArgumentException error){
             System.out.println(error.getMessage());
+            equationField.setText(error.getMessage());
         }
-        equationField.setText(Double.toString(result));
     }
 
     @FXML
@@ -177,116 +176,136 @@ public class Controller {
 
     @FXML
     protected void keyHandler(KeyEvent event) {
-        switch (event.getCode()) {
-            case DIGIT0:
-                BtnZeroPress();
-                break;
-            case NUMPAD0:
-                BtnZeroPress();
-                break;
+        KeyCodeCombination shiftPlus = new KeyCodeCombination(KeyCode.EQUALS, KeyCodeCombination.SHIFT_DOWN);
+        KeyCodeCombination shiftOpenBracket = new KeyCodeCombination(KeyCode.DIGIT9, KeyCodeCombination.SHIFT_DOWN);
+        KeyCodeCombination shiftCloseBracket = new KeyCodeCombination(KeyCode.DIGIT0, KeyCodeCombination.SHIFT_DOWN);
+        KeyCodeCombination shiftFactorial = new KeyCodeCombination(KeyCode.DIGIT1, KeyCodeCombination.SHIFT_DOWN);
+        KeyCodeCombination shiftStar = new KeyCodeCombination(KeyCode.DIGIT8, KeyCodeCombination.SHIFT_DOWN);
 
-            case DIGIT1:
-                BtnOnePress();
-                break;
+        if (shiftPlus.match(event)) {
+            BtnPlusPress();
+        }
+        else if(shiftCloseBracket.match(event)){
+            BtnBracketClosePress();
+        }
+        else if(shiftOpenBracket.match(event)){
+            BtnBracketOpenPress();
+        }
+        else if(shiftFactorial.match(event)){
+            //Behavior to be determined
+        }
+        else if(shiftStar.match(event)){
+            BtnMultPress();
+        }
+        else {
+            switch (event.getCode()) {
+                case DIGIT0:
+                    this.BtnZeroPress();
+                    break;
+                case NUMPAD0:
+                    this.BtnZeroPress();
+                    break;
 
-            case NUMPAD1:
-                BtnOnePress();
-                break;
+                case DIGIT1:
+                    BtnOnePress();
+                    break;
 
-            case DIGIT2:
-                BtnTwoPress();
-                break;
+                case NUMPAD1:
+                    BtnOnePress();
+                    break;
 
-            case NUMPAD2:
-                BtnTwoPress();
-                break;
+                case DIGIT2:
+                    BtnTwoPress();
+                    break;
 
-            case DIGIT3:
-                BtnThreePress();
-                break;
+                case NUMPAD2:
+                    BtnTwoPress();
+                    break;
 
-            case NUMPAD3:
-                BtnThreePress();
-                break;
+                case DIGIT3:
+                    BtnThreePress();
+                    break;
 
-            case DIGIT4:
-                BtnFourPress();
-                break;
+                case NUMPAD3:
+                    BtnThreePress();
+                    break;
 
-            case NUMPAD4:
-                BtnFourPress();
-                break;
+                case DIGIT4:
+                    BtnFourPress();
+                    break;
 
-            case DIGIT5:
-                BtnFivePress();
-                break;
+                case NUMPAD4:
+                    BtnFourPress();
+                    break;
 
-            case NUMPAD5:
-                BtnFivePress();
-                break;
+                case DIGIT5:
+                    BtnFivePress();
+                    break;
 
-            case DIGIT6:
-                BtnSixPress();
-                break;
+                case NUMPAD5:
+                    BtnFivePress();
+                    break;
 
-            case NUMPAD6:
-                BtnSixPress();
-                break;
+                case DIGIT6:
+                    BtnSixPress();
+                    break;
 
-            case DIGIT7:
-                BtnSevenPress();
-                break;
+                case NUMPAD6:
+                    BtnSixPress();
+                    break;
 
-            case NUMPAD7:
-                BtnSevenPress();
-                break;
+                case DIGIT7:
+                    BtnSevenPress();
+                    break;
 
-            case DIGIT8:
-                BtnEightPress();
-                break;
+                case NUMPAD7:
+                    BtnSevenPress();
+                    break;
 
-            case NUMPAD8:
-                BtnEightPress();
-                break;
+                case DIGIT8:
+                    BtnEightPress();
+                    break;
 
-            case DIGIT9:
-                BtnNinePress();
-                break;
+                case NUMPAD8:
+                    BtnEightPress();
+                    break;
 
-            case NUMPAD9:
-                BtnNinePress();
-                break;
+                case DIGIT9:
+                    BtnNinePress();
+                    break;
 
-            case PLUS:
-                BtnPlusPress();
-                break;
+                case NUMPAD9:
+                    BtnNinePress();
+                    break;
 
-            case MINUS:
-                BtnMinusPress();
-                break;
+                case MINUS:
+                    BtnMinusPress();
+                    break;
 
-            case STAR:
-                BtnMultPress();
-                break;
+                case SLASH:
+                    BtnDivPress();
+                    break;
 
-            case DIVIDE:
-                BtnDivPress();
-                break;
+                case PERIOD:
+                    BtnDotPress();
+                    break;
 
-            case PERIOD:
-                BtnDotPress();
-                break;
+                case ENTER:
+                    BtnEqualPress();
+                    break;
 
-            case OPEN_BRACKET:
-                BtnBracketOpenPress();
-                break;
+                case EQUALS:
+                    BtnEqualPress();
+                    break;
 
-            case CLOSE_BRACKET:
-                BtnBracketClosePress();
-                break;
-            default:
-                System.out.println("Invalid Key");
-                break;
+                case BACK_SPACE:
+                    BtnClearPress();
+                    break;
+
+                default:
+                    System.out.println("Invalid Key Pressed");
+                    break;
+            }
         }
     }
 
@@ -361,3 +380,7 @@ public class Controller {
         }
     }
 }
+
+/*
+
+ */
