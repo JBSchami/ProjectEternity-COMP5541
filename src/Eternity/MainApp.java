@@ -2,18 +2,13 @@ package Eternity;
 
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
-import net.objecthunter.exp4j.function.Functions;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class MainApp {
 
-    static int cutoff = 5;
-
-    private final static Eternity engine = new Eternity(0.000000001);
-    private final static semanticsParser parser = new semanticsParser();
+    private final static semanticsParser parser = new semanticsParser(0.000000001);
     private final static ArrayList<Function> customFunctions = new ArrayList<>();
 
     public static void main(String[] args) {
