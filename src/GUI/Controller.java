@@ -1,5 +1,6 @@
 package GUI;
 
+import Eternity.semanticsParser;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -7,12 +8,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import net.objecthunter.exp4j.ExpressionBuilder;
+import net.objecthunter.exp4j.function.Function;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 
 public class Controller {
+
+    private final static semanticsParser parser = new semanticsParser(0.000000001);
+    private static ArrayList<Function> customFunctions = new ArrayList<>();
+
+    private static double result;
 
     public void initialize(Stage primaryStage){
         installEventHandler(primaryStage);
@@ -75,66 +83,99 @@ public class Controller {
     @FXML
     protected void BtnPlusPress(ActionEvent event){
         System.out.println("+");
-        equationField.setText(equationField.getText().concat(" + "));
+        equationField.setText(equationField.getText().concat("+"));
     }
 
     @FXML
     protected void BtnMinusPress(ActionEvent event){
         System.out.println("-");
-        equationField.setText(equationField.getText().concat(" - "));
+        equationField.setText(equationField.getText().concat("-"));
     }
 
     @FXML
     protected void BtnMultPress(ActionEvent event){
         System.out.println("*");
-        equationField.setText(equationField.getText().concat(" * "));
+        equationField.setText(equationField.getText().concat("*"));
     }
 
     @FXML
     protected void BtnDivPress(ActionEvent event){
         System.out.println("/");
-        equationField.setText(equationField.getText().concat(" / "));
+        equationField.setText(equationField.getText().concat("/"));
     }
 
     @FXML
     protected void BtnCosPress(ActionEvent event){
         System.out.println("Cos");
-        equationField.setText(equationField.getText().concat(" Cos( "));
+        equationField.setText(equationField.getText().concat("Cos("));
     }
 
     @FXML
     protected void BtnXPowYPress(ActionEvent event){
         System.out.println("x^y");
-        equationField.setText(equationField.getText().concat(" ^ "));
+        equationField.setText(equationField.getText().concat("^"));
     }
 
     @FXML
     protected void BtnLogTenPress(ActionEvent event){
         System.out.println("Log_10");
-        equationField.setText(equationField.getText().concat(" Log( "));
+        equationField.setText(equationField.getText().concat("Log("));
     }
 
     @FXML
     protected void BtnEulerExpPress(ActionEvent event){
         System.out.println("e^x");
-        equationField.setText(equationField.getText().concat(" e ^ "));
+        equationField.setText(equationField.getText().concat("Exp("));
     }
 
     @FXML
     protected void BtnFactorialPress(ActionEvent event){
         System.out.println("n!");
-        equationField.setText(equationField.getText().concat(" ! "));
+        equationField.setText(equationField.getText().concat("!"));
     }
 
     @FXML
     protected void BtnEqualPress(ActionEvent event){
         System.out.println("=");
-        equationField.setText(basicParse(equationField.getText()));
+        customFunctions.add(parser.eBaseTenExp);
+        customFunctions.add(parser.eCos);
+        customFunctions.add(parser.eEulerExp);
+        customFunctions.add(parser.eLog);
+        customFunctions.add(parser.eNaturalLog);
+        try {
+            result = new ExpressionBuilder(equationField.getText())
+                    .functions(customFunctions)
+                    .operator(parser.eFactorial)
+                    .build()
+                    .evaluate();
+        } catch (java.lang.IllegalArgumentException error){
+            System.out.println(error.getMessage());
+        }
+        equationField.setText(Double.toString(result));
+    }
+
+    @FXML
+    protected void BtnBracketOpenPress(ActionEvent event){
+        System.out.println("(");
+        equationField.setText(equationField.getText().concat("("));
+    }
+
+    @FXML
+    protected void BtnBracketClosePress(ActionEvent event){
+        System.out.println(")");
+        equationField.setText(equationField.getText().concat(")"));
+    }
+
+    @FXML
+    protected void BtnDotPress(ActionEvent event){
+        System.out.println(".");
+        equationField.setText(equationField.getText().concat("."));
     }
 
     @FXML
     protected void BtnClearPress(ActionEvent event){
         System.out.println("Clear");
+        result = 0;
         equationField.setText("");
     }
 

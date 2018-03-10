@@ -1,6 +1,5 @@
 package Eternity;
 
-
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
@@ -16,7 +15,7 @@ public class semanticsParser {
 
     private static Eternity engine;
 
-    Operator eFactorial = new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
+    public Operator eFactorial = new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
         @Override
         public double apply(double... args) {
             final int arg = (int) args[0];
@@ -30,35 +29,35 @@ public class semanticsParser {
         }
     };
 
-    Function eCos = new Function("Cos", 1){
+    public Function eCos = new Function("Cos", 1){
         @Override
         public double apply(double... args){
             return engine.eCos(args[0]);
         }
     };
 
-    Function eEulerExp = new Function("Exp",1) {
+    public Function eEulerExp = new Function("Exp",1) {
         @Override
         public double apply(double... args) {
             return engine.eEulerExp(args[0]);
         }
     };
 
-    Function eBaseTenExp = new Function("Ten",1) {
+    public Function eBaseTenExp = new Function("Ten",1) {
         @Override
         public double apply(double... args) {
             return engine.eBaseTenExp(args[0]);
         }
     };
 
-    Function eLog = new Function("Log", 1) {
+    public Function eLog = new Function("Log", 1) {
         @Override
         public double apply(double... args) {
             return engine.eLog(args[0]);
         }
     };
 
-    Function eNaturalLog = new Function("Ln", 1) {
+    public Function eNaturalLog = new Function("Ln", 1) {
         @Override
         public double apply(double... args) {
             return engine.naturalLog(args[0]);
