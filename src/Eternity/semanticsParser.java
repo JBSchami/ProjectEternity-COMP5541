@@ -7,11 +7,11 @@ import net.objecthunter.exp4j.operator.Operator;
 public class semanticsParser {
 
     public semanticsParser(){
-        engine  = new Eternity(0.000000001);
+        engine  = new Eternity(0.000000001, true);
     }
 
-    public semanticsParser(double precision){
-        engine = new Eternity(precision);
+    public semanticsParser(double precision, boolean rads){
+        engine = new Eternity(precision, rads);
     }
 
     private static Eternity engine;

@@ -1,15 +1,44 @@
 package Eternity;
 
 public class Eternity {
-    static double precision;
-    static long decimal;
+    static private double precision;
+    static private boolean rads;
+    static private long decimal;
 
-    private void setDecimal(){
-        double temp = precision;
-        while(temp < 1){
-            temp*=10;
-            decimal++;
-        }
+    /**
+     * Default constructor sets a base precision of 9 decimal places
+     */
+    public Eternity(){
+        Eternity.precision = 0.000000001;
+        Eternity.rads = true;
+        Eternity.decimal = 0;
+        setDecimal();
+    }
+
+    /**
+     * Parametered constructo allows for precision to be set at initialization.
+     */
+    public Eternity(double precision, boolean rads){
+        Eternity.precision = precision;
+        Eternity.rads = rads;
+        Eternity.decimal = 0;
+        setDecimal();
+    }
+
+    /**
+     * Getter for radians setting
+     * @return a boolean, true if rads, false otherwise
+     */
+    public static boolean isRads() {
+        return rads;
+    }
+
+    /**
+     * Setter for radians
+     * @param rads true if rads, false if degrees
+     */
+    public static void setRads(boolean rads) {
+        Eternity.rads = rads;
     }
 
     /**
@@ -25,28 +54,20 @@ public class Eternity {
      * @param precision the desired precision of the calculator
      */
     public void setPrecision(double precision) {
-        this.precision = precision;
-        this.decimal = 0;
+        Eternity.precision = precision;
+        Eternity.decimal = 0;
         setDecimal();
     }
 
     /**
-     * Default constructor sets a base precision of 9 decimal places
+     * Setter for decimal spaces used in for truncating number
      */
-    public Eternity(){
-        this.precision = 0.000000001;
-        this.decimal = 0;
-        setDecimal();
-    }
-
-    /**
-     * Parametered constructo allows for precision to be set at initialization.
-     * @param precision
-     */
-    public Eternity(double precision){
-        this.precision = precision;
-        this.decimal = 0;
-        setDecimal();
+    private void setDecimal(){
+        double temp = precision;
+        while(temp < 1){
+            temp*=10;
+            decimal++;
+        }
     }
 
     /**
@@ -61,7 +82,6 @@ public class Eternity {
      * @param x value of which to find factorial
      * @return factorial value of x
      */
-	
     public static double eFactorial(long x){
     	double runningTotal = 1;
         if (x==0){
@@ -85,7 +105,6 @@ public class Eternity {
      * @param runningTotal the accumulated value
      * @return factorial value of x
      */
-	
     private static double eFactorial(double x, double runningTotal){
         if (x==0){
             return runningTotal;
@@ -94,7 +113,6 @@ public class Eternity {
             return eFactorial(x-1, runningTotal*x);
         }
     }
-
 
     /**
      * Perform x^y for natural numbers.
@@ -145,29 +163,6 @@ public class Eternity {
     }
 
     /**
-     * This is the function that performs e^x
-     * @author Brandon Handfield
-     * @param x The value for which we want to calculate the value
-     * @return the value of e^x
-     */
-    /*
-    public static double eEulerExp(double x){
-
-        //initialize the return value of answer to 1, seeing as e^0 is equal to 1
-        double answer = 1;
-        int seriesCounter = 99999999;
-        //here the for loop starts at setting i to n-1, we are doing -1 because by already setting answer=1 we have already
-        //accounted for the first term of the Taylor Series that approximates the answer
-        for (int i = seriesCounter -1; i > 0; i--){
-
-            answer = 1 + x*answer/i;
-        }
-
-        return answer;
-
-    }
-	*/
-    /**
      * Perform e^x to a given level of precision.
      * @author Julien Fagnan
      * @param x Exponent
@@ -211,9 +206,17 @@ public class Eternity {
      */
     public double eCos(double x){
         boolean isLeftSideQuadrant = false;
-        x = x%360;
-        x = (x*ePI())/180; //Convert degree to radians
         double piVal = ePI();
+
+        //Pre processing of x, is it rads or degrees?
+        if(Eternity.rads){
+            x = x%(2*piVal);
+        }
+        else {
+            x = x % 360;
+            x = (x * piVal) / 180; //Convert degree to radians
+        }
+        //Pre processing of x, simplify the angle
         //from 90 to 180 cos(x) = -cos(pi-x)
         if(x > piVal/2 && x <= piVal){
             x = piVal-x;
@@ -268,19 +271,8 @@ public class Eternity {
     public double eLog(double x) {
         if(x<=0) {
             //System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
-            return Double.longBitsToDouble(0xfff0000000000000L);
+            return Double.NEGATIVE_INFINITY;
         }
-        /*
-        double factor = 10;
-        int counter = 1;
-        while (factor < x) {
-            counter++;
-            factor *= 10;
-        }
-        double seriesInput = x / factor;
-        double partialAnswer = eLn(seriesInput) / 2.3025850929940456840179914546844; //log_10(x) = ln(x)/ln(10)
-        double answer = partialAnswer + counter;
-		*/
         double answer;
         answer = eLn(x)/eLn(10);
         //answer = roundNumber(answer);
@@ -292,7 +284,7 @@ public class Eternity {
      * using a power series significant inaccuracy remains for very small numbers
      * method is required for logx function
      * @author Daniel Witkowski
-     * @param num input must be between 0 and 2, exclusive
+     * @param x number for which to calculate the natural log of
      * @return result of power series
      */
     public double eLn(double x) {
@@ -315,45 +307,6 @@ public class Eternity {
 				return -res;
 			}
 		}
-        /*
-    	double N,P,L,R,base;
-        base = eEulerExp(1);
-        P = num;
-        N = 0;
-
-        while (P>=base) {
-            P/=base;
-            N++;
-        }
-
-        N+=(P/base);
-        P = num;
-
-        double temp;
-        double e = 0;
-        do{
-            temp = N;
-            L = (P / eEulerExp(N-1));
-            R = (N-1) * base;
-            N = (L+R)/base;
-            e = N-temp;
-            if(e<0){e*=-1;}
-        }while(precision < e);
-
-        return N;
-         */
-    	
-        /*
-        double x = num - 1;
-        double sum = 0;
-        double e=0;
-        long i = 1;
-        do {
-            sum += (e = eExpY((-1), (i - 1)) * eExpY(x, i) / i);
-            i++;
-        } while ((precision < e || -precision > e));
-        return sum;
-        */
     }
 
     /**

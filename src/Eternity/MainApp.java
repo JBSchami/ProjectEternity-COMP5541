@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class MainApp {
 
-    private final static semanticsParser parser = new semanticsParser(0.000000001);
+    private final static semanticsParser parser = new semanticsParser(0.000000001, false);
     private final static ArrayList<Function> customFunctions = new ArrayList<>();
 
     public static void main(String[] args) {
