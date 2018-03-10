@@ -61,7 +61,7 @@ public class semanticsParser {
     Function eNaturalLog = new Function("Ln", 1) {
         @Override
         public double apply(double... args) {
-            return engine.naturalLog(args[0]);
+            return engine.eLn(args[0]);
         }
     };
 }

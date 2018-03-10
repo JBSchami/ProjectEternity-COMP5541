@@ -138,8 +138,8 @@ public class Eternity {
      */
     public double eExpY(double x, double y){
         //converting ln to log
-        double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
-        double values = y * lnInLog;
+        //double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
+        double values = y * eLn(x);
 
         return eEulerExp(values);
     }
@@ -177,10 +177,10 @@ public class Eternity {
 		double e = 0, res = 0;
 		long i=0;
 		do {
-		    double temp = res;
+		    //double temp = res;
 			res += (e=eExpY(x, i) / eFactorial(i));
 			i++;
-			e = res-temp;
+			//e = res-temp;
 			if(e < 0){e = -e;}
 		} while (precision < e);
 
@@ -270,6 +270,7 @@ public class Eternity {
             //System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
             return Double.longBitsToDouble(0xfff0000000000000L);
         }
+        /*
         double factor = 10;
         int counter = 1;
         while (factor < x) {
@@ -277,9 +278,11 @@ public class Eternity {
             factor *= 10;
         }
         double seriesInput = x / factor;
-        double partialAnswer = naturalLog(seriesInput) / 2.3025850929940456840179914546844;
+        double partialAnswer = eLn(seriesInput) / 2.3025850929940456840179914546844; //log_10(x) = ln(x)/ln(10)
         double answer = partialAnswer + counter;
-
+		*/
+        double answer;
+        answer = eLn(x)/eLn(10);
         //answer = roundNumber(answer);
         return answer;
     }
@@ -292,8 +295,28 @@ public class Eternity {
      * @param num input must be between 0 and 2, exclusive
      * @return result of power series
      */
-    public double naturalLog(double num) {
-        double N,P,L,R,base;
+    public double eLn(double x) {
+    	//Error handling for x < 0;
+		if (x==0) {
+			return Double.NEGATIVE_INFINITY;
+		} else if (x<0){
+			return 0;
+		} else {
+			double e = 0, res = 0;
+			long i=0;
+			x = (x-1)/(x+1);
+			do {
+				res +=  (e = 2 * eExpY(x, 2*i + 1) / (2*i+1));
+				i++;
+			} while ((precision < e || -precision > e));
+			if (x<=2) {
+				return res;
+			} else {
+				return -res;
+			}
+		}
+        /*
+    	double N,P,L,R,base;
         base = eEulerExp(1);
         P = num;
         N = 0;
@@ -318,7 +341,8 @@ public class Eternity {
         }while(precision < e);
 
         return N;
-
+         */
+    	
         /*
         double x = num - 1;
         double sum = 0;
