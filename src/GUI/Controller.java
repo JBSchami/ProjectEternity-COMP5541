@@ -18,13 +18,13 @@ public class Controller {
     private static ArrayList<Function> customFunctions = new ArrayList<>();
 
     private static double result;
+    String lastEntered;
 
     @FXML
     protected TextField equationField;
 
     @FXML
     protected void BtnZeroPress(){
-        System.out.println("0");
         equationField.setText(equationField.getText().concat("0"));
     }
     @FXML

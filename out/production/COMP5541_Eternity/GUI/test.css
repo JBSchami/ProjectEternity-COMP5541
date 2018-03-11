@@ -111,6 +111,17 @@
     -fx-background-color: #AA3300;
 }
 
+#clearOne{
+    -fx-background-color: #995500;
+}
+
+#clearOne:hover{
+    -fx-background-color: #994400;
+}
+
+#clearOne:pressed{
+    -fx-background-color: #AA4400;
+}
 /* =====================================================
  *  Equation Field =====================================
  * ================================================== */

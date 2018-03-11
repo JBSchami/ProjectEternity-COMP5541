@@ -36,8 +36,11 @@
             <Button fx:id="ln" text="ln"
                     GridPane.rowIndex="0" GridPane.columnIndex="1"
                     styleClass="button, largeButton, fxButton"
-                    onAction="#BtnCosPress"/>
-
+                    onAction="#BtnNaturalLogPress"/>
+            <Button fx:id="baseTenExp" text="10^"
+                    GridPane.rowIndex="1" GridPane.columnIndex="1"
+                    styleClass="button, largeButton, fxButton"
+                    onAction="#BtnBaseTenExpPress"/>
             <Button fx:id="cos" text="Cos"
                     GridPane.rowIndex="0" GridPane.columnIndex="0"
                     styleClass="button, largeButton, fxButton"

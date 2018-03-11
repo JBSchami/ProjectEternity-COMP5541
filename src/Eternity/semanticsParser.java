@@ -3,6 +3,9 @@ package Eternity;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 public class semanticsParser {
 
     public semanticsParser(){
@@ -78,6 +81,22 @@ public class semanticsParser {
         formatted = formatted.replace("e^","eEulerExp");
         formatted = formatted.replace("log", "eLog");
         formatted = formatted.replace("10^", "eBaseTenExp");
+
+        ArrayList<Double> values = new ArrayList<Double>(0);
+        ArrayList<String> operators = new ArrayList<String>(0);
+
+        StringTokenizer st = new StringTokenizer(formatted, "^(");
+        String thisToken = "";
+        while(st.hasMoreTokens()){
+            String lastToken = thisToken;
+            thisToken = st.nextToken();
+            System.out.println(thisToken);
+            if (thisToken.equals("^(")){
+                String nextDouble = st.nextToken();
+                formatted = formatted.replace((lastToken + "^(" + nextDouble), ("eExpY("+lastToken+","+nextDouble+")"));
+            }
+        }
+        System.out.println(formatted);
         return formatted;
     }
 }
