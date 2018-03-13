@@ -268,15 +268,19 @@ public class Eternity {
      * @param x The value for which we want to obtain the log base 10 value
      * @return The result of the log_10(x)
      */
-    public double eLog(double x) {
-        if(x<=0) {
-            //System.out.println("Invalid input. Cannot compute logarithm of number less than or equal to 0.");
+    public double eLog (double x) throws IllegalArgumentException {
+        if(x==0) {
             return Double.NEGATIVE_INFINITY;
         }
-        double answer;
-        answer = eLn(x)/eLn(10);
-        //answer = roundNumber(answer);
-        return answer;
+        else if(x<0){
+            throw new IllegalArgumentException("Logarithm does not accept values smaller than 0");
+        }
+        else {
+            double answer;
+            answer = eLn(x) / eLn(10);
+            //answer = roundNumber(answer);
+            return answer;
+        }
     }
 
     /**
@@ -287,12 +291,12 @@ public class Eternity {
      * @param x number for which to calculate the natural log of
      * @return result of power series
      */
-    public double eLn(double x) {
+    public double eLn(double x) throws IllegalArgumentException {
     	//Error handling for x < 0;
 		if (x==0) {
 			return Double.NEGATIVE_INFINITY;
 		} else if (x<0){
-			return 0;
+			throw new IllegalArgumentException("Natural Logarithm does not accept values smaller than 0");
 		} else {
 			double e = 0, res = 0;
 			long i=0;
