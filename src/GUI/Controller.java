@@ -315,6 +315,22 @@ public class Controller {
                     BtnClearPress();
                     break;
 
+                case ADD:
+                    BtnPlusPress();
+                    break;
+
+                case SUBTRACT:
+                    BtnMinusPress();
+                    break;
+
+                case DIVIDE:
+                    BtnDivPress();
+                    break;
+
+                case MULTIPLY:
+                    BtnMultPress();
+                    break;
+
                 default:
                     System.out.println("Invalid Key Pressed");
                     break;
