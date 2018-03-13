@@ -1,84 +1,90 @@
-.numButton{
-    -fx-pref-width: 60px;
-    -fx-pref-height: 60px;
-    -fx-border-color: none;
-    -fx-background-color: #555555;
-    -fx-font-size: 20px;
-    -fx-border-radius: 0px;
-    -fx-border-radius: 0px;
-    -fx-text-fill: white;
-    -fx-background-radius: 3px;
-    -fx-effect: dropshadow(two-pass-box, black, 10, 0, 0, 0);
-}
-
-.numButton:focused{
-    -fx-translate-y: 0;
-}
-
+/* =====================================================
+ *  main container =====================================
+ * ================================================== */
 .mainWrapper{
     -fx-padding: 10px 10px 0px 10px;
 }
 
-.allButtons{
-    -fx-vgap: 10px;
-    -fx-hgap: 10px;
-    -fx-padding: 10 0 10 0;
+.buttonHolder{
+    -fx-vgap:10px;
+    -fx-hgap:10px;
 }
 
-.numButton:hover{
-    -fx-background-color: #323232;
-}
-
-.numButton:pressed{
-    -fx-background-color: #AAAAAA;
-}
-
-.fxButton{
-    -fx-pref-width: 100px;
-    -fx-pref-height: 60px;
-    -fx-background-color: grey;
+/* =====================================================
+ *  Common to all buttons ==============================
+ * ================================================== */
+.button{
     -fx-border-color: none;
     -fx-font-size: 20px;
+    -fx-background-radius: 3px;
+    -fx-padding: 10px 10px 10px 10px
+}
+
+/* =====================================================
+ *  Small buttons ======================================
+ * ================================================== */
+.smallButton{
+    -fx-min-width: 60px;
+    -fx-min-height: 60px;
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+}
+
+/* =====================================================
+ *  large buttons ======================================
+ * ================================================== */
+.largeButton{
+    -fx-min-width: 130px;
+    -fx-min-height:60px;
+    -fx-pref-width: 130px;
+    -fx-pref-height: 60px;
+}
+
+/* =====================================================
+ *  Number uttons ======================================
+ * ================================================== */
+.numButton{
+    -fx-background-color: #555555;
+    -fx-text-fill: white;
+}
+.numButton:hover{
+    -fx-background-color: #444444;
+}
+.numButton:pressed{
+    -fx-background-color: #333333;
+
+}
+
+/* =====================================================
+ *  function Buttons ===================================
+ * ================================================== */
+.fxButton{
+    -fx-background-color: #0045AA;
+    -fx-text-fill: white;
 }
 
 .fxButton:hover{
-    -fx-background-color: orange;
+    -fx-background-color: #004599;
 }
 
 .fxButton:pressed{
-    -fx-background-color: gold;
+    -fx-background-color: #0055AA;
 }
 
-.equationField{
-    -fx-alignment: center;
-    -fx-pref-height: 200px;
-    -fx-pref-width: 500px;
-    -fx-background-color: lightgrey;
-    -fx-text-fill: black;
-    -fx-text-alignment: left;
-    -fx-font-size: 2em;
-    -fx-padding: 0 0 0 0;
-}
-
-.teamLabel{
-    -fx-text-alignment: right;
-}
-
+/* =====================================================
+ *  Operator Buttons ===================================
+ * ================================================== */
 .operatorButton{
-    -fx-pref-width: 60px;
-    -fx-pref-height: 60px;
-    -fx-border-color: none;
     -fx-background-color: #323232;
-    -fx-font-size: 20px;
-    -fx-border-radius: 0px;
-    -fx-border-radius: 0px;
     -fx-text-fill: white;
-    -fx-background-radius: 3px;
-    -fx-padding: 0 0 0 0;
 }
 
 .operatorButton:hover{
     -fx-background-color: #002266;
+}
+
+.operatorButton:pressed{
+    -fx-background-color: #003377;
 }
 
 #equals{
@@ -86,17 +92,46 @@
 }
 
 #equals:hover{
-    -fx-background-color: #664d00;
+    -fx-background-color: #003300;
+}
+
+#equals:pressed{
+    -fx-background-color: #005500;
 }
 
 #clear{
-    -fx-background-color: #700018;
+    -fx-background-color: #994400;
 }
 
 #clear:hover{
-    -fx-background-color: #ff0036;
+    -fx-background-color: #993300;
 }
 
-#teamLabel{
-    -fx-font-size: 0.75em;
+#clear:pressed{
+    -fx-background-color: #AA3300;
+}
+
+#clearOne{
+    -fx-background-color: #995500;
+}
+
+#clearOne:hover{
+    -fx-background-color: #994400;
+}
+
+#clearOne:pressed{
+    -fx-background-color: #AA4400;
+}
+/* =====================================================
+ *  Equation Field =====================================
+ * ================================================== */
+.equationField{
+    -fx-alignment: center;
+    -fx-pref-height: 200px;
+    -fx-pref-width: 500px;
+    -fx-background-color: lightgrey;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+    -fx-font-size: 2em;
+    -fx-padding: 0 0 0 0;
 }
