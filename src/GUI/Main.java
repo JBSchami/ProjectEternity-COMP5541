@@ -14,11 +14,10 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader();
         EternityController controller = (EternityController) fxmlLoader.getController();
         primaryStage.setTitle("Eternity");
-        primaryStage.setScene(new Scene(root, 570, 500));
+        primaryStage.setScene(new Scene(root, 470, 500));
         primaryStage.show();
         root.requestFocus();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

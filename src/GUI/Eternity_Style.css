@@ -128,7 +128,7 @@
 #equationField{
     -fx-alignment: center;
     -fx-pref-height: 100px;
-    -fx-pref-width: 500px;
+    -fx-pref-width: 370px;
     -fx-background-color: lightgrey;
     -fx-text-fill: black;
     -fx-text-alignment: center;
@@ -142,7 +142,7 @@
 
 #menuBar{
     -fx-min-width: 50px;
-    -fx-background-color: #555555;
+    -fx-background-color: #AAAAAA;
 }
 
 .teamLabel{

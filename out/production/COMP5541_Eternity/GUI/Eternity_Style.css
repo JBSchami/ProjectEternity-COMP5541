@@ -2,7 +2,7 @@
  *  main container =====================================
  * ================================================== */
 .mainWrapper{
-    -fx-padding: 10px 10px 0px 10px;
+    -fx-padding: 10px 10px 10px 0px;
 }
 
 .buttonHolder{
@@ -125,13 +125,27 @@
 /* =====================================================
  *  Equation Field =====================================
  * ================================================== */
-.equationField{
+#equationField{
     -fx-alignment: center;
-    -fx-pref-height: 200px;
-    -fx-pref-width: 500px;
+    -fx-pref-height: 100px;
+    -fx-pref-width: 370px;
     -fx-background-color: lightgrey;
     -fx-text-fill: black;
     -fx-text-alignment: center;
     -fx-font-size: 2em;
-    -fx-padding: 0 0 0 0;
+    -fx-background-insets: 0 10px 0 10px;
+}
+
+.iconButton{
+    -fx-content-display: center;
+}
+
+#menuBar{
+    -fx-min-width: 50px;
+    -fx-background-color: #AAAAAA;
+}
+
+.teamLabel{
+    -fx-padding: 0 10px 0 0;
+    -fx-background-insets: 0 10px 0 0;
 }

@@ -2,11 +2,14 @@ package GUI;
 
 import Eternity.EternityModel;
 import Eternity.SemanticsParser;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
 import java.util.ArrayList;
@@ -24,6 +27,8 @@ public class EternityController {
 
     @FXML
     protected TextField equationField;
+    @FXML
+    protected AnchorPane navList;
 
     @FXML
     protected void BtnZeroPress(){
@@ -358,6 +363,19 @@ public class EternityController {
                     System.out.println("Invalid Key Pressed");
                     break;
             }
+        }
+    }
+
+    @FXML
+    protected void navMenuSlide(){
+        TranslateTransition openNav=new TranslateTransition(new Duration(350), navList);
+        openNav.setToX(0);
+        TranslateTransition closeNav=new TranslateTransition(new Duration(350), navList);
+        if(navList.getTranslateX()!=0){
+            openNav.play();
+        }else{
+            closeNav.setToX(-(navList.getWidth()));
+            closeNav.play();
         }
     }
 }
