@@ -1,6 +1,7 @@
 package GUI;
 
-import Eternity.semanticsParser;
+import Eternity.EternityModel;
+import Eternity.SemanticsParser;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -12,10 +13,11 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 
-public class Controller {
+public class EternityController {
 
-    private final static semanticsParser parser = new semanticsParser(0.000000001, false);
+    private final static SemanticsParser parser = new SemanticsParser(0.000000001, false);
     private static ArrayList<Function> customFunctions = new ArrayList<>();
+    private static EternityModel eternityModel = new EternityModel();
 
     private static double result;
     String lastEntered;
@@ -148,13 +150,15 @@ public class Controller {
         customFunctions.add(parser.eLog);
         customFunctions.add(parser.eNaturalLog);
         try {
+            eternityModel.pushBackHistory(equationField.getText());
             String input = parser.preFormatInput(equationField.getText());
             result = new ExpressionBuilder(input)
                     .functions(customFunctions)
                     .operator(parser.eFactorial)
                     .build()
                     .evaluate();
-            equationField.setText(Double.toString(result));
+            eternityModel.setResult(result);
+            equationField.setText(Double.toString(eternityModel.getResult()));
         } catch (java.lang.IllegalArgumentException error){
             System.out.println(error.getMessage());
             equationField.setText(error.getMessage());
@@ -184,6 +188,18 @@ public class Controller {
         System.out.println("Clear");
         result = 0;
         equationField.setText("");
+    }
+
+    @FXML
+    protected void BtnNextHistoryPress(){
+        equationField.clear();
+        equationField.setText(eternityModel.nextHistory());
+    }
+
+    @FXML
+    protected void BtnPreviousHistoryPress(){
+        equationField.clear();
+        equationField.setText(eternityModel.previousHistory());
     }
 
 
@@ -335,77 +351,6 @@ public class Controller {
                     System.out.println("Invalid Key Pressed");
                     break;
             }
-        }
-    }
-
-    private static String basicParse(String input){
-        ArrayList<Double> values = new ArrayList<Double>(0);
-        ArrayList<String> operators = new ArrayList<String>(0);
-
-        StringTokenizer st = new StringTokenizer(input);
-        while(st.hasMoreTokens()){
-            String thisToken = st.nextToken();
-            if (thisToken.equals("+"))
-                operators.add("+");
-            else if (thisToken.equals("-"))
-                operators.add("-");
-            else if (thisToken.equals("*"))
-                operators.add("*");
-            else if (thisToken.equals("/"))
-                operators.add("/");
-            else{
-                values.add(Double.parseDouble(thisToken));
-            }
-        }
-
-
-        for (Double s:values) {
-            System.out.println(s);
-
-        }
-
-        for (String c:operators){
-            System.out.println(c);
-        }
-
-        return basicEvaluate(values, operators);
-    }
-
-    private static String basicEvaluate(ArrayList<Double> values, ArrayList<String> operators){
-        if(operators.contains("/") || operators.contains("*")){
-            //find where they are and perform those calculations first
-            System.out.println("PEDMAS must be respected");
-            int countOfMultDiv = 0;
-            for(int i = 0, size = values.size(); i < size; i++){
-                if(operators.get(i).equals("*")){
-                    values.set(i - countOfMultDiv, values.get(i-countOfMultDiv) * values.get(i-countOfMultDiv+1));
-                    values.remove(i-countOfMultDiv+1);
-                    size--;
-                    countOfMultDiv++;
-                }
-                else if(operators.get(i).equals("/")){
-                    values.set(i - countOfMultDiv, values.get(i-countOfMultDiv) / values.get(i-countOfMultDiv+1));
-                    values.remove(i-countOfMultDiv+1);
-                    size--;
-                    countOfMultDiv++;
-                }
-            }
-            operators.remove("*");
-            operators.remove("/");
-            return basicEvaluate(values, operators);
-        }
-        else{
-            double finalValue = values.get(0);
-            int j = 0;
-            for(int i = 1; i < values.size(); i++){
-                if(operators.get(j) == "+")
-                    finalValue += values.get(i);
-                else
-                    finalValue -= values.get(i);
-                j++;
-            }
-            System.out.println(finalValue);
-            return Double.toString(finalValue);
         }
     }
 }

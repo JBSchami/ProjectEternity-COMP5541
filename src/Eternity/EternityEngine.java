@@ -1,6 +1,6 @@
 package Eternity;
 
-public class Eternity {
+public class EternityEngine {
     static private double precision;
     static private boolean rads;
     static private long decimal;
@@ -8,20 +8,20 @@ public class Eternity {
     /**
      * Default constructor sets a base precision of 9 decimal places
      */
-    public Eternity(){
-        Eternity.precision = 0.000000001;
-        Eternity.rads = true;
-        Eternity.decimal = 0;
+    public EternityEngine(){
+        EternityEngine.precision = 0.000000001;
+        EternityEngine.rads = true;
+        EternityEngine.decimal = 0;
         setDecimal();
     }
 
     /**
      * Parametered constructo allows for precision to be set at initialization.
      */
-    public Eternity(double precision, boolean rads){
-        Eternity.precision = precision;
-        Eternity.rads = rads;
-        Eternity.decimal = 0;
+    public EternityEngine(double precision, boolean rads){
+        EternityEngine.precision = precision;
+        EternityEngine.rads = rads;
+        EternityEngine.decimal = 0;
         setDecimal();
     }
 
@@ -38,7 +38,7 @@ public class Eternity {
      * @param rads true if rads, false if degrees
      */
     public static void setRads(boolean rads) {
-        Eternity.rads = rads;
+        EternityEngine.rads = rads;
     }
 
     /**
@@ -54,8 +54,8 @@ public class Eternity {
      * @param precision the desired precision of the calculator
      */
     public void setPrecision(double precision) {
-        Eternity.precision = precision;
-        Eternity.decimal = 0;
+        EternityEngine.precision = precision;
+        EternityEngine.decimal = 0;
         setDecimal();
     }
 
@@ -209,7 +209,7 @@ public class Eternity {
         double piVal = ePI();
 
         //Pre processing of x, is it rads or degrees?
-        if(Eternity.rads){
+        if(EternityEngine.rads){
             x = x%(2*piVal);
         }
         else {

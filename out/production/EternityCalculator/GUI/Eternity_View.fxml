@@ -6,7 +6,7 @@
 
 <?import java.lang.Integer?>
 <?import javafx.geometry.Insets?>
-<VBox fx:controller="GUI.Controller"
+<VBox fx:controller="GUI.EternityController"
       onKeyPressed="#keyHandler"
       xmlns:fx="http://javafx.com/fxml"
       alignment="center"
@@ -17,7 +17,7 @@
     </fx:define>
 
     <stylesheets>
-        <URL value = "@test.css"/>
+        <URL value = "@Eternity_Style.css"/>
     </stylesheets>
 
     <TextField fx:id="equationField" styleClass="equationField" editable="false"/>
@@ -41,6 +41,14 @@
                     GridPane.rowIndex="1" GridPane.columnIndex="1"
                     styleClass="button, largeButton, fxButton"
                     onAction="#BtnBaseTenExpPress"/>
+            <Button fx:id="nextHistory" text="Next"
+                    GridPane.rowIndex="2" GridPane.columnIndex="1"
+                    styleClass="button, largeButton, fxButton"
+                    onAction="#BtnNextHistoryPress"/>
+            <Button fx:id="previousHistory" text="Prev"
+                    GridPane.rowIndex="3" GridPane.columnIndex="1"
+                    styleClass="button, largeButton, fxButton"
+                    onAction="#BtnPreviousHistoryPress"/>
             <Button fx:id="cos" text="Cos"
                     GridPane.rowIndex="0" GridPane.columnIndex="0"
                     styleClass="button, largeButton, fxButton"

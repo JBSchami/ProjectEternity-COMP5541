@@ -6,17 +6,17 @@ import net.objecthunter.exp4j.operator.Operator;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class semanticsParser {
+public class SemanticsParser {
 
-    public semanticsParser(){
-        engine  = new Eternity(0.000000001, true);
+    public SemanticsParser(){
+        engine  = new EternityEngine(0.000000001, true);
     }
 
-    public semanticsParser(double precision, boolean rads){
-        engine = new Eternity(precision, rads);
+    public SemanticsParser(double precision, boolean rads){
+        engine = new EternityEngine(precision, rads);
     }
 
-    private static Eternity engine;
+    private static EternityEngine engine;
 
     public Operator eFactorial = new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
         @Override
