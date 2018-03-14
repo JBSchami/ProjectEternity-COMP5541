@@ -202,7 +202,6 @@ public class EternityController {
         equationField.setText(eternityModel.previousHistory());
     }
 
-
     @FXML
     protected void keyHandler(KeyEvent event) {
         KeyCodeCombination shiftPlus = new KeyCodeCombination(KeyCode.EQUALS, KeyCodeCombination.SHIFT_DOWN);
@@ -345,6 +344,14 @@ public class EternityController {
 
                 case MULTIPLY:
                     BtnMultPress();
+                    break;
+
+                case LEFT:
+                    BtnPreviousHistoryPress();
+                    break;
+
+                case RIGHT:
+                    BtnNextHistoryPress();
                     break;
 
                 default:
