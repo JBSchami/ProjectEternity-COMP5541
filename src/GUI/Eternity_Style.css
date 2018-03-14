@@ -3,6 +3,7 @@
  * ================================================== */
 .mainWrapper{
     -fx-padding: 10px 10px 10px 10px;
+    -fx-background-color: white;
 }
 
 .buttonHolder{
@@ -88,11 +89,12 @@
 }
 
 #equals{
-    -fx-background-color: #004400;
+    -fx-background-color: #0045AA;
+    -fx-text-fill: white;
 }
 
 #equals:hover{
-    -fx-background-color: #003300;
+    -fx-background-color: #004599;
 }
 
 #equals:pressed{
@@ -168,4 +170,54 @@
 
 #toolbar{
     -fx-background-color: #0045AA;
+}
+
+#greyOut{
+    -fx-background-color: #55555566;
+}
+
+.dummyButton{
+    -fx-min-width: 1000px;
+    -fx-min-height: 1000px;
+    -fx-background-color: transparent;
+}
+
+.navMenuDrawer{
+    -fx-background-color: #0055BB;
+    -fx-text-fill:white;
+}
+
+.navMenuButton{
+    -fx-max-width: 180px;
+    -fx-pref-width: 180px;
+    -fx-border-radius: none;
+    -fx-background-radius: none;
+    -fx-background-color: transparent;
+    -fx-text-fill:white;
+    -fx-font-size: 1.25em;
+}
+
+.navMenuButton:hover{
+     -fx-background-color: #0045AA;
+     -fx-text-fill:white;
+ }
+
+#navMenuOptions{
+    -fx-padding: 10px 0 0 0;
+
+}
+
+#angleMode{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 1.25em;
+    -fx-text-alignment: center;
+    -fx-min-height: 40px;
+    -fx-min-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 40px;
+}
+
+#angleMode:hover{
+    -fx-background-color: #0055BB;
 }

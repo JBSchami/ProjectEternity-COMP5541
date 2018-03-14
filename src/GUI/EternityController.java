@@ -3,16 +3,21 @@ package GUI;
 import Eternity.EternityModel;
 import Eternity.SemanticsParser;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.StringTokenizer;
 
 
@@ -29,6 +34,10 @@ public class EternityController {
     protected TextField equationField;
     @FXML
     protected AnchorPane navList;
+    @FXML
+    protected StackPane mainContent;
+    @FXML
+    protected Button angleMode;
 
     @FXML
     protected void BtnZeroPress(){
@@ -147,8 +156,14 @@ public class EternityController {
     }
 
     @FXML
+    protected void BtnPiPress(){
+        equationField.setText(equationField.getText().concat("pi"));
+    }
+
+    @FXML
     protected void BtnEqualPress(){
         System.out.println("=");
+        parser.setEngineAngle(eternityModel.isRadianSetting());
         customFunctions.add(parser.eBaseTenExp);
         customFunctions.add(parser.eCos);
         customFunctions.add(parser.eEulerExp);
@@ -371,11 +386,28 @@ public class EternityController {
         TranslateTransition openNav=new TranslateTransition(new Duration(350), navList);
         openNav.setToX(0);
         TranslateTransition closeNav=new TranslateTransition(new Duration(350), navList);
+        ObservableList<Node> childs = mainContent.getChildren();
         if(navList.getTranslateX()!=0){
             openNav.play();
+            Node topNode = childs.get(1);
+            topNode.toBack();
         }else{
             closeNav.setToX(-(navList.getWidth()));
             closeNav.play();
+            Node topNode = childs.get(1);
+            topNode.toBack();
+        }
+    }
+
+    @FXML
+    protected void changeAngleMode(){
+        if(angleMode.getText().equals("D")){
+            eternityModel.setRadianSetting(true);
+            angleMode.setText("R");
+        }
+        else{
+            eternityModel.setRadianSetting(false);
+            angleMode.setText("D");
         }
     }
 }

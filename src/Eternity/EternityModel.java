@@ -24,6 +24,14 @@ public class EternityModel {
         history = new ArrayList<>();
     }
 
+    public void setRadianSetting(boolean radianSetting) {
+        this.radianSetting = radianSetting;
+    }
+
+    public boolean isRadianSetting() {
+        return radianSetting;
+    }
+
     /**
      * sets the value for the last calculated result
      * @param result the result to be stored

@@ -2,11 +2,12 @@ package Eternity;
 
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
-
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class SemanticsParser {
+
+    private static EternityEngine engine;
 
     public SemanticsParser(){
         engine  = new EternityEngine(0.000000001, true);
@@ -16,7 +17,9 @@ public class SemanticsParser {
         engine = new EternityEngine(precision, rads);
     }
 
-    private static EternityEngine engine;
+    public void setEngineAngle(boolean value){
+        engine.setRads(value);
+    }
 
     public Operator eFactorial = new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
         @Override

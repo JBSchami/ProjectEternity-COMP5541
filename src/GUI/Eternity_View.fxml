@@ -9,6 +9,9 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.layout.Pane?>
 <AnchorPane fx:controller="GUI.EternityController"
             onKeyPressed="#keyHandler"
             xmlns:fx="http://javafx.com/fxml">
@@ -19,13 +22,11 @@
 
     <children>
 
-        <ToolBar fx:id = "toolbar" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minHeight="56.0"   >
-            <Button fx:id="hamburgerMenu" onAction="#navMenuSlide">
-
-            </Button>
-        </ToolBar>
         <StackPane fx:id="mainContent" style="-fx-background-color:#EEEEEE" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="56.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"    >
             <children>
+                <VBox fx:id="greyOut">
+                    <Button onAction="#navMenuSlide" styleClass="dummyButton"/>
+                </VBox>
                 <VBox alignment="center" styleClass="mainWrapper">
 
                     <TextField fx:id="equationField" editable="false"/>
@@ -85,9 +86,13 @@
                             </Button>
 
                             <Button fx:id="cos" text="Cos"
-                                    GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                                    GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton"
                                     onAction="#BtnCosPress"/>
+                            <Button fx:id="pi" text="pi"
+                                    GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="1"
+                                    styleClass="button, smallButton, fxButton"
+                                    onAction="#BtnPiPress"/>
                             <Button fx:id="xPowY" text="^"
                                     GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton"
@@ -203,11 +208,22 @@
             </children>
         </StackPane>
 
-        <AnchorPane fx:id="navList" style="-fx-background-color:white" AnchorPane.topAnchor="56.0" AnchorPane.bottomAnchor="0.0" prefWidth="180.0" translateX="-180"   >
+        <AnchorPane fx:id="navList" styleClass="navMenuDrawer" AnchorPane.topAnchor="56.0" AnchorPane.bottomAnchor="0.0" prefWidth="180.0" translateX="-180"   >
             <children>
-                <Label text="left side menu"/>
+                <VBox fx:id="navMenuOptions" spacing="10">
+                    <Button text="Settings" styleClass="navMenuButton"/>
+                    <Button text="New Function" styleClass="navMenuButton"/>
+                    <Button text="Load Function" styleClass="navMenuButton"/>
+                    <Button text="Manage Functions" styleClass="navMenuButton"/>
+                </VBox>
             </children>
         </AnchorPane>
+
+        <ToolBar fx:id = "toolbar" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minHeight="56.0"   >
+            <Button fx:id="hamburgerMenu" onAction="#navMenuSlide"/>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button fx:id="angleMode" text = "R" onAction="#changeAngleMode"/>
+        </ToolBar>
 
     </children>
 </AnchorPane>
