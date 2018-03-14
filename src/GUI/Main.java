@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.util.PrimitiveIterator;
 
 
 public class Main extends Application {
@@ -14,7 +17,9 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader();
         EternityController controller = (EternityController) fxmlLoader.getController();
         primaryStage.setTitle("Eternity");
-        primaryStage.setScene(new Scene(root, 470, 500));
+        primaryStage.setScene(new Scene(root, 420, 580));
+        primaryStage.initStyle(StageStyle.DECORATED);
+        primaryStage.setResizable(false);
         primaryStage.show();
         root.requestFocus();
     }
