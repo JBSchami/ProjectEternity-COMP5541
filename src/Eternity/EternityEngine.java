@@ -29,7 +29,7 @@ public class EternityEngine {
      * Getter for radians setting
      * @return a boolean, true if rads, false otherwise
      */
-    public static boolean isRads() {
+    public boolean isRads() {
         return rads;
     }
 
@@ -37,7 +37,7 @@ public class EternityEngine {
      * Setter for radians
      * @param rads true if rads, false if degrees
      */
-    public static void setRads(boolean rads) {
+    public void setRads(boolean rads) {
         EternityEngine.rads = rads;
     }
 
@@ -82,7 +82,7 @@ public class EternityEngine {
      * @param x value of which to find factorial
      * @return factorial value of x
      */
-    public static double eFactorial(long x){
+    public double eFactorial(long x){
     	double runningTotal = 1;
         if (x==0){
             return runningTotal;
@@ -105,7 +105,7 @@ public class EternityEngine {
      * @param runningTotal the accumulated value
      * @return factorial value of x
      */
-    private static double eFactorial(double x, double runningTotal){
+    private double eFactorial(double x, double runningTotal){
         if (x==0){
             return runningTotal;
         }
