@@ -336,13 +336,18 @@ public class EternityEngine {
      * @return A value of pi based on the Ramanujan-Sato formulas
      */
 	public final double ePI(){
-	double e = 0, res = 0;
-	for (int i = 0; i<5; i++) {
-		e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i), 4) * eExpY(396,4*i));
-	}
-	res = 9801 / (e * eExpY(8, 0.5));
+        double e = 0, res = 0;
 
-	//res = roundNumber(res);
-	return res;
+        double temp = getPrecision();
+        //Temporarily increase precision for pi calculation
+        setPrecision(0.0000000001);
+        for (int i = 0; i<5; i++) {
+            e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i), 4) * eExpY(396,4*i));
+        }
+        res = 9801 / (e * eExpY(8, 0.5));
+
+        //Set precision back to engine value
+        setPrecision(temp);
+        return res;
 	}
 }

@@ -93,13 +93,11 @@ public class SemanticsParser {
         while(st.hasMoreTokens()){
             String lastToken = thisToken;
             thisToken = st.nextToken();
-            System.out.println(thisToken);
             if (thisToken.equals("^(")){
                 String nextDouble = st.nextToken();
                 formatted = formatted.replace((lastToken + "^(" + nextDouble), ("eExpY("+lastToken+","+nextDouble+")"));
             }
         }
-        System.out.println(formatted);
         return formatted;
     }
 }

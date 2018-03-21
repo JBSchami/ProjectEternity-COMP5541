@@ -133,6 +133,10 @@ public class EternityEngineTest {
 
     @Test
     public void eLn() {
+        assertEquals(-0.693147180559945309417232121458176568075500134360255, engine.eLn(0.5), engine.getPrecision());
+        assertEquals(-0.018729068248966992023780135735533559542560881943674, engine.eLn(0.9814452309), engine.getPrecision());
+        assertEquals(14.500799442838677519824636202977155397104714187424788, engine.eLn(1984345), engine.getPrecision());
+        assertEquals(14.500799561265657749991314684127957219393142572122578, engine.eLn(1984345.235), engine.getPrecision());
 
     }
 
