@@ -219,7 +219,7 @@
             </children>
         </AnchorPane>
 
-        <ToolBar fx:id = "toolbar" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minHeight="56.0"   >
+        <ToolBar fx:id = "toolbar" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minHeight="56.0">
             <Button fx:id="hamburgerMenu" onAction="#navMenuSlide"/>
             <Pane HBox.hgrow="ALWAYS" />
             <Button fx:id="precisionSettingButton" text = "d.9" onAction="#changePrecisionSetting" styleClass="settingButton"/>

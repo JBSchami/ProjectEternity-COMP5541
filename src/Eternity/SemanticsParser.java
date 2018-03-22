@@ -64,35 +64,35 @@ public class SemanticsParser {
         }
     };
 
-    public Function eCos = new Function("eCos", 1){
+    public Function eCos = new Function("Cos", 1){
         @Override
         public double apply(double... args){
             return engine.eCos(args[0]);
         }
     };
 
-    public Function eEulerExp = new Function("eEulerExp",1) {
+    public Function eEulerExp = new Function("EulerExp",1) {
         @Override
         public double apply(double... args) {
             return engine.eEulerExp(args[0]);
         }
     };
 
-    public Function eBaseTenExp = new Function("eBaseTenExp",1) {
+    public Function eBaseTenExp = new Function("BaseTenExp",1) {
         @Override
         public double apply(double... args) {
             return engine.eBaseTenExp(args[0]);
         }
     };
 
-    public Function eLog = new Function("eLog", 1) {
+    public Function eLog = new Function("Log", 1) {
         @Override
         public double apply(double... args) {
             return engine.eLog(args[0]);
         }
     };
 
-    public Function eNaturalLog = new Function("eLn", 1) {
+    public Function eNaturalLog = new Function("Ln", 1) {
         @Override
         public double apply(double... args) {
             return engine.eLn(args[0]);
@@ -101,11 +101,11 @@ public class SemanticsParser {
 
     public String preFormatInput(String input){
         String formatted = input;
-        formatted = formatted.replace("cos", "eCos");
-        formatted = formatted.replace("ln", "eLn");
-        formatted = formatted.replace("e^","eEulerExp");
-        formatted = formatted.replace("log", "eLog");
-        formatted = formatted.replace("10^", "eBaseTenExp");
+        formatted = formatted.replace("cos", "Cos");
+        formatted = formatted.replace("ln", "Ln");
+        formatted = formatted.replace("e^","EulerExp");
+        formatted = formatted.replace("log", "Log");
+        formatted = formatted.replace("10^", "BaseTenExp");
         return formatted;
     }
 }

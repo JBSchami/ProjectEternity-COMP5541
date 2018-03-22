@@ -11,12 +11,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
 
+import java.awt.event.ActionEvent;
+import java.beans.EventHandler;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -163,8 +166,6 @@ public class EternityController {
                     .evaluate();
             eternityModel.setResult(result);
             precision = parser.getEnginePrecision();
-            System.out.println("Precision setting is: " + parser.getEnginePrecision());
-            System.out.println(getPrecisionFormat(precision));
             DecimalFormat df = new DecimalFormat(getPrecisionFormat(precision));
             df.setRoundingMode(RoundingMode.HALF_UP);
             equationField.setText((df.format(eternityModel.getResult())));
@@ -399,14 +400,11 @@ public class EternityController {
     @FXML
     protected void changePrecisionSetting(){
         int previousSetting = parser.getEnginePrecision();
-        System.out.println("Before increment: " + previousSetting);
         if (previousSetting == 9) {
             previousSetting = 1;
-            System.out.println("Post increment: " + previousSetting);
         }
         else {
             previousSetting += 1;
-            System.out.println("Post increment " + previousSetting);
         }
         switch (previousSetting-1){
             case 0:

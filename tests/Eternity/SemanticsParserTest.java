@@ -1,6 +1,10 @@
 package Eternity;
 
+import net.objecthunter.exp4j.ExpressionBuilder;
+import net.objecthunter.exp4j.function.Function;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -32,10 +36,9 @@ public class SemanticsParserTest {
     }
 
     @Test
-    public void preFormatGeneralExp() {
-        assertEquals("eExpY(8,98)", parser.preFormatInput("9+8^(98)"));
+    public void preFormatEulerExpWithPreString() {
+        assertEquals("7eEulerExp3", parser.preFormatInput("7e^3"));
     }
-
 
     @Test
     public void setEngineAngle1() {
@@ -45,6 +48,22 @@ public class SemanticsParserTest {
     public void setEnginePrecision() {
         parser.setEnginePrecision(0.000001);
 
+    }
+
+    @Test
+    public void useFunctionEulerExp(){
+        ArrayList<Function> customFunctions = new ArrayList<>();
+        customFunctions.add(parser.eBaseTenExp);
+        customFunctions.add(parser.eCos);
+        customFunctions.add(parser.eEulerExp);
+        customFunctions.add(parser.eLog);
+        customFunctions.add(parser.eNaturalLog);
+        double result = new ExpressionBuilder("7EulerExp3")
+                .functions(customFunctions)
+                .operator(parser.eFactorial, parser.eExpY)
+                .build()
+                .evaluate();
+        assertEquals(140.5987584623136741864997075820720252789153548698790510106,result,0.000000001);
     }
 
     @Test

@@ -7,10 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.PrimitiveIterator;
-
-
 public class Main extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Eternity_View.fxml"));
@@ -22,6 +20,10 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         root.requestFocus();
+
+
+
+
     }
     public static void main(String[] args) {
         launch(args);
