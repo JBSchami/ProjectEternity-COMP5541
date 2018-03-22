@@ -43,6 +43,8 @@ public class SemanticsParserTest {
 
     @Test
     public void setEnginePrecision() {
+        parser.setEnginePrecision(0.000001);
+
     }
 
     @Test

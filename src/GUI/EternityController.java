@@ -41,6 +41,8 @@ public class EternityController {
     protected StackPane mainContent;
     @FXML
     protected Button angleMode;
+    @FXML
+    protected Button precisionSettingButton;
 
     @FXML
     protected void BtnZeroPress(){
@@ -160,6 +162,9 @@ public class EternityController {
                     .build()
                     .evaluate();
             eternityModel.setResult(result);
+            precision = parser.getEnginePrecision();
+            System.out.println("Precision setting is: " + parser.getEnginePrecision());
+            System.out.println(getPrecisionFormat(precision));
             DecimalFormat df = new DecimalFormat(getPrecisionFormat(precision));
             df.setRoundingMode(RoundingMode.HALF_UP);
             equationField.setText((df.format(eternityModel.getResult())));
@@ -389,6 +394,59 @@ public class EternityController {
             eternityModel.setRadianSetting(false);
             angleMode.setText("D");
         }
+    }
+
+    @FXML
+    protected void changePrecisionSetting(){
+        int previousSetting = parser.getEnginePrecision();
+        System.out.println("Before increment: " + previousSetting);
+        if (previousSetting == 9) {
+            previousSetting = 1;
+            System.out.println("Post increment: " + previousSetting);
+        }
+        else {
+            previousSetting += 1;
+            System.out.println("Post increment " + previousSetting);
+        }
+        switch (previousSetting-1){
+            case 0:
+                precisionSettingButton.setText("d.1");
+                parser.setEnginePrecision(0.1);
+                break;
+            case 1:
+                precisionSettingButton.setText("d.2");
+                parser.setEnginePrecision(0.01);
+                break;
+            case 2:
+                precisionSettingButton.setText("d.3");
+                parser.setEnginePrecision(0.001);
+                break;
+            case 3:
+                precisionSettingButton.setText("d.4");
+                parser.setEnginePrecision(0.0001);
+                break;
+            case 4:
+                precisionSettingButton.setText("d.5");
+                parser.setEnginePrecision(0.00001);
+                break;
+            case 5:
+                precisionSettingButton.setText("d.6");
+                parser.setEnginePrecision(0.000001);
+                break;
+            case 6:
+                precisionSettingButton.setText("d.7");
+                parser.setEnginePrecision(0.0000001);
+                break;
+            case 7:
+                precisionSettingButton.setText("d.8");
+                parser.setEnginePrecision(0.00000001);
+                break;
+            case 8:
+                precisionSettingButton.setText("d.9");
+                parser.setEnginePrecision(0.000000001);
+                break;
+        }
+
     }
 
     private String getPrecisionFormat(int value){
