@@ -15,6 +15,11 @@ public class EternityEngine {
         setDecimal();
     }
 
+    public EternityEngine(double precision){
+        EternityEngine.precision = precision;
+        EternityEngine.decimal = 0;
+        setDecimal();
+    }
     /**
      * Parametered constructo allows for precision to be set at initialization.
      */
