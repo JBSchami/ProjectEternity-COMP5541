@@ -214,7 +214,7 @@
                     <Button text="Settings" styleClass="navMenuButton"/>
                     <Button text="New Function" styleClass="navMenuButton"/>
                     <Button text="Load Function" styleClass="navMenuButton"/>
-                    <Button text="Manage Functions" styleClass="navMenuButton"/>
+                    <Button text="Manage Functions" styleClass="navMenuButton" onAction="#launchEquationManager"/>
                 </VBox>
             </children>
         </AnchorPane>

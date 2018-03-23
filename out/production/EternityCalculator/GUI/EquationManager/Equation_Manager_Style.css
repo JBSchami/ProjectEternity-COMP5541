@@ -1,0 +1,14 @@
+.equationManager{
+    -fx-vgap: 10px;
+    -fx-hgap: 10px;
+    -fx-padding: 10px 10px 10px 10px;
+    -fx-spacing: 10px;
+}
+
+#newVarText{
+    -fx-font-size: 1.25em;
+    -fx-min-width: 200;
+    -fx-text-alignment: center;
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+}

@@ -13,17 +13,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Eternity_View.fxml"));
         FXMLLoader fxmlLoader = new FXMLLoader();
-        EternityController controller = (EternityController) fxmlLoader.getController();
         primaryStage.setTitle("Eternity");
         primaryStage.setScene(new Scene(root, 420, 560));
         primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.setResizable(false);
         primaryStage.show();
         root.requestFocus();
-
-
-
-
     }
     public static void main(String[] args) {
         launch(args);

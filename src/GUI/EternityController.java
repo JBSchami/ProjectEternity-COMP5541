@@ -2,29 +2,31 @@ package GUI;
 
 import Eternity.EternityModel;
 import Eternity.SemanticsParser;
+import Eternity.EternityVariable;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
 
-import java.awt.event.ActionEvent;
-import java.beans.EventHandler;
+import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.StringTokenizer;
 
 
 public class EternityController {
@@ -32,6 +34,7 @@ public class EternityController {
     private final static SemanticsParser parser = new SemanticsParser(0.000000001, false);
     private static ArrayList<Function> customFunctions = new ArrayList<>();
     private static EternityModel eternityModel = new EternityModel();
+    private static String equationString = new String();
 
     private static double result;
     private static int precision = parser.getEnginePrecision();
@@ -50,104 +53,113 @@ public class EternityController {
     @FXML
     protected void BtnZeroPress(){
         equationField.setText(equationField.getText().concat("0"));
+        equationString = equationString.concat("0");
     }
     @FXML
     protected void BtnOnePress(){
         equationField.setText(equationField.getText().concat("1"));
+        equationString = equationString.concat("1");
     }
     @FXML
     protected void BtnTwoPress(){
         equationField.setText(equationField.getText().concat("2"));
+        equationString = equationString.concat("2");
     }
     @FXML
     protected void BtnThreePress(){
         equationField.setText(equationField.getText().concat("3"));
+        equationString = equationString.concat("3");
     }
     @FXML
     protected void BtnFourPress(){
         equationField.setText(equationField.getText().concat("4"));
+        equationString = equationString.concat("4");
     }
     @FXML
     protected void BtnFivePress(){
         equationField.setText(equationField.getText().concat("5"));
+        equationString = equationString.concat("5");
     }
     @FXML
     protected void BtnSixPress(){
         equationField.setText(equationField.getText().concat("6"));
+        equationString = equationString.concat("6");
     }
     @FXML
     protected void BtnSevenPress(){
         equationField.setText(equationField.getText().concat("7"));
+        equationString = equationString.concat("7");
     }
     @FXML
     protected void BtnEightPress(){
         equationField.setText(equationField.getText().concat("8"));
+        equationString = equationString.concat("8");
     }
     @FXML
     protected void BtnNinePress(){
         equationField.setText(equationField.getText().concat("9"));
+        equationString = equationString.concat("9");
     }
-
     @FXML
     protected void BtnPlusPress(){
         equationField.setText(equationField.getText().concat("+"));
+        equationString = equationString.concat("+");
     }
-
     @FXML
     protected void BtnMinusPress(){
         equationField.setText(equationField.getText().concat("-"));
+        equationString = equationString.concat("-");
     }
-
     @FXML
     protected void BtnMultPress(){
         equationField.setText(equationField.getText().concat("*"));
+        equationString = equationString.concat("*");
     }
-
     @FXML
     protected void BtnDivPress(){
         equationField.setText(equationField.getText().concat("/"));
+        equationString = equationString.concat("/");
     }
-
     @FXML
     protected void BtnCosPress(){
         equationField.setText(equationField.getText().concat("cos"));
+        equationString = equationString.concat("cos");
     }
-
     @FXML
     protected void BtnXPowYPress(){
         equationField.setText(equationField.getText().concat("^"));
+        equationString = equationString.concat("^");
     }
-
     @FXML
     protected void BtnLogTenPress(){
         equationField.setText(equationField.getText().concat("log"));
+        equationString = equationString.concat("log");
     }
-
     @FXML
     protected void BtnEulerExpPress(){
         equationField.setText(equationField.getText().concat("e^"));
+        equationString = equationString.concat("e^");
     }
-
     @FXML
     protected void BtnNaturalLogPress(){
         equationField.setText(equationField.getText().concat("ln"));
+        equationString = equationString.concat("ln");
     }
-
     @FXML
     protected void BtnBaseTenExpPress(){
         equationField.setText(equationField.getText().concat("10^"));
+        equationString = equationString.concat("10^");
     }
-
     @FXML
     protected void BtnFactorialPress(){
         equationField.setText(equationField.getText().concat("!"));
+        equationString = equationString.concat("!");
     }
-
     @FXML
     protected void BtnPiPress(){
         equationField.setText(equationField.getText().concat("pi"));
+        equationString = equationString.concat("pi");
     }
-
     @FXML
     protected void BtnEqualPress(){
         parser.setEngineAngle(eternityModel.isRadianSetting());
@@ -174,40 +186,38 @@ public class EternityController {
             equationField.setText(error.getMessage());
         }
     }
-
     @FXML
     protected void BtnBracketOpenPress(){
         equationField.setText(equationField.getText().concat("("));
-    }
+        equationString = equationString.concat("(");
 
+    }
     @FXML
     protected void BtnBracketClosePress(){
         equationField.setText(equationField.getText().concat(")"));
+        equationString = equationString.concat(")");
     }
-
     @FXML
     protected void BtnDotPress(){
         equationField.setText(equationField.getText().concat("."));
+        equationString = equationString.concat(".");
     }
-
     @FXML
     protected void BtnClearPress(){
         result = 0;
         equationField.setText("");
+        equationString = "";
     }
-
     @FXML
     protected void BtnNextHistoryPress(){
         equationField.clear();
         equationField.setText(eternityModel.nextHistory());
     }
-
     @FXML
     protected void BtnPreviousHistoryPress(){
         equationField.clear();
         equationField.setText(eternityModel.previousHistory());
     }
-
     @FXML
     protected void keyHandler(KeyEvent event) {
         KeyCodeCombination shiftPlus = new KeyCodeCombination(KeyCode.EQUALS, KeyCodeCombination.SHIFT_DOWN);
@@ -361,12 +371,13 @@ public class EternityController {
                     break;
 
                 default:
-                    System.out.println("Invalid Key Pressed");
+                    if (eqManagerActive){
+
+                    }
                     break;
             }
         }
     }
-
     @FXML
     protected void navMenuSlide(){
         TranslateTransition openNav=new TranslateTransition(new Duration(350), navList);
@@ -384,7 +395,6 @@ public class EternityController {
             topNode.toBack();
         }
     }
-
     @FXML
     protected void changeAngleMode(){
         if(angleMode.getText().equals("D")){
@@ -396,7 +406,6 @@ public class EternityController {
             angleMode.setText("D");
         }
     }
-
     @FXML
     protected void changePrecisionSetting(){
         int previousSetting = parser.getEnginePrecision();
@@ -445,6 +454,42 @@ public class EternityController {
                 break;
         }
 
+    }
+
+    private boolean eqManagerActive = false;
+    @FXML
+    protected void launchEquationManager(){
+        Parent root;
+        if (!eqManagerActive) {
+            try {
+                root = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/EquationManager/Eternity_Equation_Manager.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Eternity Equation Manager");
+                stage.setScene(new Scene(root, 250, 560));
+                stage.setOnHidden(e -> {
+                    eqManagerActive = false;
+                });
+                stage.show();
+                stage.setResizable(false);
+                eqManagerActive = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        navMenuSlide();
+    }
+
+    @FXML
+    protected TableView<EternityVariable> variableListView;
+    @FXML
+    protected TextField newVarText;
+    @FXML
+    protected void addVarToList(){
+        if(!newVarText.getText().isEmpty()) {
+            ObservableList<EternityVariable> data = variableListView.getItems();
+            data.add(new EternityVariable(newVarText.getText()));
+            newVarText.clear();
+        }
     }
 
     private String getPrecisionFormat(int value){
