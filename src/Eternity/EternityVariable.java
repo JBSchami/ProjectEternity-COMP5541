@@ -20,7 +20,6 @@ public class EternityVariable {
     public EternityVariable(String varName, Double varValue){
         setVarName(varName);
         setVarValue(varValue);
-        setVarValue(0.0);
     }
 
     public String getVarName() {

@@ -175,6 +175,7 @@ public class EternityController {
         customFunctions.add(parser.eNaturalLog);
         eternityModel.pushBackHistory(equationField.getText());
         if(containsVariables){
+            try{
             String input = parser.preFormatInput(equationString);
             Expression expression = new ExpressionBuilder(input)
                     .functions(customFunctions)
@@ -182,12 +183,16 @@ public class EternityController {
                     .variables(variableNames)
                     .build();
 
-            updateVariableValues(equationManagerController.getVarButtons(), equationManagerController.getValueInputs());
+            ArrayList<Double> values = equationManagerController.printAllTextFieldValues();
+            updateVariableValues(equationManagerController.getVarButtons(), values);
             for(EternityVariable var: eternityVariables){
                 expression.setVariable(var.getVarName(), var.getVarValue());
             }
             result = expression.evaluate();
-
+            } catch (java.lang.IllegalArgumentException error) {
+                System.out.println(error.getMessage());
+                equationField.setText(error.getMessage());
+            }
         }
         else {
             try {

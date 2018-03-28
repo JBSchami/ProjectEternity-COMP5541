@@ -22,6 +22,7 @@ public class EquationManagerController {
     @FXML protected ScrollPane varViewer;
     @FXML protected Scene root;
     @FXML protected VBox vBoxRoot;
+    private int variableCount;
 
     public static ArrayList<Button> varButtons = new ArrayList<>();
     public static ArrayList<TextField> valueInputs = new ArrayList<>();
@@ -31,40 +32,18 @@ public class EquationManagerController {
         if(!varButtons.isEmpty()){
             addVarToScrollPane();
         }
-        root = vBoxRoot.getScene();
     }
-
-    private static int variableCount = 0;
-
-    public int getVariableCount() {
-        return variableCount;
-    }
-
     public ArrayList<Button> getVarButtons() {
         return varButtons;
-    }
-
-    @FXML
-    public ArrayList<Double> getValueInputs() {
-        ArrayList<Double> temp = new ArrayList<>();
-        for(int i = 0; i < variableCount; i++){
-            try{
-                TextField tf = (TextField) root.lookup("#VarValue" + i);
-                System.out.println("WHAT THE FUCK IS GOING ON");
-                temp.add(Double.parseDouble(tf.getText()));
-            }catch (NullPointerException ex){
-                ex.printStackTrace();
-            }
-        }
-        return temp;
     }
 
     @FXML public void init(EternityController mainController){
         eternityController = mainController;
     }
 
-    public void helloButton(String what){
-        System.out.println(what);
+    @FXML
+    public ArrayList<Double> getValueInputs() {
+        return new ArrayList<>();
     }
 
     @FXML
@@ -109,8 +88,16 @@ public class EquationManagerController {
         varViewer.setContent(scrollContents);
     }
 
+    @FXML
+    public ArrayList<Double> printAllTextFieldValues(){
+        ArrayList<Double> values = new ArrayList<>();
+        for(TextField tf : valueInputs){
+            values.add(Double.parseDouble(tf.getText()));
+        }
+        return values;
+    }
+
     public void clearEquationVariables(){
-        variableCount = 0;
         varButtons.clear();
     }
 
