@@ -23,36 +23,45 @@ import javafx.util.Duration;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
-
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.*;
 
-
 public class EternityController {
 
     @FXML private EquationManagerController equationManagerController = new EquationManagerController();
-
-    private final static SemanticsParser parser = new SemanticsParser(0.000000001, false);
-    private static ArrayList<Function> customFunctions = new ArrayList<>();
-    private static EternityModel eternityModel = new EternityModel();
-    private static String equationString = new String();
-    private static Set<EternityVariable> eternityVariables = new HashSet<>();
-    private static Set<String> variableNames = new HashSet<>();
-
-    private static double result;
-    private static int precision = parser.getEnginePrecision();
-
     @FXML protected TextField equationField;
     @FXML protected AnchorPane navList;
     @FXML protected StackPane mainContent;
     @FXML protected Button angleMode;
     @FXML protected Button precisionSettingButton;
 
-    @FXML public void initialize(){
+    private final static SemanticsParser parser = new SemanticsParser(0.000000001, false);
+    private static ArrayList<Function> customFunctions = new ArrayList<>();
+    private static EternityModel eternityModel = new EternityModel();
+
+    private static String equationString = new String();
+
+    private static Set<EternityVariable> eternityVariables = new HashSet<>();
+    private static Set<String> variableNames = new HashSet<>();
+
+    private static double result;
+
+    /**
+     * Initializes the calculator at startup, notably:
+     * - Loads custom functions and operators into the semantics parser
+     * - sets the default angle setting to radians
+     */
+    @FXML public void initialize() {
         equationManagerController.init(this);
         containsVariables = false;
+        parser.setEngineAngle(eternityModel.isRadianSetting());
+        customFunctions.add(parser.eBaseTenExp);
+        customFunctions.add(parser.eCos);
+        customFunctions.add(parser.eEulerExp);
+        customFunctions.add(parser.eLog);
+        customFunctions.add(parser.eNaturalLog);
     }
 
     @FXML
@@ -166,55 +175,6 @@ public class EternityController {
         equationString = equationString.concat("pi");
     }
     @FXML
-    protected void BtnEqualPress(){
-        parser.setEngineAngle(eternityModel.isRadianSetting());
-        customFunctions.add(parser.eBaseTenExp);
-        customFunctions.add(parser.eCos);
-        customFunctions.add(parser.eEulerExp);
-        customFunctions.add(parser.eLog);
-        customFunctions.add(parser.eNaturalLog);
-        eternityModel.pushBackHistory(equationField.getText());
-        if(containsVariables){
-            try{
-            String input = parser.preFormatInput(equationString);
-            Expression expression = new ExpressionBuilder(input)
-                    .functions(customFunctions)
-                    .operator(parser.eFactorial, parser.eExpY)
-                    .variables(variableNames)
-                    .build();
-
-            ArrayList<Double> values = equationManagerController.printAllTextFieldValues();
-            updateVariableValues(equationManagerController.getVarButtons(), values);
-            for(EternityVariable var: eternityVariables){
-                expression.setVariable(var.getVarName(), var.getVarValue());
-            }
-            result = expression.evaluate();
-            } catch (java.lang.IllegalArgumentException error) {
-                System.out.println(error.getMessage());
-                equationField.setText(error.getMessage());
-            }
-        }
-        else {
-            try {
-                String input = parser.preFormatInput(equationField.getText());
-                result = new ExpressionBuilder(input)
-                        .functions(customFunctions)
-                        .operator(parser.eFactorial, parser.eExpY)
-                        .build()
-                        .evaluate();
-
-            } catch (java.lang.IllegalArgumentException error) {
-                System.out.println(error.getMessage());
-                equationField.setText(error.getMessage());
-            }
-        }
-        eternityModel.setResult(result);
-        precision = parser.getEnginePrecision();
-        DecimalFormat df = new DecimalFormat(getPrecisionFormat(precision));
-        df.setRoundingMode(RoundingMode.HALF_UP);
-        equationField.setText((df.format(eternityModel.getResult())));
-    }
-    @FXML
     protected void BtnBracketOpenPress(){
         equationField.setText(equationField.getText().concat("("));
         equationString = equationString.concat("(");
@@ -251,6 +211,72 @@ public class EternityController {
         equationField.clear();
         equationField.setText(eternityModel.previousHistory());
     }
+    @FXML
+    protected void BtnEqualPress(){
+        eternityModel.pushBackHistory(equationField.getText());
+        if(containsVariables){
+            evaluateExpressionWithVariables();
+        }
+        else {
+            evaluateExpressionWithoutVariables();
+        }
+    }
+
+    /**
+     * Evaluates expressions that contain variables
+     */
+    private void evaluateExpressionWithVariables(){
+        try{
+            String input = parser.preFormatInput(equationString);
+            Expression expression = new ExpressionBuilder(input)
+                    .functions(customFunctions)
+                    .operator(parser.eFactorial, parser.eExpY)
+                    .variables(variableNames)
+                    .build();
+
+            ArrayList<Double> values = equationManagerController.printAllTextFieldValues();
+            updateVariableValues(equationManagerController.getVarButtons(), values);
+            for(EternityVariable var: eternityVariables){
+                expression.setVariable(var.getVarName(), var.getVarValue());
+            }
+            result = expression.evaluate();
+            updateWithResult();
+        } catch (java.lang.IllegalArgumentException error) {
+            System.out.println(error.getMessage());
+            equationField.setText(error.getMessage());
+        }
+    }
+
+    /**
+     * Evaluates expressions with no variables.
+     */
+    private void evaluateExpressionWithoutVariables(){
+        try {
+            String input = parser.preFormatInput(equationField.getText());
+            result = new ExpressionBuilder(input)
+                    .functions(customFunctions)
+                    .operator(parser.eFactorial, parser.eExpY)
+                    .build()
+                    .evaluate();
+            updateWithResult();
+        } catch (java.lang.IllegalArgumentException error) {
+            System.out.println(error.getMessage());
+            equationField.setText(error.getMessage());
+        }
+    }
+
+    private void updateWithResult(){
+        eternityModel.setResult(result);
+        int precision = parser.getEnginePrecision();
+        DecimalFormat df = new DecimalFormat(getPrecisionFormat(precision));
+        df.setRoundingMode(RoundingMode.HALF_UP);
+        equationField.setText((df.format(eternityModel.getResult())));
+    }
+
+    /**
+     * Key handler is used to allow for keyboard input
+     * @param event the keyboard event that triggers the call of the function
+     */
     @FXML
     protected void keyHandler(KeyEvent event) {
         KeyCodeCombination shiftPlus = new KeyCodeCombination(KeyCode.EQUALS, KeyCodeCombination.SHIFT_DOWN);
@@ -411,6 +437,10 @@ public class EternityController {
             }
         }
     }
+
+    /**
+     * Allows for the sliding navigation menu
+     */
     @FXML
     protected void navMenuSlide(){
         TranslateTransition openNav=new TranslateTransition(new Duration(350), navList);
@@ -428,17 +458,27 @@ public class EternityController {
             topNode.toBack();
         }
     }
+
+    /**
+     * Flip-flops between radians and degrees when pressed
+     */
     @FXML
     protected void changeAngleMode(){
         if(angleMode.getText().equals("D")){
             eternityModel.setRadianSetting(true);
+            parser.setEngineAngle(eternityModel.isRadianSetting());
             angleMode.setText("R");
         }
         else{
             eternityModel.setRadianSetting(false);
+            parser.setEngineAngle(eternityModel.isRadianSetting());
             angleMode.setText("D");
         }
     }
+
+    /**
+     * Lets the user change the decimal point precision when pressed
+     */
     @FXML
     protected void changePrecisionSetting(){
         int previousSetting = parser.getEnginePrecision();
@@ -532,8 +572,8 @@ public class EternityController {
     /*
      * EQUATION MANAGER RELATED
      */
-
     private boolean eqManagerActive = false;
+
     @FXML
     protected void BtnNewEquation(){
         BtnClearPress();

@@ -211,7 +211,6 @@
         <AnchorPane fx:id="navList" styleClass="navMenuDrawer" AnchorPane.topAnchor="56.0" AnchorPane.bottomAnchor="0.0" prefWidth="180.0" translateX="-180"   >
             <children>
                 <VBox fx:id="navMenuOptions" spacing="10">
-                    <Button text="Settings" styleClass="navMenuButton"/>
                     <Button text="New Function" styleClass="navMenuButton" onAction="#BtnNewEquation"/>
                     <Button text="Load Function" styleClass="navMenuButton"/>
                     <Button text="Manage Functions" styleClass="navMenuButton" onAction="#launchEquationManager"/>

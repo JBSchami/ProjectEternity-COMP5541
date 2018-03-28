@@ -1,48 +1,60 @@
 package Eternity;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class EternityVariable {
-    private final SimpleStringProperty varName = new SimpleStringProperty("");
-    private final SimpleDoubleProperty varValue = new SimpleDoubleProperty(0.0);
-
+    private String varName;
+    private Double varValue;
+    /**
+     * Default Constructor
+     */
     public EternityVariable(){
         setVarName("");
         setVarValue(0.0);
     }
-
+    /**
+     * Constructor for name only
+     * @param varName variable name
+     */
     public EternityVariable(String varName){
         setVarName(varName);
         setVarValue(0.0);
     }
-
+    /**
+     * Constructor for name and value
+     * @param varName variable name
+     * @param varValue variable value
+     */
     public EternityVariable(String varName, Double varValue){
         setVarName(varName);
         setVarValue(varValue);
     }
 
+    /**
+     * Getter for name
+     * @return variable name
+     */
     public String getVarName() {
-        return varName.get();
-    }
-
-    public SimpleStringProperty varNameProperty() {
         return varName;
     }
 
+    /**
+     * Getter for value
+     * @return variable value
+     */
     public double getVarValue() {
-        return varValue.get();
-    }
-
-    public SimpleDoubleProperty varValueProperty() {
         return varValue;
     }
-
+    /**
+     * Setter for name
+     * @param varName variable name
+     */
     public void setVarName(String varName) {
-        this.varName.set(varName);
+        this.varName = varName;
     }
-
+    /**
+     * Setter for value
+     * @param varValue variable value
+     */
     public void setVarValue(double varValue) {
-        this.varValue.set(varValue);
+        this.varValue = varValue;
     }
 }
