@@ -192,7 +192,7 @@
 
                             <Button fx:id="clear" text="CE"
                                     GridPane.rowIndex="0" GridPane.columnIndex="3"
-                                    onAction="#BtnClearPress"
+                                    onAction="#BtnClearAllPress"
                                     styleClass="button, smallButton, operatorButton"/>
                             <Button fx:id="clearOne" text="C"
                                     GridPane.rowIndex="0" GridPane.columnIndex="2"
@@ -211,18 +211,19 @@
         <AnchorPane fx:id="navList" styleClass="navMenuDrawer" AnchorPane.topAnchor="56.0" AnchorPane.bottomAnchor="0.0" prefWidth="180.0" translateX="-180"   >
             <children>
                 <VBox fx:id="navMenuOptions" spacing="10">
-                    <Button text="Settings" styleClass="navMenuButton"/>
-                    <Button text="New Function" styleClass="navMenuButton"/>
+                    <Button text="New Function" styleClass="navMenuButton" onAction="#BtnNewEquation"/>
                     <Button text="Load Function" styleClass="navMenuButton"/>
-                    <Button text="Manage Functions" styleClass="navMenuButton"/>
+                    <Button text="Save Function" styleClass="navMenuButton" onAction="#BtnSaveEquation"/>
+                    <Button text="Manage Functions" styleClass="navMenuButton" onAction="#launchEquationManager"/>
                 </VBox>
             </children>
         </AnchorPane>
 
-        <ToolBar fx:id = "toolbar" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minHeight="56.0"   >
+        <ToolBar fx:id = "toolbar" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minHeight="56.0">
             <Button fx:id="hamburgerMenu" onAction="#navMenuSlide"/>
             <Pane HBox.hgrow="ALWAYS" />
-            <Button fx:id="angleMode" text = "R" onAction="#changeAngleMode"/>
+            <Button fx:id="precisionSettingButton" text = "d.9" onAction="#changePrecisionSetting" styleClass="settingButton"/>
+            <Button fx:id="angleMode" text = "R" onAction="#changeAngleMode" styleClass="settingButton"/>
         </ToolBar>
 
     </children>

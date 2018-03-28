@@ -207,7 +207,11 @@
 
 }
 
-#angleMode{
+#precisionSettingButton{
+    -fx-min-width: 60px;
+}
+
+.settingButton{
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -219,6 +223,6 @@
     -fx-pref-width: 40px;
 }
 
-#angleMode:hover{
+.settingButton:hover{
     -fx-background-color: #0055BB;
 }

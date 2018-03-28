@@ -582,6 +582,12 @@ public class EternityController {
     }
 
     @FXML
+    protected void BtnSaveEquation(){
+        equationManagerController.saveEquation(variableNames, equationString);
+        navMenuSlide();
+    }
+
+    @FXML
     protected void launchEquationManager(){
         Parent root;
         if (!eqManagerActive) {

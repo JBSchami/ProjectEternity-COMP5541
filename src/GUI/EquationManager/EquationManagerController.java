@@ -14,11 +14,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.beans.Expression;
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.*;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
@@ -61,7 +66,7 @@ public class EquationManagerController {
 
                 buttonVar.getStyleClass().add("largeButton");
                 buttonVar.getStyleClass().add("button");
-                buttonVar.getStyleClass().add("numButton");
+                buttonVar.getStyleClass().add("equationManagerButton");
                 buttonVar.setId("VarBtn" + variableCount);
                 buttonVar.setOnAction(event -> eternityController.addVariableToEquation(buttonVar.getText()));
                 varButtons.add(buttonVar);
@@ -98,6 +103,7 @@ public class EquationManagerController {
                 varValue.setTextFormatter(textFormatter);
                 varValue.setPromptText("Enter Variable Value");
                 varValue.setId("VarValue" + variableCount);
+                varValue.getStyleClass().add("inputVarValue");
                 variableCount++;
                 valueInputs.add(varValue);
                 addVarToScrollPane();
@@ -139,12 +145,26 @@ public class EquationManagerController {
         varButtonNames.clear();
     }
 
-    public boolean validateVariableValues(){
-        for(int i = 0; i < valueInputs.size(); i++){
-            if(valueInputs.get(i).equals("")){
-                return false;
+    public void saveEquation(Set<String> variableNames, String expression){
+        String variableNameString = new String();
+        int i = 0;
+        for(String varName:variableNames){
+            if(i==0){
+                variableNameString = varName;
             }
+            else{
+                variableNameString = variableNameString.concat(","+varName);
+            }
+            i++;
         }
-        return true;
+        List<String> lines = Arrays.asList(expression + "|%%|" + variableNameString);
+        try{
+            Path file = Paths.get("./Equations/equations.txt");
+            Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+        }catch (IOException err){
+            System.out.println("Could not load equations...");
+        }
     }
+
+    
 }
