@@ -17,6 +17,12 @@ public class EternityVariable {
         setVarValue(0.0);
     }
 
+    public EternityVariable(String varName, Double varValue){
+        setVarName(varName);
+        setVarValue(varValue);
+        setVarValue(0.0);
+    }
+
     public String getVarName() {
         return varName.get();
     }

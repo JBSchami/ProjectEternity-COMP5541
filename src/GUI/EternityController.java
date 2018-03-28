@@ -3,6 +3,7 @@ package GUI;
 import Eternity.EternityModel;
 import Eternity.SemanticsParser;
 import Eternity.EternityVariable;
+import GUI.EquationManager.EquationManagerController;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -20,35 +20,40 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
 
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class EternityController {
+
+    @FXML private EquationManagerController equationManagerController = new EquationManagerController();
 
     private final static SemanticsParser parser = new SemanticsParser(0.000000001, false);
     private static ArrayList<Function> customFunctions = new ArrayList<>();
     private static EternityModel eternityModel = new EternityModel();
     private static String equationString = new String();
+    private static Set<EternityVariable> eternityVariables = new HashSet<>();
+    private static Set<String> variableNames = new HashSet<>();
 
     private static double result;
     private static int precision = parser.getEnginePrecision();
 
-    @FXML
-    protected TextField equationField;
-    @FXML
-    protected AnchorPane navList;
-    @FXML
-    protected StackPane mainContent;
-    @FXML
-    protected Button angleMode;
-    @FXML
-    protected Button precisionSettingButton;
+    @FXML protected TextField equationField;
+    @FXML protected AnchorPane navList;
+    @FXML protected StackPane mainContent;
+    @FXML protected Button angleMode;
+    @FXML protected Button precisionSettingButton;
+
+    @FXML public void initialize(){
+        equationManagerController.init(this);
+        containsVariables = false;
+    }
 
     @FXML
     protected void BtnZeroPress(){
@@ -168,23 +173,41 @@ public class EternityController {
         customFunctions.add(parser.eEulerExp);
         customFunctions.add(parser.eLog);
         customFunctions.add(parser.eNaturalLog);
-        try {
-            eternityModel.pushBackHistory(equationField.getText());
-            String input = parser.preFormatInput(equationField.getText());
-            result = new ExpressionBuilder(input)
+        eternityModel.pushBackHistory(equationField.getText());
+        if(containsVariables){
+            String input = parser.preFormatInput(equationString);
+            Expression expression = new ExpressionBuilder(input)
                     .functions(customFunctions)
                     .operator(parser.eFactorial, parser.eExpY)
-                    .build()
-                    .evaluate();
-            eternityModel.setResult(result);
-            precision = parser.getEnginePrecision();
-            DecimalFormat df = new DecimalFormat(getPrecisionFormat(precision));
-            df.setRoundingMode(RoundingMode.HALF_UP);
-            equationField.setText((df.format(eternityModel.getResult())));
-        } catch (java.lang.IllegalArgumentException error){
-            System.out.println(error.getMessage());
-            equationField.setText(error.getMessage());
+                    .variables(variableNames)
+                    .build();
+
+            updateVariableValues(equationManagerController.getVarButtons(), equationManagerController.getValueInputs());
+            for(EternityVariable var: eternityVariables){
+                expression.setVariable(var.getVarName(), var.getVarValue());
+            }
+            result = expression.evaluate();
+
         }
+        else {
+            try {
+                String input = parser.preFormatInput(equationField.getText());
+                result = new ExpressionBuilder(input)
+                        .functions(customFunctions)
+                        .operator(parser.eFactorial, parser.eExpY)
+                        .build()
+                        .evaluate();
+
+            } catch (java.lang.IllegalArgumentException error) {
+                System.out.println(error.getMessage());
+                equationField.setText(error.getMessage());
+            }
+        }
+        eternityModel.setResult(result);
+        precision = parser.getEnginePrecision();
+        DecimalFormat df = new DecimalFormat(getPrecisionFormat(precision));
+        df.setRoundingMode(RoundingMode.HALF_UP);
+        equationField.setText((df.format(eternityModel.getResult())));
     }
     @FXML
     protected void BtnBracketOpenPress(){
@@ -207,6 +230,11 @@ public class EternityController {
         result = 0;
         equationField.setText("");
         equationString = "";
+        containsVariables = false;
+    }
+    @FXML
+    protected void BtnClearAllPress(){
+
     }
     @FXML
     protected void BtnNextHistoryPress(){
@@ -456,42 +484,6 @@ public class EternityController {
 
     }
 
-    private boolean eqManagerActive = false;
-    @FXML
-    protected void launchEquationManager(){
-        Parent root;
-        if (!eqManagerActive) {
-            try {
-                root = FXMLLoader.load(getClass().getClassLoader().getResource("GUI/EquationManager/Eternity_Equation_Manager.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Eternity Equation Manager");
-                stage.setScene(new Scene(root, 250, 560));
-                stage.setOnHidden(e -> {
-                    eqManagerActive = false;
-                });
-                stage.show();
-                stage.setResizable(false);
-                eqManagerActive = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        navMenuSlide();
-    }
-
-    @FXML
-    protected TableView<EternityVariable> variableListView;
-    @FXML
-    protected TextField newVarText;
-    @FXML
-    protected void addVarToList(){
-        if(!newVarText.getText().isEmpty()) {
-            ObservableList<EternityVariable> data = variableListView.getItems();
-            data.add(new EternityVariable(newVarText.getText()));
-            newVarText.clear();
-        }
-    }
-
     private String getPrecisionFormat(int value){
         String format;
         switch (value){
@@ -532,4 +524,63 @@ public class EternityController {
         return format;
     }
 
+    /*
+     * EQUATION MANAGER RELATED
+     */
+
+    private boolean eqManagerActive = false;
+    @FXML
+    protected void BtnNewEquation(){
+        BtnClearPress();
+        equationManagerController.clearEquationVariables();
+        launchEquationManager();
+    }
+
+    @FXML
+    protected void launchEquationManager(){
+        Parent root;
+        if (!eqManagerActive) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                root = loader.load(getClass().getClassLoader().getResource("GUI/EquationManager/Eternity_Equation_Manager.fxml"));
+                loader.setController(equationManagerController);
+                equationManagerController = loader.getController();
+                Stage stage;
+                stage = new Stage();
+                stage.setTitle("Eternity Equation Manager");
+                stage.setScene(new Scene(root, 370, 560));
+                stage.setOnHidden(e -> {
+                    eqManagerActive = false;
+                });
+                stage.setResizable(false);
+                eqManagerActive = true;
+                equationManagerController.init(this);
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        navMenuSlide();
+    }
+
+    private static boolean containsVariables = false;
+
+    @FXML
+    public void addVariableToEquation(String varName){
+        equationField.setText(equationField.getText().concat(varName));
+        equationString = equationString.concat("_"+varName+"_");
+        eternityVariables.add(new EternityVariable("_"+varName+"_"));
+        for(EternityVariable et:eternityVariables){
+            variableNames.add(et.getVarName());
+        }
+        containsVariables = true;
+    }
+
+    public void updateVariableValues(ArrayList<Button> varNames, ArrayList<Double> varValues){
+        eternityVariables.clear();
+        for(int i = 0; i < varNames.size(); i++){
+            eternityVariables.add(new EternityVariable("_"+varNames.get(i).getText()+"_", varValues.get(i)));
+        }
+    }
 }

@@ -10,12 +10,15 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.cell.TextFieldTableCell?>
+<?import javafx.scene.control.ScrollPane?>
 <VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="GUI.EternityController"
-      prefHeight="200.0" prefWidth="300.0"
-      styleClass="equationManager"
-      alignment="CENTER">
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GUI.EquationManager.EquationManagerController"
+            prefHeight="200.0" prefWidth="370.0"
+            styleClass="equationManager"
+            alignment="TOP_CENTER"
+            fx:id="vBoxRoot"
+            >
 
     <stylesheets>
         <URL value = "@../Eternity_Style.css"/>
@@ -23,23 +26,12 @@
     </stylesheets>
 
     <TextField fx:id="newVarText" promptText="Enter New Variable Name"/>
-    <Button text="Create New Variable" onAction="#addVarToList" styleClass="button, largeButton, numButton"/>
-    <TableView fx:id="variableListView" editable="true">
-        <columns>
+    <Button text="Create New Variable" onAction="#addVarToList" fx:id="newVarBtn" styleClass="button, numButton"/>
 
-            <TableColumn text="Variable" editable="false" sortable="false">
-                <cellValueFactory><PropertyValueFactory property="varName"/></cellValueFactory>
-            </TableColumn>
+    <ScrollPane fx:id="varViewer">
 
-            <TableColumn text="Value" editable="true" sortable="false">
-                <cellValueFactory><PropertyValueFactory property="varValue"/></cellValueFactory>
-                <cellFactory><TextFieldTableCell></TextFieldTableCell></cellFactory>
-            </TableColumn>
-        </columns>
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-            </FXCollections>
-        </items>
-    </TableView>
+
+    </ScrollPane>
+
 </VBox>
 

@@ -192,7 +192,7 @@
 
                             <Button fx:id="clear" text="CE"
                                     GridPane.rowIndex="0" GridPane.columnIndex="3"
-                                    onAction="#BtnClearPress"
+                                    onAction="#BtnClearAllPress"
                                     styleClass="button, smallButton, operatorButton"/>
                             <Button fx:id="clearOne" text="C"
                                     GridPane.rowIndex="0" GridPane.columnIndex="2"
@@ -212,7 +212,7 @@
             <children>
                 <VBox fx:id="navMenuOptions" spacing="10">
                     <Button text="Settings" styleClass="navMenuButton"/>
-                    <Button text="New Function" styleClass="navMenuButton"/>
+                    <Button text="New Function" styleClass="navMenuButton" onAction="#BtnNewEquation"/>
                     <Button text="Load Function" styleClass="navMenuButton"/>
                     <Button text="Manage Functions" styleClass="navMenuButton" onAction="#launchEquationManager"/>
                 </VBox>
