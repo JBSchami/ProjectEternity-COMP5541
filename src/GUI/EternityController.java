@@ -3,6 +3,7 @@ package GUI;
 import Eternity.EternityModel;
 import Eternity.SemanticsParser;
 import Eternity.EternityVariable;
+import GUI.EquationManager.EquationLoaderController;
 import GUI.EquationManager.EquationManagerController;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
@@ -31,6 +32,7 @@ import java.util.*;
 public class EternityController {
 
     @FXML private EquationManagerController equationManagerController = new EquationManagerController();
+    @FXML private EquationLoaderController equationLoaderController = new EquationLoaderController();
     @FXML protected TextField equationField;
     @FXML protected AnchorPane navList;
     @FXML protected StackPane mainContent;
@@ -606,6 +608,36 @@ public class EternityController {
                 stage.setResizable(false);
                 eqManagerActive = true;
                 equationManagerController.init(this);
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        navMenuSlide();
+    }
+
+    private boolean eqLoaderActive = false;
+    @FXML
+    protected void launchEquationLoader(){
+        Parent root;
+        if (!eqLoaderActive) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                root = loader.load(getClass().getClassLoader().getResource("GUI/EquationManager/EquationLoader.fxml"));
+                loader.setController(equationLoaderController);
+                equationLoaderController = loader.getController();
+                Stage stage;
+                stage = new Stage();
+                stage.setTitle("Eternity Loader");
+                stage.setScene(new Scene(root, 370, 560));
+                stage.setOnHidden(e -> {
+                    eqLoaderActive = false;
+                });
+                stage.setResizable(false);
+                eqLoaderActive = true;
+                equationLoaderController.init(this);
+                equationLoaderController.populateEquationSelector();
                 stage.show();
 
             } catch (IOException e) {

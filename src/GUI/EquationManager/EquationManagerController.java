@@ -157,7 +157,7 @@ public class EquationManagerController {
             }
             i++;
         }
-        List<String> lines = Arrays.asList(expression + "|%%|" + variableNameString);
+        List<String> lines = Arrays.asList(expression + "%%" + variableNameString);
         try{
             Path file = Paths.get("./Equations/equations.txt");
             Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
@@ -166,5 +166,5 @@ public class EquationManagerController {
         }
     }
 
-    
+
 }
