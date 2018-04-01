@@ -3,12 +3,13 @@
  * ================================================== */
 .mainWrapper{
     -fx-padding: 10px 10px 10px 10px;
-    -fx-background-color: white;
+    -fx-background-color: #CECECE;
+    -fx-font-family:"Helvetica";
 }
 
 .buttonHolder{
-    -fx-vgap:10px;
-    -fx-hgap:10px;
+    -fx-vgap:5px;
+    -fx-hgap:5px;
 }
 
 /* =====================================================
@@ -16,19 +17,19 @@
  * ================================================== */
 .button{
     -fx-border-color: none;
-    -fx-font-size: 20px;
-    -fx-background-radius: 3px;
-    -fx-padding: 10px 10px 10px 10px
+    -fx-font-size: 23px;
+    -fx-background-radius: 0px;
+    -fx-padding: 10px 10px 10px 10px;
 }
 
 /* =====================================================
  *  Small buttons ======================================
  * ================================================== */
 .smallButton{
-    -fx-min-width: 60px;
-    -fx-min-height: 60px;
-    -fx-pref-width: 60px;
-    -fx-pref-height: 60px;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-pref-width: 80px;
+    -fx-pref-height: 80px;
 }
 
 /* =====================================================
@@ -42,11 +43,13 @@
 }
 
 /* =====================================================
- *  Number uttons ======================================
+ *  Number Buttons ======================================
  * ================================================== */
 .numButton{
-    -fx-background-color: #555555;
+    -fx-background-color: #4B4B4B;
     -fx-text-fill: white;
+    -fx-font-size:30px;
+
 }
 .numButton:hover{
     -fx-background-color: #444444;
@@ -124,18 +127,23 @@
 #clearOne:pressed{
     -fx-background-color: #AA4400;
 }
+
+#logBaseTen{
+    -fx-font-size: 17px;
+}
 /* =====================================================
  *  Equation Field =====================================
  * ================================================== */
 #equationField{
     -fx-alignment: center;
-    -fx-pref-height: 120px;
-    -fx-pref-width: 370px;
-    -fx-max-width: 430px;
-    -fx-background-color: lightgrey;
+    -fx-min-height: 120px;
+    -fx-min-width: 530px;
+    -fx-max-width: 530px;
+    -fx-background-radius: 0px;
+    -fx-background-color: white;
     -fx-text-fill: black;
     -fx-text-alignment: center;
-    -fx-font-size: 2em;
+    -fx-font-size: 3em;
     -fx-background-insets: 0 10px 0 10px;
 }
 

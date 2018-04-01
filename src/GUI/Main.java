@@ -14,7 +14,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Eternity_View.fxml"));
         FXMLLoader fxmlLoader = new FXMLLoader();
         primaryStage.setTitle("Eternity");
-        primaryStage.setScene(new Scene(root, 420, 560));
+        primaryStage.setScene(new Scene(root, 520, 640));
         primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.setResizable(false);
         primaryStage.show();

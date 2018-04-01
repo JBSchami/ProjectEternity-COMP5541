@@ -67,7 +67,7 @@
                                 <graphic>
                                     <ImageView fitHeight="30" fitWidth="30" preserveRatio="true" pickOnBounds="true">
                                         <image>
-                                            <Image url = "icons\leftRightArrows-01.png"/>
+                                            <Image url = "file:icons\leftRightArrows-01.png"/>
                                         </image>
                                     </ImageView>
                                 </graphic>
@@ -79,7 +79,7 @@
                                 <graphic>
                                     <ImageView fitHeight="30" fitWidth="30" preserveRatio="true" pickOnBounds="true">
                                         <image>
-                                            <Image url = "icons\leftRightArrows-02.png"/>
+                                            <Image url = "file:icons\leftRightArrows-02.png"/>
                                         </image>
                                     </ImageView>
                                 </graphic>
@@ -192,7 +192,7 @@
 
                             <Button fx:id="clear" text="CE"
                                     GridPane.rowIndex="0" GridPane.columnIndex="3"
-                                    onAction="#BtnClearAllPress"
+                                    onAction="#BtnClearPress"
                                     styleClass="button, smallButton, operatorButton"/>
                             <Button fx:id="clearOne" text="C"
                                     GridPane.rowIndex="0" GridPane.columnIndex="2"
@@ -211,10 +211,10 @@
         <AnchorPane fx:id="navList" styleClass="navMenuDrawer" AnchorPane.topAnchor="56.0" AnchorPane.bottomAnchor="0.0" prefWidth="180.0" translateX="-180"   >
             <children>
                 <VBox fx:id="navMenuOptions" spacing="10">
-                    <Button text="New Function" styleClass="navMenuButton" onAction="#BtnNewEquation"/>
-                    <Button text="Load Function" styleClass="navMenuButton" onAction="#launchEquationLoader"/>
-                    <Button text="Save Function" styleClass="navMenuButton" onAction="#BtnSaveEquation"/>
-                    <Button text="Manage Functions" styleClass="navMenuButton" onAction="#launchEquationManager"/>
+                    <Button text="Settings" styleClass="navMenuButton"/>
+                    <Button text="New Function" styleClass="navMenuButton"/>
+                    <Button text="Load Function" styleClass="navMenuButton"/>
+                    <Button text="Manage Functions" styleClass="navMenuButton"/>
                 </VBox>
             </children>
         </AnchorPane>
