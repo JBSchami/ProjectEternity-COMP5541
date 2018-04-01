@@ -47,15 +47,15 @@
                                     GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton"
                                     onAction="#BtnNaturalLogPress"/>
-                            <Button fx:id="eulerExp" text="e"
+                            <Button fx:id="eulerExp" text="eᵡ"
                                     GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton"
                                     onAction="#BtnEulerExpPress"/>
-                            <Button fx:id="baseTenExp" text="10E"
+                            <Button fx:id="baseTenExp" text="10ᵡ"
                                     GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton"
                                     onAction="#BtnBaseTenExpPress"/>
-                            <Button fx:id="logBaseTen" text="log"
+                            <Button fx:id="logBaseTen" text="log₁₀(x)"
                                     GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton"
                                     onAction="#BtnLogTenPress"/>
@@ -67,7 +67,7 @@
                                 <graphic>
                                     <ImageView fitHeight="30" fitWidth="30" preserveRatio="true" pickOnBounds="true">
                                         <image>
-                                            <Image url = "file:icons\leftRightArrows-01.png"/>
+                                            <Image url = "icons\leftRightArrows-01.png"/>
                                         </image>
                                     </ImageView>
                                 </graphic>
@@ -79,17 +79,17 @@
                                 <graphic>
                                     <ImageView fitHeight="30" fitWidth="30" preserveRatio="true" pickOnBounds="true">
                                         <image>
-                                            <Image url = "file:icons\leftRightArrows-02.png"/>
+                                            <Image url = "icons\leftRightArrows-02.png"/>
                                         </image>
                                     </ImageView>
                                 </graphic>
                             </Button>
 
-                            <Button fx:id="cos" text="Cos"
+                            <Button fx:id="cos" text="cos(x)"
                                     GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton"
                                     onAction="#BtnCosPress"/>
-                            <Button fx:id="pi" text="pi"
+                            <Button fx:id="pi" text="&#x03c0;"
                                     GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton"
                                     onAction="#BtnPiPress"/>
@@ -219,10 +219,11 @@
             </children>
         </AnchorPane>
 
-        <ToolBar fx:id = "toolbar" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minHeight="56.0"   >
+        <ToolBar fx:id = "toolbar" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" minHeight="56.0">
             <Button fx:id="hamburgerMenu" onAction="#navMenuSlide"/>
             <Pane HBox.hgrow="ALWAYS" />
-            <Button fx:id="angleMode" text = "R" onAction="#changeAngleMode"/>
+            <Button fx:id="precisionSettingButton" text = "d.9" onAction="#changePrecisionSetting" styleClass="settingButton"/>
+            <Button fx:id="angleMode" text = "R" onAction="#changeAngleMode" styleClass="settingButton"/>
         </ToolBar>
 
     </children>
