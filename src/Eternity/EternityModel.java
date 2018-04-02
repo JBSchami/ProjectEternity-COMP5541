@@ -11,7 +11,6 @@ public class EternityModel {
     static ArrayList<String> history;
 
     static double result;
-
     boolean radianSetting = true;
 
     /**

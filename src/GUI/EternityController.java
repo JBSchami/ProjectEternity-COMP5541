@@ -637,7 +637,7 @@ public class EternityController {
                 stage.setResizable(false);
                 eqLoaderActive = true;
                 equationLoaderController.init(this);
-                equationLoaderController.populateEquationSelector();
+                //equationLoaderController.populateEquationSelector();
                 stage.show();
 
             } catch (IOException e) {

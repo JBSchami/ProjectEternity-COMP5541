@@ -54,7 +54,7 @@ public class EquationLoaderController {
             i++;
         }
 
-        equationLoader.setItems(equationsList);
+        //equationLoader.setItems(equationsList);
     }
 
     private Set<String> splitVariablesToSet(String variables){
