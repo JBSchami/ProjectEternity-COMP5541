@@ -1,9 +1,7 @@
-package Eternity;
+package Eternity.Logic;
 
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 public class SemanticsParser {
 

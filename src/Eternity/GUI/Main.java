@@ -1,4 +1,4 @@
-package GUI;
+package Eternity.GUI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

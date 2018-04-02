@@ -1,5 +1,6 @@
 package Eternity;
 
+import Eternity.Logic.SemanticsParser;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
 import org.junit.Test;

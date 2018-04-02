@@ -1,17 +1,19 @@
-package Eternity;
+package Eternity.Logic;
+
+import Eternity.Logic.Equation.EternityEquation;
 
 import java.util.ArrayList;
 
 public class EternityModel {
-    static int nextPosition;
-    static int currentPosition;
+    private static int nextPosition;
+    private static int currentPosition;
 
-    static final int HISTORY_CAPACITY = 10;
+    private static final int HISTORY_CAPACITY = 10;
 
-    static ArrayList<EternityEquation> history;
+    private static ArrayList<EternityEquation> history;
 
-    static double result;
-    boolean radianSetting = true;
+    private static double result;
+    private boolean radianSetting = true;
 
     /**
      * Constructor

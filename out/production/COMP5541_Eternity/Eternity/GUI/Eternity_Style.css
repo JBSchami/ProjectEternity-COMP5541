@@ -166,14 +166,14 @@
     -fx-background-color: transparent;
     -fx-min-height: 40px;
     -fx-min-width: 40px;
-    -fx-background-image: url("../icons/MenuHamburger-01.png");
+    -fx-background-image: url("../../icons/MenuHamburger-01.png");
     -fx-background-size: 30px 30px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 100%;
 }
 
 #hamburgerMenu:hover{
-    -fx-background-image: url("../icons/MenuHamburger-01-01.png");
+    -fx-background-image: url("../../icons/MenuHamburger-01-01.png");
 }
 
 #toolbar{

@@ -1,8 +1,7 @@
 package Eternity;
 
+import Eternity.Logic.EternityEngine;
 import org.junit.Test;
-
-import javax.sound.midi.Soundbank;
 
 import static org.junit.Assert.*;
 

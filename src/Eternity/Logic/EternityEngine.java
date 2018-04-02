@@ -1,4 +1,4 @@
-package Eternity;
+package Eternity.Logic;
 
 public class EternityEngine {
     static private double precision;

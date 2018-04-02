@@ -1,4 +1,4 @@
-package Eternity;
+package Eternity.Logic.Equation;
 
 public class EternityVariable {
     private String varName;

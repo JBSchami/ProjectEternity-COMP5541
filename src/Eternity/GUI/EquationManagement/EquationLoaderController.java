@@ -1,7 +1,7 @@
-package GUI.EquationManager;
+package Eternity.GUI.EquationManagement;
 
-import Eternity.EternityEquation;
-import GUI.EternityController;
+import Eternity.Logic.Equation.EternityEquation;
+import Eternity.GUI.EternityController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -1,25 +1,18 @@
-package GUI.EquationManager;
+package Eternity.GUI.EquationManagement;
 
-import Eternity.EternityEquation;
-import GUI.EternityController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import Eternity.Logic.Equation.EternityEquation;
+import Eternity.GUI.EternityController;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import java.beans.Expression;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

@@ -1,13 +1,12 @@
-package GUI;
+package Eternity.GUI;
 
-import Eternity.EternityEquation;
-import Eternity.EternityModel;
-import Eternity.SemanticsParser;
-import Eternity.EternityVariable;
-import GUI.EquationManager.EquationLoaderController;
-import GUI.EquationManager.EquationManagerController;
+import Eternity.Logic.Equation.EternityEquation;
+import Eternity.Logic.EternityModel;
+import Eternity.Logic.SemanticsParser;
+import Eternity.Logic.Equation.EternityVariable;
+import Eternity.GUI.EquationManagement.EquationLoaderController;
+import Eternity.GUI.EquationManagement.EquationManagerController;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -621,7 +620,7 @@ public class EternityController {
         if (!eqManagerActive) {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                root = loader.load(getClass().getClassLoader().getResource("GUI/EquationManager/Eternity_Equation_Manager.fxml"));
+                root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/Eternity_Equation_Manager.fxml"));
                 loader.setController(equationManagerController);
                 equationManagerController = loader.getController();
                 Stage stage;
@@ -650,7 +649,7 @@ public class EternityController {
         if (!eqLoaderActive) {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                root = loader.load(getClass().getClassLoader().getResource("GUI/EquationManager/EquationLoader.fxml"));
+                root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/EquationLoader.fxml"));
                 loader.setController(equationLoaderController);
                 equationLoaderController = loader.getController();
                 Stage stage;

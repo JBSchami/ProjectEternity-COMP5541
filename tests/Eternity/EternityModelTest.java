@@ -1,5 +1,6 @@
 package Eternity;
 
+import Eternity.Logic.EternityModel;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

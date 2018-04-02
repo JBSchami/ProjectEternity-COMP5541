@@ -8,7 +8,7 @@
 
 <ListView xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.EquationManager.EquationLoaderController"
+            fx:controller="Eternity.GUI.EquationManagement.EquationLoaderController"
             prefHeight="400.0" prefWidth="600.0"
             fx:id="equationLoader">
 

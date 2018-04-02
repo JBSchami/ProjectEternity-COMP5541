@@ -1,4 +1,4 @@
-package Eternity;
+package Eternity.Logic.Equation;
 
 import java.util.Set;
 
