@@ -8,7 +8,7 @@ public class EternityModel {
 
     static final int HISTORY_CAPACITY = 10;
 
-    static ArrayList<String> history;
+    static ArrayList<EternityEquation> history;
 
     static double result;
     boolean radianSetting = true;
@@ -53,17 +53,24 @@ public class EternityModel {
      * kept is limited by HISTORY_CAPACITY.
      * @param newEntry the new expression to add to the list
      */
-    public void pushBackHistory(String newEntry){
-        if(nextPosition + 1 > HISTORY_CAPACITY){
-            history.remove(0);
-            history.add(newEntry);
-            nextPosition = 0;
+    public void pushBackHistory(EternityEquation newEntry){
+        System.out.println(history.contains(newEntry));
+        if (!history.contains(newEntry)){
+
+            if(nextPosition + 1 > HISTORY_CAPACITY){
+                history.remove(0);
+                history.add(newEntry);
+                nextPosition = 0;
+                System.out.println("Added: " + newEntry.getEquation());
+            }
+            else{
+                System.out.println("Added: " + newEntry.getEquation());
+                history.add(newEntry);
+            }
+            nextPosition++;
+            currentPosition = nextPosition;
+            System.out.println(nextPosition);
         }
-        else{
-            history.add(newEntry);
-        }
-        nextPosition++;
-        currentPosition = nextPosition;
     }
 
     /**
@@ -72,16 +79,18 @@ public class EternityModel {
      * expressions they have entered during a session.
      * @return the previous expression in the list of the session
      */
-    public String previousHistory(){
+    public EternityEquation previousHistory(){
         try {
             if (currentPosition - 1 < 0) {
+
                 return history.get(currentPosition);
             } else {
+
                 return history.get(--currentPosition);
             }
         }
         catch (IndexOutOfBoundsException e){
-            return "";
+            return null;
         }
     }
 
@@ -91,7 +100,7 @@ public class EternityModel {
      * expressions they have entered during a session.
      * @return the next expression in the list of the session
      */
-    public String nextHistory(){
+    public EternityEquation nextHistory(){
         try {
             if (currentPosition + 1 >= HISTORY_CAPACITY || currentPosition + 1 >= history.size()) {
                 return history.get(currentPosition);
@@ -100,8 +109,12 @@ public class EternityModel {
             }
         }
         catch (IndexOutOfBoundsException e){
-            return "";
+            return null;
         }
+    }
+
+    public void resetCurrentPosition(){
+        currentPosition = nextPosition;
     }
 
     public void clearHistory(){

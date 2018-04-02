@@ -1,11 +1,13 @@
 package GUI;
 
+import Eternity.EternityEquation;
 import Eternity.EternityModel;
 import Eternity.SemanticsParser;
 import Eternity.EternityVariable;
 import GUI.EquationManager.EquationLoaderController;
 import GUI.EquationManager.EquationManagerController;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,8 +45,8 @@ public class EternityController {
     private static ArrayList<Function> customFunctions = new ArrayList<>();
     private static EternityModel eternityModel = new EternityModel();
 
+    private static EternityEquation eternityEquation = new EternityEquation();
     private static String equationString = new String();
-
     private static Set<EternityVariable> eternityVariables = new HashSet<>();
     private static Set<String> variableNames = new HashSet<>();
 
@@ -64,6 +66,10 @@ public class EternityController {
         customFunctions.add(parser.eEulerExp);
         customFunctions.add(parser.eLog);
         customFunctions.add(parser.eNaturalLog);
+    }
+
+    public void shutdown(){
+        System.out.println("Terminating calculator");
     }
 
     @FXML
@@ -198,6 +204,7 @@ public class EternityController {
         equationField.setText("");
         equationString = "";
         containsVariables = false;
+        eternityModel.resetCurrentPosition();
     }
     @FXML
     protected void BtnClearAllPress(){
@@ -206,16 +213,32 @@ public class EternityController {
     @FXML
     protected void BtnNextHistoryPress(){
         equationField.clear();
-        equationField.setText(eternityModel.nextHistory());
+        eternityEquation = eternityModel.nextHistory();
+        equationField.setText(eternityEquation.getDisplayEquation());
+        equationString = eternityEquation.getEquation();
+        variableNames = eternityEquation.getVariable();
+        if(!variableNames.isEmpty()){
+            containsVariables = true;
+        }
     }
     @FXML
     protected void BtnPreviousHistoryPress(){
         equationField.clear();
-        equationField.setText(eternityModel.previousHistory());
+        eternityEquation = eternityModel.previousHistory();
+        equationField.setText(eternityEquation.getDisplayEquation());
+        equationString = eternityEquation.getEquation();
+        variableNames = eternityEquation.getVariable();
+        if(!variableNames.isEmpty()){
+            containsVariables = true;
+        }
     }
     @FXML
     protected void BtnEqualPress(){
-        eternityModel.pushBackHistory(equationField.getText());
+        eternityEquation.setDisplayEquation(equationField.getText());
+        eternityEquation.setEquation(equationString);
+        eternityEquation.setVariable(variableNames);
+        equationString = eternityEquation.getEquation();
+        eternityModel.pushBackHistory(new EternityEquation(eternityEquation.getEquation(),eternityEquation.getDisplayEquation(),eternityEquation.getVariable()));
         if(containsVariables){
             evaluateExpressionWithVariables();
         }
@@ -579,13 +602,16 @@ public class EternityController {
     @FXML
     protected void BtnNewEquation(){
         BtnClearPress();
+        eternityEquation = new EternityEquation();
         equationManagerController.clearEquationVariables();
         launchEquationManager();
     }
 
     @FXML
     protected void BtnSaveEquation(){
-        equationManagerController.saveEquation(variableNames, equationString);
+        eternityEquation.setEquation(equationString);
+        eternityEquation.setVariable(variableNames);
+        equationManagerController.saveEquation(eternityEquation);
         navMenuSlide();
     }
 

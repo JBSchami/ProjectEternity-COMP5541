@@ -1,5 +1,6 @@
 package GUI.EquationManager;
 
+import Eternity.EternityEquation;
 import GUI.EternityController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,6 +38,7 @@ public class EquationManagerController {
     public static ArrayList<Button> varButtons = new ArrayList<>();
     public static ArrayList<String> varButtonNames = new ArrayList<>();
     public static ArrayList<TextField> valueInputs = new ArrayList<>();
+
     public int id = 0;
 
     @FXML public void initialize(){
@@ -145,7 +147,9 @@ public class EquationManagerController {
         varButtonNames.clear();
     }
 
-    public void saveEquation(Set<String> variableNames, String expression){
+    public void saveEquation(EternityEquation equationToSave){
+        Set<String> variableNames = equationToSave.getVariable();
+        String expression = equationToSave.getEquation();
         String variableNameString = new String();
         int i = 0;
         for(String varName:variableNames){
