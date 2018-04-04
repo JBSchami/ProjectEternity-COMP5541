@@ -659,28 +659,8 @@ public class EternityController {
     private boolean eqLoaderActive = false;
     @FXML
     protected void launchEquationLoader(){
-        Parent root;
         if (!eqLoaderActive) {
-            try {
-                FXMLLoader loader = new FXMLLoader();
-                root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/EquationLoader.fxml"));
-                loader.setController(equationLoaderController);
-                equationLoaderController = loader.getController();
-                Stage stage;
-                stage = new Stage();
-                stage.setTitle("Eternity Loader");
-                stage.setScene(new Scene(root, 250, 400));
-                stage.setOnHidden(e -> {
-                    eqLoaderActive = false;
-                });
-                stage.setResizable(false);
-                eqLoaderActive = true;
-                equationLoaderController.init(this);
-                stage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            equationLoaderController.init(this);
         }
         navMenuSlide();
     }
@@ -708,5 +688,9 @@ public class EternityController {
     @FXML
     public LinkedList<EternityEquation> getEternityModelHistory(){
         return eternityModel.getHistory();
+    }
+
+    public void setEqLoaderActive(boolean eqLoaderActive) {
+        this.eqLoaderActive = eqLoaderActive;
     }
 }

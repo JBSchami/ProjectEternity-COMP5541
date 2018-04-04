@@ -3,12 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <fx:root type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <stylesheets>
+        <URL value = "@Equation_Cell.css"/>
+    </stylesheets>
     <graphic>
         <VBox>
             <children>
-                <Label fx:id="equationName" />
-                <Label fx:id="variableNames" />
+                <Label fx:id="equationName" styleClass="name" />
+                <Label fx:id="equation" styleClass="eq"/>
             </children>
         </VBox>
     </graphic>

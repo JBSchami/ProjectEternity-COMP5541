@@ -1,5 +1,6 @@
 package Eternity.Logic.Equation;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class EternityEquation {
@@ -10,6 +11,12 @@ public class EternityEquation {
     public EternityEquation(String equation, String displayEquation, Set<String> variable) {
         this.equation = equation;
         this.variable = variable;
+        this.displayEquation = displayEquation;
+    }
+
+    public EternityEquation(String displayEquation) {
+        this.equation = displayEquation;
+        this.variable = new HashSet<>();
         this.displayEquation = displayEquation;
     }
 

@@ -16,7 +16,7 @@ import java.util.Set;
 public class EquationCell extends ListCell<EternityEquation> {
     @FXML private Label equationName;
 
-    @FXML private Label variableNames;
+    @FXML private Label equation;
 
     public EquationCell(){
         loadFXML();
@@ -43,11 +43,8 @@ public class EquationCell extends ListCell<EternityEquation> {
             setContentDisplay(ContentDisplay.TEXT_ONLY);
         }
         else{
-            equationName.setText(item.getEquation());
-            Set<String> variables = item.getVariable();
-            for(String variableName:variables){
-                variableNames.setText(variableNames.getText().concat(variableName));
-            }
+            equationName.setText("My Equation Name");
+            equation.setText(item.getDisplayEquation());
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }
     }

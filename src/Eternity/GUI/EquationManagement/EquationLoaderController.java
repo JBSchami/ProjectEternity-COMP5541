@@ -5,7 +5,15 @@ import Eternity.GUI.MainView.EternityController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -20,19 +28,39 @@ public class EquationLoaderController {
 
     @FXML public void init(EternityController mainController) {
         this.mainController = mainController;
+        equationLoader = new ListView<>();
+        //Parent root;
+        try {
+            VBox box = new VBox();
+            //FXMLLoader loader = new FXMLLoader();
+            //root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/EquationLoader.fxml"));
+            Stage stage;
+            stage = new Stage();
+            stage.setTitle("Eternity Loader");
+            LinkedList<EternityEquation> equations = mainController.getEternityModelHistory();
+            ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
+            stage.setScene(new Scene(box, 250, 400));
+            stage.setOnHidden(e -> {
+                mainController.setEqLoaderActive(false);
+            });
+            box.getChildren().addAll(equationLoader);
+            VBox.setVgrow(equationLoader, Priority.ALWAYS);
 
-        LinkedList<EternityEquation> equations = mainController.getEternityModelHistory();
-        for (EternityEquation et:equations){
-            System.out.println("equation: " + et.getEquation());
+
+            equationLoader.setItems(equationList);
+            equationLoader.setCellFactory(new Callback<ListView<EternityEquation>,ListCell<EternityEquation>>() {
+                   @Override
+            public ListCell<EternityEquation> call(ListView<EternityEquation> list) {
+                return new EquationCell();
+            }
         }
-        ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
+            );
 
-        equationLoader = new ListView<>(equationList);
-        equationLoader.setCellFactory(new EquationCellFactory());
-    }
+            stage.show();
 
-    @FXML
-    private void initialize(){
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
     }
 
