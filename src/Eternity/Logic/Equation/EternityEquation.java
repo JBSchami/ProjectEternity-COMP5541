@@ -49,8 +49,9 @@ public class EternityEquation {
         boolean retVal = false;
 
         if (test instanceof EternityEquation){
-            EternityEquation ptr = (EternityEquation) test;
-            retVal = ptr.getEquation().equals(this.getEquation());
+            EternityEquation testAgainst = (EternityEquation) test;
+            retVal = testAgainst.getEquation().equals(this.getEquation());
+            System.out.println(testAgainst.getEquation() + " vs " + this.getEquation());
         }
 
         return retVal;

@@ -1,7 +1,7 @@
 package Eternity.GUI.EquationManagement;
 
 import Eternity.Logic.Equation.EternityEquation;
-import Eternity.GUI.EternityController;
+import Eternity.GUI.MainView.EternityController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

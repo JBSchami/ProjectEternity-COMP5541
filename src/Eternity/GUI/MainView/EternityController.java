@@ -1,4 +1,4 @@
-package Eternity.GUI;
+package Eternity.GUI.MainView;
 
 import Eternity.Logic.Equation.EternityEquation;
 import Eternity.Logic.EternityModel;

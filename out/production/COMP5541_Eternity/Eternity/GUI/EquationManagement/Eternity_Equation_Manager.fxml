@@ -21,7 +21,7 @@
             >
 
     <stylesheets>
-        <URL value = "@../Eternity_Style.css"/>
+        <URL value = "@../MainView/Eternity_Style.css"/>
         <URL value = "@Equation_Manager_Style.css"/>
     </stylesheets>
 

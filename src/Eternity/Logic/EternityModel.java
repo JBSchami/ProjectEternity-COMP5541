@@ -5,12 +5,13 @@ import Eternity.Logic.Equation.EternityEquation;
 import java.util.ArrayList;
 
 public class EternityModel {
-    private static int nextPosition;
+    private static int searchPosition;
     private static int currentPosition;
+    private static boolean lapAround;
 
     private static final int HISTORY_CAPACITY = 10;
 
-    private static ArrayList<EternityEquation> history;
+    private static EternityEquation[] history;
 
     private static double result;
     private boolean radianSetting = true;
@@ -19,10 +20,11 @@ public class EternityModel {
      * Constructor
      */
     public EternityModel() {
-        nextPosition = 0;
+        searchPosition = 0;
         currentPosition = 0;
         result = 0;
-        history = new ArrayList<>();
+        lapAround = false;
+        history = new EternityEquation[HISTORY_CAPACITY];
     }
 
     public void setRadianSetting(boolean radianSetting) {
@@ -56,22 +58,10 @@ public class EternityModel {
      * @param newEntry the new expression to add to the list
      */
     public void pushBackHistory(EternityEquation newEntry){
-        System.out.println(history.contains(newEntry));
-        if (!history.contains(newEntry)){
-
-            if(nextPosition + 1 > HISTORY_CAPACITY){
-                history.remove(0);
-                history.add(newEntry);
-                nextPosition = 0;
-                System.out.println("Added: " + newEntry.getEquation());
-            }
-            else{
-                System.out.println("Added: " + newEntry.getEquation());
-                history.add(newEntry);
-            }
-            nextPosition++;
-            currentPosition = nextPosition;
-            System.out.println(nextPosition);
+        history[currentPosition%HISTORY_CAPACITY] = newEntry;
+        currentPosition++;
+        if(currentPosition > HISTORY_CAPACITY){
+            lapAround = true;
         }
     }
 
@@ -83,12 +73,11 @@ public class EternityModel {
      */
     public EternityEquation previousHistory(){
         try {
-            if (currentPosition - 1 < 0) {
-
-                return history.get(currentPosition);
+            if (!lapAround && searchPosition-1 < 0) {
+                searchPosition = 0;
+                return history[searchPosition];
             } else {
-
-                return history.get(--currentPosition);
+                return history[searchPosition--];
             }
         }
         catch (IndexOutOfBoundsException e){
@@ -104,10 +93,10 @@ public class EternityModel {
      */
     public EternityEquation nextHistory(){
         try {
-            if (currentPosition + 1 >= HISTORY_CAPACITY || currentPosition + 1 >= history.size()) {
-                return history.get(currentPosition);
+            if (!lapAround && searchPosition >= currentPosition) {
+                return history[currentPosition-1];
             } else {
-                return history.get(++currentPosition);
+                return history[searchPosition++];
             }
         }
         catch (IndexOutOfBoundsException e){
@@ -116,12 +105,12 @@ public class EternityModel {
     }
 
     public void resetCurrentPosition(){
-        currentPosition = nextPosition;
+        searchPosition = currentPosition%HISTORY_CAPACITY;
     }
 
     public void clearHistory(){
-        history.clear();
+        history = new EternityEquation[HISTORY_CAPACITY];
         currentPosition = 0;
-        nextPosition = 0;
+        searchPosition = currentPosition;
     }
 }
