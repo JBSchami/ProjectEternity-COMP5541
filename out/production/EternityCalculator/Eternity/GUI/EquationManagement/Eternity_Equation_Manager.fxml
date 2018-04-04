@@ -13,7 +13,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.EquationManager.EquationManagerController"
+            fx:controller="Eternity.GUI.EquationManagement.EquationManagerController"
             prefHeight="200.0" prefWidth="370.0"
             styleClass="equationManager"
             alignment="TOP_CENTER"
@@ -21,12 +21,12 @@
             >
 
     <stylesheets>
-        <URL value = "@../Eternity_Style.css"/>
+        <URL value = "@../MainView/Eternity_Style.css"/>
         <URL value = "@Equation_Manager_Style.css"/>
     </stylesheets>
 
     <TextField fx:id="newVarText" promptText="Enter New Variable Name"/>
-    <Button text="Create New Variable" onAction="#addVarToList" fx:id="newVarBtn" styleClass="button, numButton"/>
+    <Button text="Create New Variable" onAction="#addVarToList" fx:id="newVarBtn" styleClass="button, equationManagerButton"/>
 
     <ScrollPane fx:id="varViewer">
 

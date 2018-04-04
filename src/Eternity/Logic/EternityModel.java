@@ -2,16 +2,16 @@ package Eternity.Logic;
 
 import Eternity.Logic.Equation.EternityEquation;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class EternityModel {
     private static int searchPosition;
-    private static int currentPosition;
-    private static boolean lapAround;
 
     private static final int HISTORY_CAPACITY = 10;
 
-    private static EternityEquation[] history;
+    private static LinkedList<EternityEquation> history;
 
     private static double result;
     private boolean radianSetting = true;
@@ -21,10 +21,8 @@ public class EternityModel {
      */
     public EternityModel() {
         searchPosition = 0;
-        currentPosition = 0;
         result = 0;
-        lapAround = false;
-        history = new EternityEquation[HISTORY_CAPACITY];
+        history = new LinkedList<>();
     }
 
     public void setRadianSetting(boolean radianSetting) {
@@ -58,10 +56,22 @@ public class EternityModel {
      * @param newEntry the new expression to add to the list
      */
     public void pushBackHistory(EternityEquation newEntry){
-        history[currentPosition%HISTORY_CAPACITY] = newEntry;
-        currentPosition++;
-        if(currentPosition > HISTORY_CAPACITY){
-            lapAround = true;
+        if(!history.contains(newEntry)){
+            System.out.println("Adding: " + newEntry.getEquation());
+            if(history.size() < HISTORY_CAPACITY){
+                history.add(newEntry);
+                System.out.println("Within limits: " + history.size());
+                searchPosition++;
+            }
+            else{
+                System.out.println("Out of limits: " + history.size());
+                history.removeFirst();
+                history.add(newEntry);
+                searchPosition = history.size()-1;
+            }
+        }
+        for(EternityEquation eq : history){
+            System.out.println(eq.getEquation());
         }
     }
 
@@ -73,15 +83,12 @@ public class EternityModel {
      */
     public EternityEquation previousHistory(){
         try {
-            if (!lapAround && searchPosition-1 < 0) {
-                searchPosition = 0;
-                return history[searchPosition];
-            } else {
-                return history[searchPosition--];
-            }
+            searchPosition--;
+            return history.get(searchPosition);
         }
         catch (IndexOutOfBoundsException e){
-            return null;
+            searchPosition = 0;
+            return history.getFirst();
         }
     }
 
@@ -93,24 +100,25 @@ public class EternityModel {
      */
     public EternityEquation nextHistory(){
         try {
-            if (!lapAround && searchPosition >= currentPosition) {
-                return history[currentPosition-1];
-            } else {
-                return history[searchPosition++];
-            }
+            searchPosition++;
+            return history.get(searchPosition);
         }
         catch (IndexOutOfBoundsException e){
-            return null;
+            searchPosition = history.size()-1;
+            return history.getLast();
         }
     }
 
     public void resetCurrentPosition(){
-        searchPosition = currentPosition%HISTORY_CAPACITY;
+        searchPosition = history.size()-1;
     }
 
     public void clearHistory(){
-        history = new EternityEquation[HISTORY_CAPACITY];
-        currentPosition = 0;
-        searchPosition = currentPosition;
+        history.clear();
+        searchPosition = 0;
+    }
+
+    public static LinkedList<EternityEquation> getHistory() {
+        return history;
     }
 }

@@ -200,35 +200,48 @@ public class EternityController {
     @FXML
     protected void BtnClearPress(){
         result = 0;
-        equationField.setText("");
+        equationField.clear();
         equationString = "";
         containsVariables = false;
         eternityModel.resetCurrentPosition();
     }
     @FXML
     protected void BtnClearAllPress(){
-
+        result = 0;
+        equationField.clear();
+        equationString = "";
+        containsVariables = false;
+        eternityModel.clearHistory();
     }
     @FXML
     protected void BtnNextHistoryPress(){
         equationField.clear();
-        eternityEquation = eternityModel.nextHistory();
-        equationField.setText(eternityEquation.getDisplayEquation());
-        equationString = eternityEquation.getEquation();
-        variableNames = eternityEquation.getVariable();
-        if(!variableNames.isEmpty()){
-            containsVariables = true;
+        try{
+            eternityEquation = eternityModel.nextHistory();
+            equationField.setText(eternityEquation.getDisplayEquation());
+            equationString = eternityEquation.getEquation();
+            variableNames = eternityEquation.getVariable();
+            if(!variableNames.isEmpty()){
+                containsVariables = true;
+            }
+        } catch (NoSuchElementException e){
+            //Do nothing
         }
+
     }
     @FXML
     protected void BtnPreviousHistoryPress(){
         equationField.clear();
-        eternityEquation = eternityModel.previousHistory();
-        equationField.setText(eternityEquation.getDisplayEquation());
-        equationString = eternityEquation.getEquation();
-        variableNames = eternityEquation.getVariable();
-        if(!variableNames.isEmpty()){
-            containsVariables = true;
+        try{
+            eternityEquation = eternityModel.previousHistory();
+            equationField.setText(eternityEquation.getDisplayEquation());
+            equationString = eternityEquation.getEquation();
+            variableNames = eternityEquation.getVariable();
+            if(!variableNames.isEmpty()){
+                containsVariables = true;
+            }
+        }catch(NoSuchElementException e){
+            //Do nothing
         }
     }
     @FXML
@@ -244,6 +257,7 @@ public class EternityController {
         else {
             evaluateExpressionWithoutVariables();
         }
+        equationString = equationField.getText();
     }
 
     /**
@@ -655,14 +669,13 @@ public class EternityController {
                 Stage stage;
                 stage = new Stage();
                 stage.setTitle("Eternity Loader");
-                stage.setScene(new Scene(root, 370, 560));
+                stage.setScene(new Scene(root, 250, 400));
                 stage.setOnHidden(e -> {
                     eqLoaderActive = false;
                 });
                 stage.setResizable(false);
                 eqLoaderActive = true;
                 equationLoaderController.init(this);
-                //equationLoaderController.populateEquationSelector();
                 stage.show();
 
             } catch (IOException e) {
@@ -690,5 +703,10 @@ public class EternityController {
         for(int i = 0; i < varNames.size(); i++){
             eternityVariables.add(new EternityVariable("_"+varNames.get(i).getText()+"_", varValues.get(i)));
         }
+    }
+
+    @FXML
+    public LinkedList<EternityEquation> getEternityModelHistory(){
+        return eternityModel.getHistory();
     }
 }

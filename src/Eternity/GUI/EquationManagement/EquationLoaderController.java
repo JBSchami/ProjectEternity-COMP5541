@@ -5,7 +5,6 @@ import Eternity.GUI.MainView.EternityController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
@@ -13,25 +12,30 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class EquationLoaderController {
-    @FXML protected ListView equationLoader;
-    @FXML protected EternityController mainController;
-    public static final ObservableList data = FXCollections.observableArrayList();
-
-    private static Set<EternityEquation> equationsList = new HashSet<>();
-
-    private ArrayList<Button> varButtons = new ArrayList<>();
+    @FXML protected ListView<EternityEquation> equationLoader;
+    @FXML private EternityController mainController;
 
     @FXML public void init(EternityController mainController) {
-        mainController = mainController;
+        this.mainController = mainController;
+
+        LinkedList<EternityEquation> equations = mainController.getEternityModelHistory();
+        for (EternityEquation et:equations){
+            System.out.println("equation: " + et.getEquation());
+        }
+        ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
+
+        equationLoader = new ListView<>(equationList);
+        equationLoader.setCellFactory(new EquationCellFactory());
     }
 
     @FXML
+    private void initialize(){
+
+    }
+
     private List<String> readEquations(){
         List<String> lines = new ArrayList<>();
         try{
@@ -46,19 +50,6 @@ public class EquationLoaderController {
         return lines;
     }
 
-//    @FXML
-//    public void populateEquationsList(){
-//        List<String> lines = readEquations();
-//        int i = 0;
-//        for(String line:lines){
-//            String[] temp = line.split("<>");
-//            equationsList.add(new EternityEquation(temp[0], splitVariablesToSet(temp[1])));
-//            i++;
-//        }
-//
-//        //equationLoader.setItems(equationsList);
-//    }
-
     private Set<String> splitVariablesToSet(String variables){
         Set<String> vars = new HashSet<>();
         String[] splitString = variables.split(",");
@@ -68,22 +59,15 @@ public class EquationLoaderController {
         return vars;
     }
 
-//    @FXML
-//    protected void addVarToScrollPane(){
-//        VBox scrollContents = new VBox();
-//        scrollContents.getStyleClass().add("mainWrapper");
-//        scrollContents.setSpacing(10);
-//        int i = 0;
-//        for(Button btn : varButtons){
-//            HBox variableCombo = new HBox();
-//            variableCombo.setSpacing(10);
-//            //variableCombo.getStyleClass().add("mainWrapper");
-//            variableCombo.getChildren().add(btn);
-//            variableCombo.getChildren().add(valueInputs.get(i));
-//            i++;
-//            scrollContents.getChildren().add(variableCombo);
-//        }
-//        varViewer.setContent(scrollContents);
-//    }
+    @FXML
+    public void populateList(){
+        LinkedList<EternityEquation> equations = mainController.getEternityModelHistory();
+        for (EternityEquation et:equations){
+            System.out.println("equation: " + et.getEquation());
+        }
+        ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
+        equationLoader.getItems().addAll(equationList);
 
+
+    }
 }

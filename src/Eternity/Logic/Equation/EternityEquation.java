@@ -51,9 +51,16 @@ public class EternityEquation {
         if (test instanceof EternityEquation){
             EternityEquation testAgainst = (EternityEquation) test;
             retVal = testAgainst.getEquation().equals(this.getEquation());
-            System.out.println(testAgainst.getEquation() + " vs " + this.getEquation());
         }
 
         return retVal;
+    }
+
+    @Override
+    public int hashCode(){
+        int hash = 1;
+        hash += Integer.parseInt(this.getEquation());
+        hash *= 31;
+        return hash;
     }
 }
