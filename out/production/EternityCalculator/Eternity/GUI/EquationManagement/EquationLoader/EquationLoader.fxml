@@ -5,7 +5,7 @@
 
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="Eternity.GUI.EquationManagement.EquationLoaderController"
+          fx:controller="Eternity.GUI.EquationManagement.EquationLoader.EquationLoaderController"
           prefHeight="400.0" prefWidth="600.0"
           hgap="10" vgap="10" alignment="center"
             >

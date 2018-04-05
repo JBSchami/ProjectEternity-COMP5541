@@ -4,15 +4,12 @@ import Eternity.Logic.Equation.EternityEquation;
 import Eternity.Logic.EternityModel;
 import Eternity.Logic.SemanticsParser;
 import Eternity.Logic.Equation.EternityVariable;
-import Eternity.GUI.EquationManagement.EquationLoaderController;
-import Eternity.GUI.EquationManagement.EquationManagerController;
+import Eternity.GUI.EquationManagement.EquationLoader.EquationLoaderController;
+import Eternity.GUI.EquationManagement.EquationManager.EquationManagerController;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -20,12 +17,11 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
-import java.io.IOException;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -243,38 +239,39 @@ public class EternityController {
     }
     @FXML
     protected void BtnNextHistoryPress(){
-        equationField.clear();
-        try{
-            eternityEquation = eternityModel.nextHistory();
-            equationField.setText(eternityEquation.getDisplayEquation());
-            variableNames = eternityEquation.getVariable();
-            if(!variableNames.isEmpty()){
-                containsVariables = true;
-            }
-        } catch (NoSuchElementException e){
-            //Do nothing
-        }
+//        equationField.clear();
+//        try{
+//            eternityEquation = eternityModel.nextHistory();
+//            equationField.setText(eternityEquation.getDisplayEquation());
+//            variableNames = eternityEquation.getVariable();
+//            if(!variableNames.isEmpty()){
+//                containsVariables = true;
+//            }
+//        } catch (NoSuchElementException e){
+//            //Do nothing
+//        }
 
     }
     @FXML
     protected void BtnPreviousHistoryPress(){
-        equationField.clear();
-        try{
-            eternityEquation = eternityModel.previousHistory();
-            equationField.setText(eternityEquation.getDisplayEquation());
-            variableNames = eternityEquation.getVariable();
-            if(!variableNames.isEmpty()){
-                containsVariables = true;
-            }
-        }catch(NoSuchElementException e){
-            //Do nothing
-        }
+//        equationField.clear();
+//        try{
+//            eternityEquation = eternityModel.previousHistory();
+//            equationField.setText(eternityEquation.getDisplayEquation());
+//            variableNames = eternityEquation.getVariable();
+//            if(!variableNames.isEmpty()){
+//                containsVariables = true;
+//            }
+//        }catch(NoSuchElementException e){
+//            //Do nothing
+//        }
     }
     @FXML
     protected void BtnEqualPress(){
         eternityEquation.setVariable(variableNames);
-        EternityEquation pushBackEquation = new EternityEquation(eternityEquation.getEquation(),eternityEquation.getDisplayEquation(),eternityEquation.getVariable());
-        eternityModel.pushBackHistory(pushBackEquation);
+        eternityModel.setResult(0);
+        //EternityEquation pushBackEquation = new EternityEquation(eternityEquation.getEquation(),eternityEquation.getDisplayEquation(),eternityEquation.getVariable());
+        //eternityModel.pushBackHistory(pushBackEquation);
         if(containsVariables){
             evaluateExpressionWithVariables();
         }
@@ -283,6 +280,9 @@ public class EternityController {
         }
         eternityEquation.setEquation(equationField.getText());
         eternityEquation.setDisplayEquation(equationField.getText());
+        if(eqManagerActive)
+            equationManagerController.terminate();
+
     }
 
     /**
@@ -302,11 +302,14 @@ public class EternityController {
             for(EternityVariable var: eternityVariables){
                 expression.setVariable(var.getVarName(), var.getVarValue());
             }
-            result = expression.evaluate();
+            eternityModel.setResult(expression.evaluate());
             updateWithResult();
         } catch (java.lang.IllegalArgumentException error) {
             System.out.println(error.getMessage());
             equationField.setText(error.getMessage());
+        } catch (ArithmeticException ex){
+            System.out.println("Cannot have" + ex.getMessage());
+            equationField.setText(ex.getMessage());
         }
     }
 
@@ -329,7 +332,6 @@ public class EternityController {
     }
 
     private void updateWithResult(){
-        eternityModel.setResult(result);
         int precision = parser.getEnginePrecision();
         DecimalFormat df = new DecimalFormat(getPrecisionFormat(precision));
         df.setRoundingMode(RoundingMode.HALF_UP);
@@ -713,6 +715,13 @@ public class EternityController {
         eternityEquation = loadedEquation;
         equationField.setText(eternityEquation.getDisplayEquation());
         equationManagerController.clearEquationVariables();
+        variableNames = eternityEquation.getVariable();
+        containsVariables = true;
+        if(eqManagerActive){
+            equationManagerController.terminate();
+            eqManagerActive = false;
+        }
+
         launchEquationManager(eternityEquation.getVariable());
     }
 }

@@ -1,4 +1,4 @@
-package Eternity.GUI.EquationManagement;
+package Eternity.GUI.EquationManagement.EquationManager;
 
 import Eternity.Logic.Equation.EternityEquation;
 import Eternity.GUI.MainView.EternityController;
@@ -32,6 +32,7 @@ public class EquationManagerController {
     @FXML private static EternityController eternityController;
     @FXML protected ScrollPane varViewer;
     @FXML protected VBox vBoxRoot;
+    private static Stage stage;
 
     private int variableCount;
     private static ArrayList<Button> varButtons = new ArrayList<>();
@@ -44,43 +45,32 @@ public class EquationManagerController {
         }
     }
 
+    @FXML public void terminate(){
+        eternityController.setEqManagerActive(false);
+        stage.hide();
+    }
+
     /**
      * Launches the stage to create new variables
      * @param mainController allows for interaction between main controller and secondary controller
      */
     @FXML public void init(EternityController mainController) {
         eternityController = mainController;
-        Parent root;
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setController(this);
-            root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/Eternity_Equation_Manager.fxml"));
-            Stage stage;
-            stage = new Stage();
-            stage.setTitle("Eternity Equation Manager");
-            stage.setScene(new Scene(root, 370, 560));
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent event) {
-                    mainController.setEqManagerActive(false);
-                }
-            });
-            stage.setResizable(false);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        basicInit(mainController);
     }
 
     @FXML public void init(EternityController mainController, Set<String> varNames) {
         eternityController = mainController;
         addVarToList(varNames);
+        basicInit(mainController);
+    }
+
+    private void basicInit(EternityController mainController) {
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setController(this);
-            root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/Eternity_Equation_Manager.fxml"));
-            Stage stage;
+            root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/EquationManager/Eternity_Equation_Manager.fxml"));
             stage = new Stage();
             stage.setTitle("Eternity Equation Manager");
             stage.setScene(new Scene(root, 370, 560));
@@ -99,7 +89,7 @@ public class EquationManagerController {
 
     /**
      * Returns all the variable buttons used in the equation
-     * @return
+     * @return the list of variable buttons
      */
     public ArrayList<Button> getVarButtons() {
         return varButtons;
@@ -164,7 +154,7 @@ public class EquationManagerController {
     }
 
     @FXML
-    public void addVarToList(Set<String> variablesToAdd){
+    private void addVarToList(Set<String> variablesToAdd){
         for(String varName : variablesToAdd) {
             if (!varButtonNames.contains(varName)) {
                 Button buttonVar = new Button(varName.replace("_", ""));
@@ -176,7 +166,6 @@ public class EquationManagerController {
                 buttonVar.setId("VarBtn" + variableCount);
                 buttonVar.setOnAction(event -> eternityController.addVariableToEquation(buttonVar.getText()));
                 varButtons.add(buttonVar);
-
 
                 Pattern validEditingState = Pattern.compile("-?(([1-9][0-9]*)|0)?(\\.[0-9]*)?");
                 UnaryOperator<TextFormatter.Change> filter = c -> {
@@ -298,15 +287,5 @@ public class EquationManagerController {
         }catch (IOException err){
             System.out.println("Could not load equations...");
         }
-    }
-
-    @FXML
-    public void refresh(){
-        addVarToScrollPane();
-    }
-
-    @FXML
-    public EquationManagerController linkToMainController(){
-        return this;
     }
 }

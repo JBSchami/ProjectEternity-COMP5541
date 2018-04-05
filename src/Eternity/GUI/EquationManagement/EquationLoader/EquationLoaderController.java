@@ -1,4 +1,4 @@
-package Eternity.GUI.EquationManagement;
+package Eternity.GUI.EquationManagement.EquationLoader;
 
 import Eternity.GUI.EquationManagement.EquationCell.EquationCell;
 import Eternity.Logic.Equation.EternityEquation;
@@ -78,9 +78,6 @@ public class EquationLoaderController {
         try{
             Path file = Paths.get("./Equations/equations.txt");
             lines = Files.readAllLines(file, Charset.forName("UTF-8"));
-            for(String line:lines){
-                System.out.println(line);
-            }
         }catch (IOException err){
             System.out.println("Could not load equations...");
         }
