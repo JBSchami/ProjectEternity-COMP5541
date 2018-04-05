@@ -68,6 +68,7 @@ public class EquationSaver {
     @FXML
     protected void cancelSave(){
         stage.hide();
+        eternityController.navMenuSlide();
 
     }
 }

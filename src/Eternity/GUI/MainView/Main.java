@@ -12,9 +12,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Eternity_View.fxml"));
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        EternityController controller = fxmlLoader.getController();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Eternity_View.fxml"));
+        Parent root = fxmlLoader.load();
+        EternityController controller = (EternityController)fxmlLoader.getController();
+        controller.setPrimaryStage(primaryStage);
         primaryStage.setTitle("Eternity");
         primaryStage.setScene(new Scene(root, 520, 640));
         primaryStage.initStyle(StageStyle.DECORATED);

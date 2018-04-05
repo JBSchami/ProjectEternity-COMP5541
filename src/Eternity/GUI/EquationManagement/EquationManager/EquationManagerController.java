@@ -39,6 +39,8 @@ public class EquationManagerController {
     private static ArrayList<String> varButtonNames = new ArrayList<>();
     private static ArrayList<TextField> valueInputs = new ArrayList<>();
 
+    private static Stage primaryStage;
+
     @FXML public void initialize(){
         if(!varButtons.isEmpty()){
             addVarToScrollPane();
@@ -54,14 +56,16 @@ public class EquationManagerController {
      * Launches the stage to create new variables
      * @param mainController allows for interaction between main controller and secondary controller
      */
-    @FXML public void init(EternityController mainController) {
+    @FXML public void init(EternityController mainController, Stage primaryStage) {
         eternityController = mainController;
+        EquationManagerController.primaryStage = primaryStage;
         basicInit(mainController);
     }
 
-    @FXML public void init(EternityController mainController, Set<String> varNames) {
+    @FXML public void init(EternityController mainController, Set<String> varNames, Stage primaryStage) {
         eternityController = mainController;
         addVarToList(varNames);
+        EquationManagerController.primaryStage = primaryStage;
         basicInit(mainController);
     }
 
@@ -80,7 +84,11 @@ public class EquationManagerController {
                     mainController.setEqManagerActive(false);
                 }
             });
+            stage.setWidth(390);
+            stage.setHeight(560);
             stage.setResizable(false);
+            stage.setX(primaryStage.getX() + primaryStage.getWidth());
+            stage.setY(primaryStage.getY() + primaryStage.getHeight()/2 - stage.getHeight()/2);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -19,6 +19,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -50,6 +51,10 @@ public class EternityController {
 
     private static double result;
 
+    private static Stage primaryStage;
+
+    private boolean menuSlide;
+
     /**
      * Initializes the calculator at startup, notably:
      * - Loads custom functions and operators into the semantics parser
@@ -59,12 +64,17 @@ public class EternityController {
         containsVariables = false;
         eqLoaderActive = false;
         eqManagerActive = false;
+        menuSlide = true;
         parser.setEngineAngle(eternityModel.isRadianSetting());
         customFunctions.add(parser.eBaseTenExp);
         customFunctions.add(parser.eCos);
         customFunctions.add(parser.eEulerExp);
         customFunctions.add(parser.eLog);
         customFunctions.add(parser.eNaturalLog);
+    }
+
+    @FXML public void setPrimaryStage(Stage primaryStage){
+        EternityController.primaryStage = primaryStage;
     }
 
     @FXML
@@ -233,9 +243,13 @@ public class EternityController {
         containsVariables = false;
         //eternityModel.clearHistory();
         equationManagerController.clearEquationVariables();
+        equationManagerController.terminate();
     }
     @FXML
     protected void BtnNextHistoryPress(){
+        menuSlide = false;
+        launchEquationLoader();
+        menuSlide = true;
 //        equationField.clear();
 //        try{
 //            eternityEquation = eternityModel.nextHistory();
@@ -247,10 +261,12 @@ public class EternityController {
 //        } catch (NoSuchElementException e){
 //            //Do nothing
 //        }
-
     }
     @FXML
     protected void BtnPreviousHistoryPress(){
+        menuSlide = false;
+        BtnNewEquation();
+        menuSlide = true;
 //        equationField.clear();
 //        try{
 //            eternityEquation = eternityModel.previousHistory();
@@ -643,7 +659,13 @@ public class EternityController {
         BtnClearPress();
         eternityEquation = new EternityEquation();
         equationManagerController.clearEquationVariables();
-        launchEquationManager();
+        if(eqManagerActive){
+            equationManagerController.terminate();
+            launchEquationManager();
+        }
+        else{
+            launchEquationManager();
+        }
     }
 
     @FXML
@@ -672,16 +694,17 @@ public class EternityController {
     @FXML
     protected void launchEquationManager(){
         if (!eqManagerActive) {
-            equationManagerController.init(this);
+            equationManagerController.init(this, primaryStage);
             eqManagerActive = true;
         }
-        navMenuSlide();
+        if(menuSlide)
+            navMenuSlide();
     }
 
     @FXML
     private void launchEquationManager(Set<String> varNames){
         if (!eqManagerActive) {
-            equationManagerController.init(this, varNames);
+            equationManagerController.init(this, varNames, primaryStage);
             eqManagerActive = true;
         }
     }
@@ -693,7 +716,8 @@ public class EternityController {
             equationLoaderController.init(this);
             eqLoaderActive = true;
         }
-        navMenuSlide();
+        if(menuSlide)
+            navMenuSlide();
     }
 
     private static boolean containsVariables = false;
