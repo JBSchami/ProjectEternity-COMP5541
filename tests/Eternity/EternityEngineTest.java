@@ -44,6 +44,7 @@ public class EternityEngineTest {
         assertEquals(362880, engine.eFactorial(9), 0);
         assertEquals(3628800, engine.eFactorial(10), 0);
         assertEquals(39916800, engine.eFactorial(11), 0);
+        assertEquals(9.4268904488832477456261857430572424738096937640789516E153, engine.eFactorial(98), 0);
     }
 
     @Test
@@ -57,9 +58,10 @@ public class EternityEngineTest {
 
     @Test
     public void eExpYRationalNumbers() {
-        assertEquals(3.161099313715693310847190458066637129267e-19, engine.eExpY(106.789,-9.12), engine.getPrecision());
-        assertEquals(16.414354763489643725483508528328208471385691195116508, engine.eExpY(2.1351,3.689), engine.getPrecision());
-        assertEquals(1158.1331234102452992200476628797011916017513606259170, engine.eExpY(3.12,6.2), engine.getPrecision());
+        assertEquals(0.0064, engine.eExpY(12.5, (long)-2.1), engine.getPrecision());
+        assertEquals(3.161099313715693310847190458066637129267e-19, engine.eExpY(106.789,(long)-9.12), engine.getPrecision());
+        assertEquals(16.414354763489643725483508528328208471385691195116508, engine.eExpY(2.1351,(long)3.689), engine.getPrecision());
+        assertEquals(1158.1331234102452992200476628797011916017513606259170, engine.eExpY(3.12,(long)6.2), engine.getPrecision());
     }
 
     @Test
@@ -129,7 +131,7 @@ public class EternityEngineTest {
     @Test
     public void eLog() {
         assertEquals(1, engine.eLog(10), engine.getPrecision());
-        assertEquals(6.836259277277067070219732918774212996511548720462851195456, engine.eLog(931), engine.getPrecision());
+        assertEquals(2.968949680981342622960765992942201704918274130042428411914, engine.eLog(931), engine.getPrecision());
     }
 
     @Test

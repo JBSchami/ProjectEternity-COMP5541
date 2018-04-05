@@ -174,7 +174,7 @@ public class EternityEngine {
      * @return e^x
      */
     public double eEulerExp(double x) {
-		double e = 0, res = 0;
+        double e = 0, res = 0;
 		long i=0;
 		do {
 		    //double temp = res;
@@ -306,7 +306,7 @@ public class EternityEngine {
 			long i=0;
 			x = (x-1)/(x+1);
 			do {
-				res +=  (e = 2 * eExpY(x, 2*i + 1) / (2*i+1));
+				res +=  (e = 2 * eExpY(x, (long)2*i + 1) / (2*i+1));
 				i++;
 			} while ((precision < e || -precision > e));
 			if (x<=2) {
@@ -315,23 +315,6 @@ public class EternityEngine {
 				return -res;
 			}
 		}
-    }
-
-    /**
-     * Rounds a floating point number to the specified number of decimal places
-     * @author Edip Tac
-     * @param unroundedNumber the number before rounding
-     * @return the rounded number
-     */
-    private double roundNumber(double unroundedNumber){
-        unroundedNumber *= eExpY(10,decimal);
-        if(unroundedNumber<0)
-            unroundedNumber -= 0.5;
-        else
-            unroundedNumber += 0.5;
-        double roundedNumber = (int) unroundedNumber;
-        roundedNumber /= eExpY(10,decimal);
-        return roundedNumber;
     }
     
     /**
