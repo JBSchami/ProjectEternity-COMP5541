@@ -1,6 +1,7 @@
 package Eternity.GUI.MainView;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +19,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 520, 640));
         primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.setResizable(false);
-        //primaryStage.setOnHidden(e -> controller.shutdown());
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
         primaryStage.show();
         root.requestFocus();
     }

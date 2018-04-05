@@ -1,5 +1,7 @@
-%%_a_+_b_-6%%a+b-6%%_a_,_b_
-%%_a__b_%%ab%%_a_,_b_
-%%9_delta_-6_v_/_a_%%9delta-6v/a%%_delta_,_v_,_a_
-%%%%%%_delta_,_v_,_a_
-%%%%%%_a_,_b_
+sample%%_a_-_b_+_c_%%a-b+c%%_c_,_a_,_b_
+next sample%%_alpha_+_gamma_(_betta_)%%alpha+gamma(betta)%%_betta_,_gamma_,_alpha_
+%%_a_*_b_!/_ass_%%a*b!/ass%%_betta_,_ass_,_gamma_,_alpha_,_a_,_b_
+Meta%%_ar_log_alp_%%arlogalp%%_alp_,_ar_
+Another Test%%_omega_!-_b_%%omega!-b%%_omega_,_b_
+dummy%%78-6_b_%%78-6b%%_omega_,_b_
+testing%%78-6_b__a__omega_%%78-6baomega%%_omega_,_a_,_b_

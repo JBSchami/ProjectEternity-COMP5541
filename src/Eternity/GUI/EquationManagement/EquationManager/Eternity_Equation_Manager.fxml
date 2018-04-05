@@ -25,7 +25,7 @@
         <URL value = "@Equation_Manager_Style.css"/>
     </stylesheets>
 
-    <TextField fx:id="newVarText" promptText="Enter New Variable Name"/>
+    <TextField fx:id="newVarText" styleClass="newVarText" promptText="Enter New Variable Name"/>
     <Button text="Create New Variable" onAction="#addVarToList" fx:id="newVarBtn" styleClass="button, equationManagerButton"/>
 
     <ScrollPane fx:id="varViewer">

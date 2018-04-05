@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.TextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Eternity.GUI.EquationManagement.EquationSaver.EquationSaver"
+      prefHeight="400.0" prefWidth="600.0"
+      spacing="10">
+
+    <stylesheets>
+            <URL value = "@../../MainView/Eternity_Style.css"/>
+            <URL value = "@../../EquationManagement/EquationManager/Equation_Manager_Style.css"/>
+            <URL value = "@Equation_Saver_Style.css"/>
+        </stylesheets>
+
+
+            <TextField fx:id="equationNameTF" promptText="Enter Equation Name" styleClass="newVarText"/>
+            <HBox>
+                <children>
+                    <Button text="Save" styleClass="numButton, largeButton" onAction="#saveEquation"/>
+                    <Button text="Cancel" styleClass="numButton, largeButton" onAction="#cancelSave"/>
+                </children>
+            </HBox>
+
+
+</VBox>

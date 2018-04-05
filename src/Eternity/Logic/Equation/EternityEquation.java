@@ -90,4 +90,12 @@ public class EternityEquation {
         hash *= 31;
         return hash;
     }
+
+    public void equationReset(){
+        setEquationName("");
+        setEquation("");
+        setDisplayEquation("");
+        if(variable!=null)
+            variable.clear();
+    }
 }
