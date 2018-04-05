@@ -243,7 +243,9 @@ public class EternityController {
         containsVariables = false;
         //eternityModel.clearHistory();
         equationManagerController.clearEquationVariables();
-        equationManagerController.terminate();
+        if(eqManagerActive)
+            equationManagerController.terminate();
+
     }
     @FXML
     protected void BtnNextHistoryPress(){
@@ -364,6 +366,9 @@ public class EternityController {
         KeyCodeCombination shiftCloseBracket = new KeyCodeCombination(KeyCode.DIGIT0, KeyCodeCombination.SHIFT_DOWN);
         KeyCodeCombination shiftFactorial = new KeyCodeCombination(KeyCode.DIGIT1, KeyCodeCombination.SHIFT_DOWN);
         KeyCodeCombination shiftStar = new KeyCodeCombination(KeyCode.DIGIT8, KeyCodeCombination.SHIFT_DOWN);
+        KeyCodeCombination cntrlSave = new KeyCodeCombination(KeyCode.S, KeyCodeCombination.CONTROL_DOWN);
+        KeyCodeCombination cntrlNew = new KeyCodeCombination(KeyCode.N, KeyCodeCombination.CONTROL_DOWN);
+        KeyCodeCombination cntrlOpen = new KeyCodeCombination(KeyCode.O, KeyCodeCombination.CONTROL_DOWN);
 
         if (shiftPlus.match(event)) {
             BtnPlusPress();
@@ -379,6 +384,21 @@ public class EternityController {
         }
         else if(shiftStar.match(event)){
             BtnMultPress();
+        }
+        else if(cntrlSave.match(event)){
+            menuSlide = false;
+            BtnSaveEquation();
+            menuSlide = true;
+        }
+        else if(cntrlNew.match(event)){
+            menuSlide = false;
+            BtnNewEquation();
+            menuSlide = true;
+        }
+        else if(cntrlOpen.match(event)){
+            menuSlide = false;
+            launchEquationLoader();
+            menuSlide = true;
         }
         else {
             switch (event.getCode()) {
@@ -470,6 +490,10 @@ public class EternityController {
                     break;
 
                 case PERIOD:
+                    BtnDotPress();
+                    break;
+
+                case DECIMAL:
                     BtnDotPress();
                     break;
 
@@ -768,6 +792,7 @@ public class EternityController {
     public void saveEquation(String equationName){
         eternityEquation.setEquationName(equationName);
         equationManagerController.saveEquation(eternityEquation);
-        navMenuSlide();
+        if(menuSlide)
+            navMenuSlide();
     }
 }

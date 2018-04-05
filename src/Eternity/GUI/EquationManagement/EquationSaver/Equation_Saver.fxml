@@ -21,8 +21,8 @@
             <TextField fx:id="equationNameTF" promptText="Enter Equation Name" styleClass="newVarText"/>
             <HBox spacing="10">
                 <children>
-                    <Button text="Save" styleClass="numButton, largeButton" onAction="#saveEquation"/>
-                    <Button text="Cancel" styleClass="numButton, largeButton" onAction="#cancelSave"/>
+                    <Button text="Save" styleClass="numButton, largeButton, saverButton" onAction="#saveEquation"/>
+                    <Button text="Cancel" styleClass="numButton, largeButton, saverButton" onAction="#cancelSave"/>
                 </children>
             </HBox>
 

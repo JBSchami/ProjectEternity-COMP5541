@@ -7,10 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -45,6 +45,8 @@ public class EquationManagerController {
         if(!varButtons.isEmpty()){
             addVarToScrollPane();
         }
+        varViewer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        varViewer.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
     @FXML public void terminate(){
@@ -109,54 +111,65 @@ public class EquationManagerController {
     @FXML
     protected void addVarToList(){
         if(!newVarText.getText().isEmpty()) {
-            if(!varButtonNames.contains(newVarText.getText())){
-            Button buttonVar = new Button(newVarText.getText());
-            varButtonNames.add(newVarText.getText());
-
-                buttonVar.getStyleClass().add("largeButton");
-                buttonVar.getStyleClass().add("button");
-                buttonVar.getStyleClass().add("equationManagerButton");
-                buttonVar.setId("VarBtn" + variableCount);
-                buttonVar.setOnAction(event -> eternityController.addVariableToEquation(buttonVar.getText()));
-                varButtons.add(buttonVar);
-
-
-                Pattern validEditingState = Pattern.compile("-?(([1-9][0-9]*)|0)?(\\.[0-9]*)?");
-                UnaryOperator<TextFormatter.Change> filter = c -> {
-                    String text = c.getControlNewText();
-                    if (validEditingState.matcher(text).matches()) {
-                        return c;
-                    } else {
-                        return null;
-                    }
-                };
-                StringConverter<Double> converter = new StringConverter<Double>() {
-
-                    @Override
-                    public Double fromString(String s) {
-                        if (s.isEmpty() || "-".equals(s) || ".".equals(s) || "-.".equals(s)) {
-                            return 0.0;
-                        } else {
-                            return Double.valueOf(s);
-                        }
-                    }
-
-
-                    @Override
-                    public String toString(Double d) {
-                        return d.toString();
-                    }
-                };
-                TextFormatter<Double> textFormatter = new TextFormatter<Double>(converter, 0.0, filter);
-                TextField varValue = new TextField();
-                varValue.setTextFormatter(textFormatter);
-                varValue.setPromptText("Enter Variable Value");
-                varValue.setId("VarValue" + variableCount);
-                varValue.getStyleClass().add("inputVarValue");
-                variableCount++;
-                valueInputs.add(varValue);
-                addVarToScrollPane();
+            String temp = newVarText.getText();
+            if(Character.isDigit(temp.charAt(0))){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Numeric Value at Start");
+                alert.setHeaderText("A variable name cannot start with a number or symbol");
+                alert.setContentText("Please enter a valid variable name.");
+                alert.showAndWait();
                 newVarText.clear();
+            }
+            else {
+                if (!varButtonNames.contains(newVarText.getText())) {
+                    Button buttonVar = new Button(newVarText.getText());
+                    varButtonNames.add(newVarText.getText());
+
+                    buttonVar.getStyleClass().add("largeButton");
+                    buttonVar.getStyleClass().add("button");
+                    buttonVar.getStyleClass().add("equationManagerButton");
+                    buttonVar.setId("VarBtn" + variableCount);
+                    buttonVar.setOnAction(event -> eternityController.addVariableToEquation(buttonVar.getText()));
+                    varButtons.add(buttonVar);
+
+
+                    Pattern validEditingState = Pattern.compile("-?(([1-9][0-9]*)|0)?(\\.[0-9]*)?");
+                    UnaryOperator<TextFormatter.Change> filter = c -> {
+                        String text = c.getControlNewText();
+                        if (validEditingState.matcher(text).matches()) {
+                            return c;
+                        } else {
+                            return null;
+                        }
+                    };
+                    StringConverter<Double> converter = new StringConverter<Double>() {
+
+                        @Override
+                        public Double fromString(String s) {
+                            if (s.isEmpty() || "-".equals(s) || ".".equals(s) || "-.".equals(s)) {
+                                return 0.0;
+                            } else {
+                                return Double.valueOf(s);
+                            }
+                        }
+
+
+                        @Override
+                        public String toString(Double d) {
+                            return d.toString();
+                        }
+                    };
+                    TextFormatter<Double> textFormatter = new TextFormatter<Double>(converter, 0.0, filter);
+                    TextField varValue = new TextField();
+                    varValue.setTextFormatter(textFormatter);
+                    varValue.setPromptText("Enter Variable Value");
+                    varValue.setId("VarValue" + variableCount);
+                    varValue.getStyleClass().add("inputVarValue");
+                    variableCount++;
+                    valueInputs.add(varValue);
+                    addVarToScrollPane();
+                    newVarText.clear();
+                }
             }
         }
     }
@@ -219,17 +232,20 @@ public class EquationManagerController {
     @FXML
     private void addVarToScrollPane(){
         VBox scrollContents = new VBox();
+        scrollContents.getStyleClass().add("newVar");
         //scrollContents.getStyleClass().add("mainWrapper");
         scrollContents.setSpacing(10);
         int i = 0;
         for(Button btn : varButtons){
             HBox variableCombo = new HBox();
+            variableCombo.getStyleClass().add("newVar");
             variableCombo.setSpacing(10);
             variableCombo.getChildren().add(btn);
             variableCombo.getChildren().add(valueInputs.get(i));
             i++;
             scrollContents.getChildren().add(variableCombo);
         }
+        varViewer.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         varViewer.setContent(scrollContents);
     }
 
@@ -294,6 +310,15 @@ public class EquationManagerController {
             Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
         }catch (IOException err){
             System.out.println("Could not load equations...");
+        }
+    }
+
+    @FXML
+    protected void keyHandler(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                this.addVarToList();
+                break;
         }
     }
 }

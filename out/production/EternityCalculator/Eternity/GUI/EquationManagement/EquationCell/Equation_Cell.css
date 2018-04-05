@@ -1,8 +1,10 @@
 .name{
     -fx-font-size: 1.5em;
     -fx-font-weight: bold;
+    -fx-text-fill: #0045AA;
 }
 
 .eq{
     -fx-font-size: 1.5em;
+    -fx-font-style: italic;
 }
