@@ -57,14 +57,11 @@ public class EternityModel {
      */
     public void pushBackHistory(EternityEquation newEntry){
         if(!history.contains(newEntry)){
-            System.out.println("Adding: " + newEntry.getEquation());
             if(history.size() < HISTORY_CAPACITY){
                 history.add(newEntry);
-                System.out.println("Within limits: " + history.size());
                 searchPosition++;
             }
             else{
-                System.out.println("Out of limits: " + history.size());
                 history.removeFirst();
                 history.add(newEntry);
                 searchPosition = history.size()-1;

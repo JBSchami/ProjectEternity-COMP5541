@@ -4,25 +4,41 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EternityEquation {
+    String equationName;
     String equation;
     String displayEquation;
     Set<String> variable;
 
+    public EternityEquation(String equationName, String equation, String displayEquation, Set<String> variable) {
+        this.equationName = equationName;
+        this.equation = equation;
+        this.variable = variable;
+        this.displayEquation = displayEquation;
+    }
+
     public EternityEquation(String equation, String displayEquation, Set<String> variable) {
+        this.equationName = "";
         this.equation = equation;
         this.variable = variable;
         this.displayEquation = displayEquation;
     }
 
     public EternityEquation(String displayEquation) {
+        this.equationName = "";
         this.equation = displayEquation;
         this.variable = new HashSet<>();
         this.displayEquation = displayEquation;
     }
 
     public EternityEquation() {
+        this.equationName = "";
         this.equation = "";
+        this.displayEquation="";
         this.variable = null;
+    }
+
+    public String getEquationName() {
+        return equationName;
     }
 
     public String getEquation() {
@@ -33,16 +49,20 @@ public class EternityEquation {
         return variable;
     }
 
+    public String getDisplayEquation() {
+        return displayEquation;
+    }
+
+    public void setEquationName(String equationName) {
+        this.equationName = equationName;
+    }
+
     public void setEquation(String equation) {
         this.equation = equation;
     }
 
     public void setVariable(Set<String> variable) {
         this.variable = variable;
-    }
-
-    public String getDisplayEquation() {
-        return displayEquation;
     }
 
     public void setDisplayEquation(String displayEquation) {

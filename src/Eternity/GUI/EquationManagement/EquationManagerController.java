@@ -23,35 +23,36 @@ import java.util.regex.Pattern;
 
 public class EquationManagerController {
     @FXML protected TextField newVarText;
-    @FXML protected static EternityController eternityController;
+    @FXML private static EternityController eternityController;
     @FXML protected ScrollPane varViewer;
     @FXML protected VBox vBoxRoot;
     private int variableCount;
 
-    public static ArrayList<Button> varButtons = new ArrayList<>();
-    public static ArrayList<String> varButtonNames = new ArrayList<>();
-    public static ArrayList<TextField> valueInputs = new ArrayList<>();
-
-    public int id = 0;
+    private static ArrayList<Button> varButtons = new ArrayList<>();
+    private static ArrayList<String> varButtonNames = new ArrayList<>();
+    private static ArrayList<TextField> valueInputs = new ArrayList<>();
 
     @FXML public void initialize(){
         if(!varButtons.isEmpty()){
             addVarToScrollPane();
         }
     }
-    public ArrayList<Button> getVarButtons() {
-        return varButtons;
-    }
 
     @FXML public void init(EternityController mainController){
         eternityController = mainController;
     }
 
-    @FXML
-    public ArrayList<Double> getValueInputs() {
-        return new ArrayList<>();
+    /**
+     * Returns all the variable buttons used in the equation
+     * @return
+     */
+    public ArrayList<Button> getVarButtons() {
+        return varButtons;
     }
 
+    /**
+     * Creates a new variable the user can input into their equation
+     */
     @FXML
     protected void addVarToList(){
         if(!newVarText.getText().isEmpty()) {
@@ -107,8 +108,11 @@ public class EquationManagerController {
         }
     }
 
+    /**
+     * Adds a newly created variable to the scroll pane so the user can select it
+     */
     @FXML
-    protected void addVarToScrollPane(){
+    private void addVarToScrollPane(){
         VBox scrollContents = new VBox();
         //scrollContents.getStyleClass().add("mainWrapper");
         scrollContents.setSpacing(10);
@@ -125,8 +129,12 @@ public class EquationManagerController {
         varViewer.setContent(scrollContents);
     }
 
+    /**
+     * Returns the values input by the user for the created variables
+     * @return the list of values for each variable
+     */
     @FXML
-    public ArrayList<Double> printAllTextFieldValues(){
+    public ArrayList<Double> getAllVariableValues(){
         ArrayList<Double> values = new ArrayList<>();
         for(TextField tf : valueInputs){
             values.add(Double.parseDouble(tf.getText()));
@@ -134,16 +142,30 @@ public class EquationManagerController {
         return values;
     }
 
+    /**
+     * clears the equation variables;
+     */
     public void clearEquationVariables(){
         varButtons.clear();
         valueInputs.clear();
         varButtonNames.clear();
     }
 
+    /**
+     * Saves an equation for reuse
+     * @param equationToSave the equation to save
+     */
     public void saveEquation(EternityEquation equationToSave){
+        //Get the equation name
+        String equationName = equationToSave.getEquationName();
+        //Get the display equation
+        String displayEquation = equationToSave.getDisplayEquation();
+        //Get the actual equation
+        String equation = equationToSave.getEquation();
+        //Get the variable names
         Set<String> variableNames = equationToSave.getVariable();
-        String expression = equationToSave.getEquation();
-        String variableNameString = new String();
+        //Convert variable names to string
+        String variableNameString = "";
         int i = 0;
         for(String varName:variableNames){
             if(i==0){
@@ -154,7 +176,15 @@ public class EquationManagerController {
             }
             i++;
         }
-        List<String> lines = Arrays.asList(expression + "%%" + variableNameString);
+
+        List<String> lines = Collections.singletonList(
+                equationName +
+                "%%" +
+                equation +
+                "%%" +
+                displayEquation+
+                "%%" +
+                variableNameString);
         try{
             Path file = Paths.get("./Equations/equations.txt");
             Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);

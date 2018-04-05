@@ -1,6 +1,6 @@
 package Dummy;
 
-import Eternity.GUI.EquationManagement.EquationCell;
+import Eternity.GUI.EquationManagement.EquationCell.EquationCell;
 import Eternity.Logic.Equation.EternityEquation;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -10,8 +10,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 

@@ -1,5 +1,6 @@
 package Eternity.GUI.EquationManagement;
 
+import Eternity.GUI.EquationManagement.EquationCell.EquationCell;
 import Eternity.Logic.Equation.EternityEquation;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;

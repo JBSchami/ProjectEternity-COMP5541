@@ -212,6 +212,7 @@ public class EternityController {
         equationString = "";
         containsVariables = false;
         eternityModel.clearHistory();
+        equationManagerController.clearEquationVariables();
     }
     @FXML
     protected void BtnNextHistoryPress(){
@@ -272,7 +273,7 @@ public class EternityController {
                     .variables(variableNames)
                     .build();
 
-            ArrayList<Double> values = equationManagerController.printAllTextFieldValues();
+            ArrayList<Double> values = equationManagerController.getAllVariableValues();
             updateVariableValues(equationManagerController.getVarButtons(), values);
             for(EternityVariable var: eternityVariables){
                 expression.setVariable(var.getVarName(), var.getVarValue());

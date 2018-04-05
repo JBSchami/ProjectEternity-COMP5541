@@ -1,8 +1,6 @@
-package Eternity.GUI.EquationManagement;
+package Eternity.GUI.EquationManagement.EquationCell;
 
 import Eternity.Logic.Equation.EternityEquation;
-import Eternity.Logic.Equation.EternityVariable;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContentDisplay;
@@ -10,8 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
 
 public class EquationCell extends ListCell<EternityEquation> {
     @FXML private Label equationName;
@@ -43,7 +39,7 @@ public class EquationCell extends ListCell<EternityEquation> {
             setContentDisplay(ContentDisplay.TEXT_ONLY);
         }
         else{
-            equationName.setText("My Equation Name");
+            equationName.setText(item.getEquationName());
             equation.setText(item.getDisplayEquation());
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }

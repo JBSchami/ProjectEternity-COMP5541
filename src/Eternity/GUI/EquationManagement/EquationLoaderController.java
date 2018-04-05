@@ -1,12 +1,11 @@
 package Eternity.GUI.EquationManagement;
 
+import Eternity.GUI.EquationManagement.EquationCell.EquationCell;
 import Eternity.Logic.Equation.EternityEquation;
 import Eternity.GUI.MainView.EternityController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -29,17 +28,17 @@ public class EquationLoaderController {
     @FXML public void init(EternityController mainController) {
         this.mainController = mainController;
         equationLoader = new ListView<>();
-        //Parent root;
         try {
             VBox box = new VBox();
-            //FXMLLoader loader = new FXMLLoader();
-            //root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/EquationLoader.fxml"));
+
             Stage stage;
             stage = new Stage();
-            stage.setTitle("Eternity Loader");
-            LinkedList<EternityEquation> equations = mainController.getEternityModelHistory();
+            stage.setTitle("Eternity Equation Loader");
+
+            ArrayList<EternityEquation> equations = loadEquations();
             ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
-            stage.setScene(new Scene(box, 250, 400));
+
+            stage.setScene(new Scene(box, 450, 400));
             stage.setOnHidden(e -> {
                 mainController.setEqLoaderActive(false);
             });
@@ -78,6 +77,20 @@ public class EquationLoaderController {
         return lines;
     }
 
+    public ArrayList<EternityEquation> loadEquations(){
+        ArrayList<EternityEquation> equations = new ArrayList<>();
+        List<String> equationDetails = readEquations();
+        for(String st:equationDetails){
+            String[] splitDetails = st.split("%%");
+            equations.add(new EternityEquation(
+                    splitDetails[0],
+                    splitDetails[1],
+                    splitDetails[2],
+                    splitVariablesToSet(splitDetails[3])));
+        }
+        return equations;
+    }
+
     private Set<String> splitVariablesToSet(String variables){
         Set<String> vars = new HashSet<>();
         String[] splitString = variables.split(",");
@@ -85,17 +98,5 @@ public class EquationLoaderController {
             vars.add(st);
         }
         return vars;
-    }
-
-    @FXML
-    public void populateList(){
-        LinkedList<EternityEquation> equations = mainController.getEternityModelHistory();
-        for (EternityEquation et:equations){
-            System.out.println("equation: " + et.getEquation());
-        }
-        ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
-        equationLoader.getItems().addAll(equationList);
-
-
     }
 }
