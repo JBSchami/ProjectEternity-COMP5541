@@ -34,6 +34,7 @@ public class EternityController {
 
     @FXML private EquationManagerController equationManagerController = new EquationManagerController();
     @FXML private EquationLoaderController equationLoaderController = new EquationLoaderController();
+
     @FXML protected TextField equationField;
     @FXML protected AnchorPane navList;
     @FXML protected StackPane mainContent;
@@ -43,9 +44,8 @@ public class EternityController {
     private final static SemanticsParser parser = new SemanticsParser(0.000000001, false);
     private static ArrayList<Function> customFunctions = new ArrayList<>();
     private static EternityModel eternityModel = new EternityModel();
-
     private static EternityEquation eternityEquation = new EternityEquation();
-    private static String equationString = new String();
+
     private static Set<EternityVariable> eternityVariables = new HashSet<>();
     private static Set<String> variableNames = new HashSet<>();
 
@@ -57,8 +57,9 @@ public class EternityController {
      * - sets the default angle setting to radians
      */
     @FXML public void initialize() {
-        equationManagerController.init(this);
         containsVariables = false;
+        eqLoaderActive = false;
+        eqManagerActive = false;
         parser.setEngineAngle(eternityModel.isRadianSetting());
         customFunctions.add(parser.eBaseTenExp);
         customFunctions.add(parser.eCos);
@@ -74,134 +75,159 @@ public class EternityController {
     @FXML
     protected void BtnZeroPress(){
         equationField.setText(equationField.getText().concat("0"));
-        equationString = equationString.concat("0");
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("0"));
     }
     @FXML
     protected void BtnOnePress(){
         equationField.setText(equationField.getText().concat("1"));
-        equationString = equationString.concat("1");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("1"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("1"));
     }
     @FXML
     protected void BtnTwoPress(){
         equationField.setText(equationField.getText().concat("2"));
-        equationString = equationString.concat("2");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("2"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("2"));
     }
     @FXML
     protected void BtnThreePress(){
         equationField.setText(equationField.getText().concat("3"));
-        equationString = equationString.concat("3");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("3"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("3"));
     }
     @FXML
     protected void BtnFourPress(){
         equationField.setText(equationField.getText().concat("4"));
-        equationString = equationString.concat("4");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("4"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("4"));
     }
     @FXML
     protected void BtnFivePress(){
         equationField.setText(equationField.getText().concat("5"));
-        equationString = equationString.concat("5");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("5"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("5"));
     }
     @FXML
     protected void BtnSixPress(){
         equationField.setText(equationField.getText().concat("6"));
-        equationString = equationString.concat("6");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("6"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("6"));
     }
     @FXML
     protected void BtnSevenPress(){
         equationField.setText(equationField.getText().concat("7"));
-        equationString = equationString.concat("7");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("7"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("7"));
     }
     @FXML
     protected void BtnEightPress(){
         equationField.setText(equationField.getText().concat("8"));
-        equationString = equationString.concat("8");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("8"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("8"));
     }
     @FXML
     protected void BtnNinePress(){
         equationField.setText(equationField.getText().concat("9"));
-        equationString = equationString.concat("9");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("9"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("9"));
     }
     @FXML
     protected void BtnPlusPress(){
         equationField.setText(equationField.getText().concat("+"));
-        equationString = equationString.concat("+");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("+"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("+"));
     }
     @FXML
     protected void BtnMinusPress(){
         equationField.setText(equationField.getText().concat("-"));
-        equationString = equationString.concat("-");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("-"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("-"));
     }
     @FXML
     protected void BtnMultPress(){
         equationField.setText(equationField.getText().concat("*"));
-        equationString = equationString.concat("*");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("*"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("*"));
     }
     @FXML
     protected void BtnDivPress(){
         equationField.setText(equationField.getText().concat("/"));
-        equationString = equationString.concat("/");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("/"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("/"));
     }
     @FXML
     protected void BtnCosPress(){
         equationField.setText(equationField.getText().concat("cos"));
-        equationString = equationString.concat("cos");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("cos"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("cos"));
     }
     @FXML
     protected void BtnXPowYPress(){
         equationField.setText(equationField.getText().concat("^"));
-        equationString = equationString.concat("^");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("^"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("^"));
     }
     @FXML
     protected void BtnLogTenPress(){
         equationField.setText(equationField.getText().concat("log"));
-        equationString = equationString.concat("log");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("log"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("log"));
     }
     @FXML
     protected void BtnEulerExpPress(){
         equationField.setText(equationField.getText().concat("e^"));
-        equationString = equationString.concat("e^");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("e^"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("e^"));
     }
     @FXML
     protected void BtnNaturalLogPress(){
         equationField.setText(equationField.getText().concat("ln"));
-        equationString = equationString.concat("ln");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("ln"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("ln"));
     }
     @FXML
     protected void BtnBaseTenExpPress(){
         equationField.setText(equationField.getText().concat("10^"));
-        equationString = equationString.concat("10^");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("10^"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("10^"));
     }
     @FXML
     protected void BtnFactorialPress(){
         equationField.setText(equationField.getText().concat("!"));
-        equationString = equationString.concat("!");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("!"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("!"));
     }
     @FXML
     protected void BtnPiPress(){
         equationField.setText(equationField.getText().concat("pi"));
-        equationString = equationString.concat("pi");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("pi"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("pi"));
     }
     @FXML
     protected void BtnBracketOpenPress(){
         equationField.setText(equationField.getText().concat("("));
-        equationString = equationString.concat("(");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("("));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("("));
 
     }
     @FXML
     protected void BtnBracketClosePress(){
         equationField.setText(equationField.getText().concat(")"));
-        equationString = equationString.concat(")");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat(")"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat(")"));
     }
     @FXML
     protected void BtnDotPress(){
         equationField.setText(equationField.getText().concat("."));
-        equationString = equationString.concat(".");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("."));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("."));
     }
     @FXML
     protected void BtnClearPress(){
         result = 0;
+        eternityEquation.setDisplayEquation("");
+        eternityEquation.setEquation("");
         equationField.clear();
-        equationString = "";
         containsVariables = false;
         eternityModel.resetCurrentPosition();
     }
@@ -209,7 +235,8 @@ public class EternityController {
     protected void BtnClearAllPress(){
         result = 0;
         equationField.clear();
-        equationString = "";
+        eternityEquation.setDisplayEquation("");
+        eternityEquation.setEquation("");
         containsVariables = false;
         eternityModel.clearHistory();
         equationManagerController.clearEquationVariables();
@@ -220,7 +247,6 @@ public class EternityController {
         try{
             eternityEquation = eternityModel.nextHistory();
             equationField.setText(eternityEquation.getDisplayEquation());
-            equationString = eternityEquation.getEquation();
             variableNames = eternityEquation.getVariable();
             if(!variableNames.isEmpty()){
                 containsVariables = true;
@@ -236,7 +262,6 @@ public class EternityController {
         try{
             eternityEquation = eternityModel.previousHistory();
             equationField.setText(eternityEquation.getDisplayEquation());
-            equationString = eternityEquation.getEquation();
             variableNames = eternityEquation.getVariable();
             if(!variableNames.isEmpty()){
                 containsVariables = true;
@@ -247,18 +272,17 @@ public class EternityController {
     }
     @FXML
     protected void BtnEqualPress(){
-        eternityEquation.setDisplayEquation(equationField.getText());
-        eternityEquation.setEquation(equationString);
         eternityEquation.setVariable(variableNames);
-        equationString = eternityEquation.getEquation();
-        eternityModel.pushBackHistory(new EternityEquation(eternityEquation.getEquation(),eternityEquation.getDisplayEquation(),eternityEquation.getVariable()));
+        EternityEquation pushBackEquation = new EternityEquation(eternityEquation.getEquation(),eternityEquation.getDisplayEquation(),eternityEquation.getVariable());
+        eternityModel.pushBackHistory(pushBackEquation);
         if(containsVariables){
             evaluateExpressionWithVariables();
         }
         else {
             evaluateExpressionWithoutVariables();
         }
-        equationString = equationField.getText();
+        eternityEquation.setEquation(equationField.getText());
+        eternityEquation.setDisplayEquation(equationField.getText());
     }
 
     /**
@@ -266,7 +290,7 @@ public class EternityController {
      */
     private void evaluateExpressionWithVariables(){
         try{
-            String input = parser.preFormatInput(equationString);
+            String input = parser.preFormatInput(eternityEquation.getEquation());
             Expression expression = new ExpressionBuilder(input)
                     .functions(customFunctions)
                     .operator(parser.eFactorial, parser.eExpY)
@@ -291,7 +315,7 @@ public class EternityController {
      */
     private void evaluateExpressionWithoutVariables(){
         try {
-            String input = parser.preFormatInput(equationField.getText());
+            String input = parser.preFormatInput(eternityEquation.getEquation());
             result = new ExpressionBuilder(input)
                     .functions(customFunctions)
                     .operator(parser.eFactorial, parser.eExpY)
@@ -334,7 +358,7 @@ public class EternityController {
             BtnBracketOpenPress();
         }
         else if(shiftFactorial.match(event)){
-            //Behavior to be determined
+            BtnFactorialPress();
         }
         else if(shiftStar.match(event)){
             BtnMultPress();
@@ -470,7 +494,7 @@ public class EternityController {
 
                 default:
                     if (eqManagerActive){
-
+                        //Do nothing
                     }
                     break;
             }
@@ -623,7 +647,6 @@ public class EternityController {
 
     @FXML
     protected void BtnSaveEquation(){
-        eternityEquation.setEquation(equationString);
         eternityEquation.setVariable(variableNames);
         equationManagerController.saveEquation(eternityEquation);
         navMenuSlide();
@@ -631,30 +654,19 @@ public class EternityController {
 
     @FXML
     protected void launchEquationManager(){
-        Parent root;
         if (!eqManagerActive) {
-            try {
-                FXMLLoader loader = new FXMLLoader();
-                root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/Eternity_Equation_Manager.fxml"));
-                loader.setController(equationManagerController);
-                equationManagerController = loader.getController();
-                Stage stage;
-                stage = new Stage();
-                stage.setTitle("Eternity Equation Manager");
-                stage.setScene(new Scene(root, 370, 560));
-                stage.setOnHidden(e -> {
-                    eqManagerActive = false;
-                });
-                stage.setResizable(false);
-                eqManagerActive = true;
-                equationManagerController.init(this);
-                stage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            equationManagerController.init(this);
+            eqManagerActive = true;
         }
         navMenuSlide();
+    }
+
+    @FXML
+    protected void launchEquationManager(Set<String> varNames){
+        if (!eqManagerActive) {
+            equationManagerController.init(this, varNames);
+            eqManagerActive = true;
+        }
     }
 
     private boolean eqLoaderActive = false;
@@ -662,6 +674,7 @@ public class EternityController {
     protected void launchEquationLoader(){
         if (!eqLoaderActive) {
             equationLoaderController.init(this);
+            eqLoaderActive = true;
         }
         navMenuSlide();
     }
@@ -671,8 +684,9 @@ public class EternityController {
     @FXML
     public void addVariableToEquation(String varName){
         equationField.setText(equationField.getText().concat(varName));
-        equationString = equationString.concat("_"+varName+"_");
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("_"+varName+"_"));
         eternityVariables.add(new EternityVariable("_"+varName+"_"));
+        eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat(varName));
         for(EternityVariable et:eternityVariables){
             variableNames.add(et.getVarName());
         }
@@ -686,12 +700,19 @@ public class EternityController {
         }
     }
 
-    @FXML
-    public LinkedList<EternityEquation> getEternityModelHistory(){
-        return eternityModel.getHistory();
-    }
-
     public void setEqLoaderActive(boolean eqLoaderActive) {
         this.eqLoaderActive = eqLoaderActive;
+    }
+
+    public void setEqManagerActive(boolean eqManagerActive){
+        this.eqManagerActive = eqLoaderActive;
+    }
+
+    @FXML
+    public void loadEquation(EternityEquation loadedEquation){
+        eternityEquation = loadedEquation;
+        equationField.setText(eternityEquation.getDisplayEquation());
+        equationManagerController.clearEquationVariables();
+        launchEquationManager(eternityEquation.getVariable());
     }
 }

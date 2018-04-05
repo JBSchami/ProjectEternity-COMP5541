@@ -2,13 +2,19 @@ package Eternity.GUI.EquationManagement;
 
 import Eternity.Logic.Equation.EternityEquation;
 import Eternity.GUI.MainView.EternityController;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
@@ -26,8 +32,8 @@ public class EquationManagerController {
     @FXML private static EternityController eternityController;
     @FXML protected ScrollPane varViewer;
     @FXML protected VBox vBoxRoot;
-    private int variableCount;
 
+    private int variableCount;
     private static ArrayList<Button> varButtons = new ArrayList<>();
     private static ArrayList<String> varButtonNames = new ArrayList<>();
     private static ArrayList<TextField> valueInputs = new ArrayList<>();
@@ -38,8 +44,57 @@ public class EquationManagerController {
         }
     }
 
-    @FXML public void init(EternityController mainController){
+    /**
+     * Launches the stage to create new variables
+     * @param mainController allows for interaction between main controller and secondary controller
+     */
+    @FXML public void init(EternityController mainController) {
         eternityController = mainController;
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setController(this);
+            root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/Eternity_Equation_Manager.fxml"));
+            Stage stage;
+            stage = new Stage();
+            stage.setTitle("Eternity Equation Manager");
+            stage.setScene(new Scene(root, 370, 560));
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    mainController.setEqManagerActive(false);
+                }
+            });
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML public void init(EternityController mainController, Set<String> varNames) {
+        eternityController = mainController;
+        addVarToList(varNames);
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setController(this);
+            root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/Eternity_Equation_Manager.fxml"));
+            Stage stage;
+            stage = new Stage();
+            stage.setTitle("Eternity Equation Manager");
+            stage.setScene(new Scene(root, 370, 560));
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    mainController.setEqManagerActive(false);
+                }
+            });
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -108,6 +163,59 @@ public class EquationManagerController {
         }
     }
 
+    @FXML
+    public void addVarToList(Set<String> variablesToAdd){
+        for(String varName : variablesToAdd) {
+            if (!varButtonNames.contains(varName)) {
+                Button buttonVar = new Button(varName.replace("_", ""));
+                varButtonNames.add(varName.replace("_", ""));
+
+                buttonVar.getStyleClass().add("largeButton");
+                buttonVar.getStyleClass().add("button");
+                buttonVar.getStyleClass().add("equationManagerButton");
+                buttonVar.setId("VarBtn" + variableCount);
+                buttonVar.setOnAction(event -> eternityController.addVariableToEquation(buttonVar.getText()));
+                varButtons.add(buttonVar);
+
+
+                Pattern validEditingState = Pattern.compile("-?(([1-9][0-9]*)|0)?(\\.[0-9]*)?");
+                UnaryOperator<TextFormatter.Change> filter = c -> {
+                    String text = c.getControlNewText();
+                    if (validEditingState.matcher(text).matches()) {
+                        return c;
+                    } else {
+                        return null;
+                    }
+                };
+                StringConverter<Double> converter = new StringConverter<Double>() {
+
+                    @Override
+                    public Double fromString(String s) {
+                        if (s.isEmpty() || "-".equals(s) || ".".equals(s) || "-.".equals(s)) {
+                            return 0.0;
+                        } else {
+                            return Double.valueOf(s);
+                        }
+                    }
+
+
+                    @Override
+                    public String toString(Double d) {
+                        return d.toString();
+                    }
+                };
+                TextFormatter<Double> textFormatter = new TextFormatter<Double>(converter, 0.0, filter);
+                TextField varValue = new TextField();
+                varValue.setTextFormatter(textFormatter);
+                varValue.setPromptText("Enter Variable Value");
+                varValue.setId("VarValue" + variableCount);
+                varValue.getStyleClass().add("inputVarValue");
+                variableCount++;
+                valueInputs.add(varValue);
+            }
+        }
+    }
+
     /**
      * Adds a newly created variable to the scroll pane so the user can select it
      */
@@ -120,7 +228,6 @@ public class EquationManagerController {
         for(Button btn : varButtons){
             HBox variableCombo = new HBox();
             variableCombo.setSpacing(10);
-            //variableCombo.getStyleClass().add("mainWrapper");
             variableCombo.getChildren().add(btn);
             variableCombo.getChildren().add(valueInputs.get(i));
             i++;
@@ -193,5 +300,13 @@ public class EquationManagerController {
         }
     }
 
+    @FXML
+    public void refresh(){
+        addVarToScrollPane();
+    }
 
+    @FXML
+    public EquationManagerController linkToMainController(){
+        return this;
+    }
 }

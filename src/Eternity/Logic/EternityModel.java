@@ -56,6 +56,7 @@ public class EternityModel {
      * @param newEntry the new expression to add to the list
      */
     public void pushBackHistory(EternityEquation newEntry){
+        System.out.println(newEntry.getDisplayEquation());
         if(!history.contains(newEntry)){
             if(history.size() < HISTORY_CAPACITY){
                 history.add(newEntry);

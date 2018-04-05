@@ -3,6 +3,8 @@ package Eternity.GUI.EquationManagement;
 import Eternity.GUI.EquationManagement.EquationCell.EquationCell;
 import Eternity.Logic.Equation.EternityEquation;
 import Eternity.GUI.MainView.EternityController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -52,8 +54,16 @@ public class EquationLoaderController {
             public ListCell<EternityEquation> call(ListView<EternityEquation> list) {
                 return new EquationCell();
             }
-        }
-            );
+            });
+
+            equationLoader.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<EternityEquation>() {
+
+                @Override
+                public void changed(ObservableValue<? extends EternityEquation> observable, EternityEquation oldValue, EternityEquation newValue) {
+                    mainController.loadEquation(newValue);
+                    stage.hide();
+                }
+            });
 
             stage.show();
 
