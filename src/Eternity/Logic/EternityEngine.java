@@ -184,7 +184,6 @@ public class EternityEngine {
 			if(e < 0){e = -e;}
 		} while (precision < e);
 
-		//res = roundNumber(res);
 		return res;
 	}
     

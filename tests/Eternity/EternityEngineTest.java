@@ -51,6 +51,8 @@ public class EternityEngineTest {
         assertEquals(8, engine.eExpY(2,3),0);
         assertEquals(-8, engine.eExpY(-2,3), 0);
         assertEquals(1, engine.eExpY(10,0), 0);
+        assertEquals(2.74877906944E11, engine.eExpY(4,19), 0);
+        assertEquals(1, engine.eExpY(10,0), 0);
     }
 
     @Test
@@ -142,5 +144,17 @@ public class EternityEngineTest {
     @Test
     public void ePI() {
         assertEquals(3.141592653589793238462643383279502884197169399375105820974, engine.ePI(), engine.getPrecision());
+    }
+
+    @Test
+    public void isRads() {
+    }
+
+    @Test
+    public void eExpY() {
+    }
+
+    @Test
+    public void eExpY1() {
     }
 }
