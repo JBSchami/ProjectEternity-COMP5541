@@ -226,6 +226,8 @@ public class EternityEngine {
      * @return the value to the precision determined.
      */
     public double eCos(double x){
+        if(x < 0)
+            x *= -1;
         boolean isLeftSideQuadrant = false;
         double piVal = ePI();
 

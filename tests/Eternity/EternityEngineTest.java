@@ -82,6 +82,8 @@ public class EternityEngineTest {
     @Test
     public void eCos() {
         engine.setRads(false);
+
+        //Positive Angles
         assertEquals(1,engine.eCos(0), 0);
         assertEquals(0.984807753012208059366743024589523013670643251719842418790,engine.eCos(10), engine.getPrecision());
         assertEquals(0.939692620785908384054109277324731469936208134264464633090,engine.eCos(20), engine.getPrecision());
@@ -122,6 +124,52 @@ public class EternityEngineTest {
         assertEquals(0.939692620785908384054109277324731469936208134264464633090,engine.eCos(340), engine.getPrecision());
         assertEquals(0.984807753012208059366743024589523013670643251719842418790,engine.eCos(350), engine.getPrecision());
         assertEquals(1,engine.eCos(360), 0);
+
+        //============================================================================================================================
+        //Negative angles
+        engine.setRads(false);
+        assertEquals(1,engine.eCos(0), 0);
+        assertEquals(0.984807753012208059366743024589523013670643251719842418790,engine.eCos(-10), engine.getPrecision());
+        assertEquals(0.939692620785908384054109277324731469936208134264464633090,engine.eCos(-20), engine.getPrecision());
+        assertEquals(0.866025403784438646763723170752936183471402626905190314027,engine.eCos(-30), engine.getPrecision());
+        assertEquals(0.766044443118978035202392650555416673935832457080395245854,engine.eCos(-40), engine.getPrecision());
+        assertEquals(0.642787609686539326322643409907263432907559884205681790324,engine.eCos(-50), engine.getPrecision());
+        assertEquals(0.5,engine.eCos(60), engine.getPrecision());
+        assertEquals(0.342020143325668733044099614682259580763083367514160628465,engine.eCos(-70), engine.getPrecision());
+        assertEquals(0.173648177666930348851716626769314796000375677184069387236,engine.eCos(-80), engine.getPrecision());
+        assertEquals(0,engine.eCos(90), 0);
+
+        assertEquals(-0.173648177666930348851716626769314796000375677184069387236,engine.eCos(-100), engine.getPrecision());
+        assertEquals(-0.342020143325668733044099614682259580763083367514160628465,engine.eCos(-110), engine.getPrecision());
+        assertEquals(-0.5,engine.eCos(120), engine.getPrecision());
+        assertEquals(-0.642787609686539326322643409907263432907559884205681790324,engine.eCos(-130), engine.getPrecision());
+        assertEquals(-0.766044443118978035202392650555416673935832457080395245854,engine.eCos(-140), engine.getPrecision());
+        assertEquals(-0.866025403784438646763723170752936183471402626905190314027,engine.eCos(-150), engine.getPrecision());
+        assertEquals(-0.939692620785908384054109277324731469936208134264464633090,engine.eCos(-160), engine.getPrecision());
+        assertEquals(-0.984807753012208059366743024589523013670643251719842418790,engine.eCos(-170), engine.getPrecision());
+        assertEquals(-1,engine.eCos(180), engine.getPrecision());
+
+        assertEquals(-0.984807753012208059366743024589523013670643251719842418790,engine.eCos(-190), engine.getPrecision());
+        assertEquals(-0.939692620785908384054109277324731469936208134264464633090,engine.eCos(-200), engine.getPrecision());
+        assertEquals(-0.866025403784438646763723170752936183471402626905190314027,engine.eCos(-210), engine.getPrecision());
+        assertEquals(-0.766044443118978035202392650555416673935832457080395245854,engine.eCos(-220), engine.getPrecision());
+        assertEquals(-0.642787609686539326322643409907263432907559884205681790324,engine.eCos(-230), engine.getPrecision());
+        assertEquals(-0.500000000000000000000000000000000000000000000000000000000,engine.eCos(-240), engine.getPrecision());
+        assertEquals(-0.342020143325668733044099614682259580763083367514160628465,engine.eCos(-250), engine.getPrecision());
+        assertEquals(-0.173648177666930348851716626769314796000375677184069387236,engine.eCos(-260), engine.getPrecision());
+        assertEquals(0,engine.eCos(270), 0);
+
+        assertEquals(0.173648177666930348851716626769314796000375677184069387236,engine.eCos(-280), engine.getPrecision());
+        assertEquals(0.342020143325668733044099614682259580763083367514160628465,engine.eCos(-290), engine.getPrecision());
+        assertEquals(0.500000000000000000000000000000000000000000000000000000000,engine.eCos(-300), engine.getPrecision());
+        assertEquals(0.642787609686539326322643409907263432907559884205681790324,engine.eCos(-310), engine.getPrecision());
+        assertEquals(0.766044443118978035202392650555416673935832457080395245854,engine.eCos(-320), engine.getPrecision());
+        assertEquals(0.866025403784438646763723170752936183471402626905190314027,engine.eCos(-330), engine.getPrecision());
+        assertEquals(0.939692620785908384054109277324731469936208134264464633090,engine.eCos(-340), engine.getPrecision());
+        assertEquals(0.984807753012208059366743024589523013670643251719842418790,engine.eCos(-350), engine.getPrecision());
+        assertEquals(1,engine.eCos(360), 0);
+
+        //============================================================================================================================
 
         assertEquals(-0.74314482547739423501469704897425697718911387349802638604, engine.eCos(5982), engine.getPrecision());
         assertEquals(0.8455974098348267159044132802620757111536745123493216, engine.eCos(32.264), engine.getPrecision());
