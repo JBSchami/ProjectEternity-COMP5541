@@ -84,6 +84,7 @@ public class EternityController {
     @FXML
     protected void BtnZeroPress(){
         equationField.setText(equationField.getText().concat("0"));
+        eternityEquation.setEquation(eternityEquation.getEquation().concat("0"));
         eternityEquation.setDisplayEquation(eternityEquation.getDisplayEquation().concat("0"));
     }
     @FXML

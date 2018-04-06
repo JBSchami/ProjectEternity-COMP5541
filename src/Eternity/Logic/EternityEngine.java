@@ -186,6 +186,9 @@ public class EternityEngine {
      * @return e^x
      */
     public double eEulerExp(double x) throws IllegalArgumentException {
+        if(x == 0){
+            return 1;
+        }
         if(x > 60){
             throw new IllegalArgumentException("Euler Exponent does not accept values larger than 60. Received value : " + x);
         }

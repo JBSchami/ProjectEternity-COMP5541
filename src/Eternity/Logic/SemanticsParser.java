@@ -142,6 +142,7 @@ public class SemanticsParser {
         }
     };
 
+
     /**
      * replaces the user friendly display text in the equation with our custom functions
      */
