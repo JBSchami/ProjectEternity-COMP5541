@@ -42,6 +42,9 @@ public class EquationManagerController {
 
     private static Stage primaryStage;
 
+    /**
+     * Initializes the equation manager view
+     */
     @FXML public void initialize(){
         if(!varButtons.isEmpty()){
             addVarToScrollPane();
@@ -50,6 +53,9 @@ public class EquationManagerController {
         varViewer.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
+    /**
+     * Terminates the equation manager view
+     */
     @FXML public void terminate(){
         eternityController.setEqManagerActive(false);
         stage.hide();
@@ -65,6 +71,12 @@ public class EquationManagerController {
         basicInit(mainController);
     }
 
+    /**
+     * Launches teh stage to create new variables when an equation is loaded
+     * @param mainController allows for interaction between main controller and secondary controller
+     * @param varNames the variable names for the existing equation being loaded
+     * @param primaryStage the primary stage
+     */
     @FXML public void init(EternityController mainController, Set<String> varNames, Stage primaryStage) {
         eternityController = mainController;
         addVarToList(varNames);
@@ -72,6 +84,10 @@ public class EquationManagerController {
         basicInit(mainController);
     }
 
+    /**
+     * Performs the basic initialization for the view
+     * @param mainController Allows for interaction between main controller and secondary controller
+     */
     private void basicInit(EternityController mainController) {
         Parent root;
         try {
@@ -176,6 +192,10 @@ public class EquationManagerController {
         }
     }
 
+    /**
+     * Adds a set of known variables to the view
+     * @param variablesToAdd the set of variables to add
+     */
     @FXML
     private void addVarToList(Set<String> variablesToAdd){
         for(String varName : variablesToAdd) {
@@ -315,6 +335,10 @@ public class EquationManagerController {
         }
     }
 
+    /**
+     * Small key handler for quicker variable input
+     * @param event the keyboard event
+     */
     @FXML
     protected void keyHandler(KeyEvent event) {
         switch (event.getCode()) {

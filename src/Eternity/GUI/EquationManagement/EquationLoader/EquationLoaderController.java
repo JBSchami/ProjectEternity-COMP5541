@@ -28,6 +28,9 @@ public class EquationLoaderController {
     @FXML protected ListView<EternityEquation> equationLoader;
     @FXML private EternityController mainController;
 
+    /**
+     * Initializes the equation loader view
+     */
     @FXML public void init(EternityController mainController) {
         this.mainController = mainController;
         equationLoader = new ListView<>();
@@ -75,6 +78,10 @@ public class EquationLoaderController {
 
     }
 
+    /**
+     * Reads the user saved equations
+     * @return the list of all saved equation's details
+     */
     private List<String> readEquations(){
         List<String> lines = new ArrayList<>();
         try{
@@ -86,7 +93,11 @@ public class EquationLoaderController {
         return lines;
     }
 
-    public ArrayList<EternityEquation> loadEquations(){
+    /**
+     * Interprets the equation lines to create EternityEquation objects
+     * @return An ArrayList of all the use saved equations
+     */
+    private ArrayList<EternityEquation> loadEquations(){
         ArrayList<EternityEquation> equations = new ArrayList<>();
         List<String> equationDetails = readEquations();
         for(String st:equationDetails){
@@ -100,6 +111,11 @@ public class EquationLoaderController {
         return equations;
     }
 
+    /**
+     * Splits the variables in the variable string
+     * @param variables the variable string
+     * @return the set of variables in the equation
+     */
     private Set<String> splitVariablesToSet(String variables){
         Set<String> vars = new HashSet<>();
         String[] splitString = variables.split(",");

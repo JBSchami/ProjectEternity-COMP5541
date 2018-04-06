@@ -73,6 +73,10 @@ public class EternityController {
         customFunctions.add(parser.eNaturalLog);
     }
 
+    /**
+     * Connects the secondary view to the primary view
+     * @param primaryStage the primary view stage
+     */
     @FXML public void setPrimaryStage(Stage primaryStage){
         EternityController.primaryStage = primaryStage;
     }
@@ -248,38 +252,16 @@ public class EternityController {
 
     }
     @FXML
-    protected void BtnNextHistoryPress(){
+    private void BtnLoadEquationUI(){
         menuSlide = false;
         launchEquationLoader();
         menuSlide = true;
-//        equationField.clear();
-//        try{
-//            eternityEquation = eternityModel.nextHistory();
-//            equationField.setText(eternityEquation.getDisplayEquation());
-//            variableNames = eternityEquation.getVariable();
-//            if(!variableNames.isEmpty()){
-//                containsVariables = true;
-//            }
-//        } catch (NoSuchElementException e){
-//            //Do nothing
-//        }
     }
     @FXML
-    protected void BtnPreviousHistoryPress(){
+    private void BtnNewEquationUI(){
         menuSlide = false;
         BtnNewEquation();
         menuSlide = true;
-//        equationField.clear();
-//        try{
-//            eternityEquation = eternityModel.previousHistory();
-//            equationField.setText(eternityEquation.getDisplayEquation());
-//            variableNames = eternityEquation.getVariable();
-//            if(!variableNames.isEmpty()){
-//                containsVariables = true;
-//            }
-//        }catch(NoSuchElementException e){
-//            //Do nothing
-//        }
     }
     @FXML
     protected void BtnEqualPress(){
@@ -348,6 +330,9 @@ public class EternityController {
         }
     }
 
+    /**
+     * Update the model and the display
+     */
     private void updateWithResult(){
         int precision = parser.getEnginePrecision();
         DecimalFormat df = new DecimalFormat(getPrecisionFormat(precision));
@@ -526,11 +511,11 @@ public class EternityController {
                     break;
 
                 case LEFT:
-                    BtnPreviousHistoryPress();
+                    BtnNewEquationUI();
                     break;
 
                 case RIGHT:
-                    BtnNextHistoryPress();
+                    BtnLoadEquationUI();
                     break;
 
                 default:
@@ -633,6 +618,11 @@ public class EternityController {
         updateWithResult();
     }
 
+    /**
+     * Defines the string format for the display
+     * @param value
+     * @return
+     */
     private String getPrecisionFormat(int value){
         String format;
         switch (value){
@@ -725,6 +715,10 @@ public class EternityController {
             navMenuSlide();
     }
 
+    /**
+     * Launches the equation manager view
+     * @param varNames the variables that currently exist in the equation
+     */
     @FXML
     private void launchEquationManager(Set<String> varNames){
         if (!eqManagerActive) {
@@ -734,6 +728,10 @@ public class EternityController {
     }
 
     private boolean eqLoaderActive = false;
+
+    /**
+     * Launches the equation loader
+     */
     @FXML
     protected void launchEquationLoader(){
         if (!eqLoaderActive) {
@@ -746,6 +744,10 @@ public class EternityController {
 
     private static boolean containsVariables = false;
 
+    /**
+     * Adds a variable to the equation
+     * @param varName the variable Name
+     */
     @FXML
     public void addVariableToEquation(String varName){
         equationField.setText(equationField.getText().concat(varName));
@@ -758,6 +760,11 @@ public class EternityController {
         containsVariables = true;
     }
 
+    /**
+     * Updates the values of the variables in the equation
+     * @param varNames the names of teh variables to updated
+     * @param varValues the values of the variables to update
+     */
     public void updateVariableValues(ArrayList<Button> varNames, ArrayList<Double> varValues){
         eternityVariables.clear();
         for(int i = 0; i < varNames.size(); i++){
@@ -765,14 +772,26 @@ public class EternityController {
         }
     }
 
+    /**
+     * Flops the equation loader active boolean
+     * @param eqLoaderActive the new status of the equation loader activation
+     */
     public void setEqLoaderActive(boolean eqLoaderActive) {
         this.eqLoaderActive = eqLoaderActive;
     }
 
+    /**
+     * Flops the equation creator active boolean
+     * @param eqManagerActive the new status of the equation loader activation
+     */
     public void setEqManagerActive(boolean eqManagerActive){
-        this.eqManagerActive = eqLoaderActive;
+        this.eqManagerActive = eqManagerActive;
     }
 
+    /**
+     * loadsEquations
+     * @param loadedEquation the equations to load
+     */
     @FXML
     public void loadEquation(EternityEquation loadedEquation){
         eternityEquation = loadedEquation;
@@ -788,6 +807,10 @@ public class EternityController {
         launchEquationManager(eternityEquation.getVariable());
     }
 
+    /**
+     * Saves equations
+     * @param equationName the name of the equation to save
+     */
     @FXML
     public void saveEquation(String equationName){
         eternityEquation.setEquationName(equationName);

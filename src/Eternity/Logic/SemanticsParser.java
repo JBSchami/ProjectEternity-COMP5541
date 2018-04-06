@@ -7,24 +7,48 @@ public class SemanticsParser {
 
     private static EternityEngine engine;
 
+    /**
+     * Default Constructor
+     */
     public SemanticsParser(){
         engine  = new EternityEngine(0.000000001, true);
     }
 
+    /**
+     * Partial constructor, sets precision
+     * @param precision desired precision
+     */
     public SemanticsParser(double precision){
         engine = new EternityEngine(precision);
     }
 
+    /**
+     * Full constructor, sets precision and radian setting
+     * @param precision the desired precision
+     * @param rads true if radians, false if degree
+     */
     public SemanticsParser(double precision, boolean rads){
         engine = new EternityEngine(precision, rads);
     }
 
+    /**
+     * Sets the angle type.
+     * @param value True if radians, false if degree
+     */
     public void setEngineAngle(boolean value){
         engine.setRads(value);
     }
 
+    /**
+     * Sets the engine precision
+     * @param value
+     */
     public void setEnginePrecision(double value) {engine.setPrecision(value);}
 
+    /**
+     * Returns the precision used for calculations
+     * @return the precision of the engine.
+     */
     public int getEnginePrecision(){
         double temp = engine.getPrecision();
         String value = Double.toString(temp);
@@ -38,6 +62,9 @@ public class SemanticsParser {
         }
     }
 
+    /**
+     * Used to overwrite the Exp4J default behavior with our own function: eFactorial
+     */
     public Operator eFactorial = new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
         @Override
         public double apply(double... args) {
@@ -52,6 +79,9 @@ public class SemanticsParser {
         }
     };
 
+    /**
+     * Used to overwrite the Exp4J default behavior with our own function: eExpY
+     */
     public Operator eExpY = new Operator("^", 2, false, Operator.PRECEDENCE_POWER+1) {
         @Override
         public double apply(double... args) {
@@ -62,6 +92,9 @@ public class SemanticsParser {
         }
     };
 
+    /**
+     * Used to overwrite the Exp4J default behavior with our own function: eCos
+     */
     public Function eCos = new Function("Cos", 1){
         @Override
         public double apply(double... args){
@@ -69,6 +102,9 @@ public class SemanticsParser {
         }
     };
 
+    /**
+     * Used to overwrite the Exp4J default behavior with our own function: eEulerExp
+     */
     public Function eEulerExp = new Function("EulerExp",1) {
         @Override
         public double apply(double... args) {
@@ -76,6 +112,9 @@ public class SemanticsParser {
         }
     };
 
+    /**
+     * Used to overwrite the Exp4J default behavior with our own function: eBaseTenExp
+     */
     public Function eBaseTenExp = new Function("BaseTenExp",1) {
         @Override
         public double apply(double... args) {
@@ -83,6 +122,9 @@ public class SemanticsParser {
         }
     };
 
+    /**
+     * Used to overwrite the Exp4J default behavior with our own function: eLog
+     */
     public Function eLog = new Function("Log", 1) {
         @Override
         public double apply(double... args) {
@@ -90,6 +132,9 @@ public class SemanticsParser {
         }
     };
 
+    /**
+     * Used to overwrite the Exp4J default behavior with our own function: eNaturalLog
+     */
     public Function eNaturalLog = new Function("Ln", 1) {
         @Override
         public double apply(double... args) {
@@ -97,6 +142,9 @@ public class SemanticsParser {
         }
     };
 
+    /**
+     * replaces the user friendly display text in the equation with our custom functions
+     */
     public String preFormatInput(String input){
         String formatted = input;
         formatted = formatted.replace("cos", "Cos");

@@ -1,8 +1,6 @@
 package Eternity.GUI.EquationManagement.EquationSaver;
 
-import Eternity.GUI.EquationManagement.EquationManager.EquationManagerController;
 import Eternity.GUI.MainView.EternityController;
-import Eternity.Logic.Equation.EternityEquation;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,10 +20,11 @@ public class EquationSaver {
     @FXML protected TextField equationNameTF;
     private static Stage stage;
 
-    public EquationSaver() {
 
-    }
-
+    /**
+     * Initializes the equation saving window
+     * @param mainController the primary controller
+     */
     @FXML
     public void init(EternityController mainController) {
         eternityController = mainController;
@@ -51,6 +50,9 @@ public class EquationSaver {
         }
     }
 
+    /**
+     * Validates that there is an equation to save. And then calls the main controller to save it.
+     */
     @FXML
     protected void saveEquation(){
         if(!equationNameTF.getText().isEmpty()){
@@ -67,6 +69,9 @@ public class EquationSaver {
 
     }
 
+    /**
+     * Cancels the save for the equation
+     */
     @FXML
     protected void cancelSave(){
         stage.hide();

@@ -11,13 +11,15 @@ import java.io.IOException;
 
 public class EquationCell extends ListCell<EternityEquation> {
     @FXML private Label equationName;
-
     @FXML private Label equation;
 
     public EquationCell(){
         loadFXML();
     }
 
+    /**
+     * Creates the cell format from the FXML
+     */
     private void loadFXML(){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("equation_cell.fxml"));
@@ -30,6 +32,11 @@ public class EquationCell extends ListCell<EternityEquation> {
         }
     }
 
+    /**
+     * What happens when an item from the list view is selected
+     * @param item the item that is selected
+     * @param empty if the selection is empty
+     */
     @Override
     protected void updateItem(EternityEquation item, boolean empty){
         super.updateItem(item, empty);
