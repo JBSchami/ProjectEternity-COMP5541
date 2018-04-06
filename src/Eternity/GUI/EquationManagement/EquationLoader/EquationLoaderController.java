@@ -73,7 +73,7 @@ public class EquationLoaderController {
                         stage.hide();
                     }
                 });
-
+                mainController.setEqLoaderActive(true);
                 stage.show();
             }
         } catch (IllegalArgumentException e) {

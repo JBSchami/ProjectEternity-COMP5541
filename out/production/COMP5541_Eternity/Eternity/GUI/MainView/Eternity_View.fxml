@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.Pane?>
+
+
 <AnchorPane fx:controller="Eternity.GUI.MainView.EternityController"
             onKeyPressed="#keyHandler"
             xmlns:fx="http://javafx.com/fxml">
@@ -61,26 +63,12 @@
                             <Button fx:id="nextHistory"
                                     GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton, iconButton"
-                                    onAction="#BtnNextHistoryPress">
-                                <graphic>
-                                    <ImageView fitHeight="30" fitWidth="30" preserveRatio="true" pickOnBounds="true">
-                                        <image>
-                                            <Image url = "icons\leftRightArrows-01.png"/>
-                                        </image>
-                                    </ImageView>
-                                </graphic>
+                                    onAction="#BtnLoadEquationUI">
                             </Button>
                             <Button fx:id="previousHistory"
                                     GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton, iconButton"
-                                    onAction="#BtnPreviousHistoryPress">
-                                <graphic>
-                                    <ImageView fitHeight="30" fitWidth="30" preserveRatio="true" pickOnBounds="true">
-                                        <image>
-                                            <Image url = "icons\leftRightArrows-02.png"/>
-                                        </image>
-                                    </ImageView>
-                                </graphic>
+                                    onAction="#BtnNewEquationUI">
                             </Button>
 
                             <Button fx:id="cos" text="cos(x)"
@@ -209,10 +197,9 @@
         <AnchorPane fx:id="navList" styleClass="navMenuDrawer" AnchorPane.topAnchor="56.0" AnchorPane.bottomAnchor="0.0" prefWidth="180.0" translateX="-180"   >
             <children>
                 <VBox fx:id="navMenuOptions" spacing="10">
-                    <Button text="New Function" styleClass="navMenuButton" onAction="#BtnNewEquation"/>
-                    <Button text="Load Function" styleClass="navMenuButton" onAction="#launchEquationLoader"/>
-                    <Button text="Save Function" styleClass="navMenuButton" onAction="#BtnSaveEquation"/>
-                    <Button text="Manage Functions" styleClass="navMenuButton" onAction="#launchEquationManager"/>
+                    <Button text="New Equation" styleClass="navMenuButton" onAction="#BtnNewEquation"/>
+                    <Button text="Load Equation" styleClass="navMenuButton" onAction="#launchEquationLoader"/>
+                    <Button text="Save Equation" styleClass="navMenuButton" onAction="#BtnSaveEquation"/>
                 </VBox>
             </children>
         </AnchorPane>

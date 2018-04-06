@@ -3,14 +3,15 @@
     -fx-hgap: 10px;
     -fx-padding: 10px 10px 10px 10px;
     -fx-spacing: 10px;
+    -fx-background-color: lightgrey;
 }
 
-#newVarText{
+.newVarText{
     -fx-font-size: 1.5em;
     -fx-min-width: 350px;
     -fx-min-height: 60px;
     -fx-text-alignment: center;
-    -fx-background-color: lightgrey;
+    -fx-background-color: white;
     -fx-background-radius: 0px;
     -fx-alignment: center;
 }
@@ -25,6 +26,10 @@
     -fx-background-color: transparent;
 }
 
+#varViewer:vertical .thumb{
+    -fx-background-color: lightgrey;
+}
+
 .inputVarValue{
     -fx-min-height: 60px;
     -fx-min-width: 140px;
@@ -37,4 +42,8 @@
 .equationManagerButton{
     -fx-background-color: #0045AA;
     -fx-text-fill: white;
+}
+
+.newVar{
+    -fx-background-color: lightgrey;
 }

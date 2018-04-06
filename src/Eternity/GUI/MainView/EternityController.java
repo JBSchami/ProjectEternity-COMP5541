@@ -745,7 +745,7 @@ public class EternityController {
     protected void launchEquationLoader(){
         if (!eqLoaderActive) {
             equationLoaderController.init(this);
-            eqLoaderActive = true;
+            //eqLoaderActive = true;
         }
         if(menuSlide)
             navMenuSlide();

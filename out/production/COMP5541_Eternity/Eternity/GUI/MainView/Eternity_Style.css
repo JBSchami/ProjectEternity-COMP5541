@@ -143,7 +143,7 @@
     -fx-background-color: white;
     -fx-text-fill: black;
     -fx-text-alignment: center;
-    -fx-font-size: 3em;
+    -fx-font-size: 2em;
     -fx-background-insets: 0 10px 0 10px;
 }
 
@@ -159,6 +159,18 @@
 .teamLabel{
     -fx-padding: 0 10px 0 0;
     -fx-background-insets: 0 10px 0 0;
+}
+
+#nextHistory{
+    -fx-background-image: url("../../../icons/OpenFolder-01.png");
+    -fx-background-size: 80px 80px;
+    -fx-background-repeat: no-repeat;
+}
+
+#previousHistory{
+    -fx-background-image: url("../../../icons/function-01.png");
+    -fx-background-size: 80px 80px;
+    -fx-background-repeat: no-repeat;
 }
 
 #hamburgerMenu{
