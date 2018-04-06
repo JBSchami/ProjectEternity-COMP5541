@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
@@ -89,6 +90,7 @@ public class EquationManagerController {
             stage.setWidth(390);
             stage.setHeight(560);
             stage.setResizable(false);
+            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("../../../../icons/EternityLogo.png")));
             stage.setX(primaryStage.getX() + primaryStage.getWidth());
             stage.setY(primaryStage.getY() + primaryStage.getHeight()/2 - stage.getHeight()/2);
             stage.show();

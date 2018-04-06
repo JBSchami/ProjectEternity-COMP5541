@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,6 +42,7 @@ public class EquationLoaderController {
             ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
 
             stage.setScene(new Scene(box, 450, 400));
+            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("../../../../icons/EternityLogo.png")));
             stage.setOnHidden(e -> {
                 mainController.setEqLoaderActive(false);
             });

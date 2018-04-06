@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -35,6 +36,7 @@ public class EquationSaver {
             root = loader.load(getClass().getClassLoader().getResource("Eternity/GUI/EquationManagement/EquationSaver/Equation_Saver.fxml"));
             stage = new Stage();
             stage.setTitle("Eternity Equation Manager");
+            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("../../../../icons/EternityLogo.png")));
             stage.setScene(new Scene(root, 500, 200));
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
