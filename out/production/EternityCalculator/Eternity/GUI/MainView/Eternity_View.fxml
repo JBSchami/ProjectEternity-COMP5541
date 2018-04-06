@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.Pane?>
+
+
 <AnchorPane fx:controller="Eternity.GUI.MainView.EternityController"
             onKeyPressed="#keyHandler"
             xmlns:fx="http://javafx.com/fxml">
@@ -62,25 +64,11 @@
                                     GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton, iconButton"
                                     onAction="#BtnLoadEquationUI">
-                                <graphic>
-                                    <ImageView fitHeight="40" fitWidth="40" preserveRatio="true" pickOnBounds="true">
-                                        <image>
-                                            <Image url = "icons\openFolder.png"/>
-                                        </image>
-                                    </ImageView>
-                                </graphic>
                             </Button>
                             <Button fx:id="previousHistory"
                                     GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton, iconButton"
                                     onAction="#BtnNewEquationUI">
-                                <graphic>
-                                    <ImageView fitHeight="40" fitWidth="40" preserveRatio="true" pickOnBounds="true">
-                                        <image>
-                                            <Image url = "icons\load.png"/>
-                                        </image>
-                                    </ImageView>
-                                </graphic>
                             </Button>
 
                             <Button fx:id="cos" text="cos(x)"

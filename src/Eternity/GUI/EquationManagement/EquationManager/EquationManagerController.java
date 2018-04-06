@@ -14,10 +14,13 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -106,7 +109,7 @@ public class EquationManagerController {
             stage.setWidth(390);
             stage.setHeight(560);
             stage.setResizable(false);
-            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("../../../../icons/EternityLogo.png")));
+            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icons/EternityLogo.png")));
             stage.setX(primaryStage.getX() + primaryStage.getWidth());
             stage.setY(primaryStage.getY() + primaryStage.getHeight()/2 - stage.getHeight()/2);
             stage.show();
@@ -327,11 +330,30 @@ public class EquationManagerController {
                 displayEquation+
                 "%%" +
                 variableNameString);
-        try{
-            Path file = Paths.get("./Equations/equations.txt");
-            Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-        }catch (IOException err){
-            System.out.println("Could not load equations...");
+
+        if(!eternityController.getSavePath().equals("")){
+            try{
+                Path file = Paths.get(eternityController.getSavePath());
+                Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+            }catch (IOException err){
+                System.out.println("Could not load equations...");
+            }
+        }
+        else{
+            try{
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Select your equation repertoire.");
+                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text files", "*.txt"));
+                File selectedFile = fileChooser.showSaveDialog(eternityController.getPrimaryStage());
+                FileWriter fw = new FileWriter(selectedFile, true);
+                fw.write(lines.get(0));
+                fw.write("\n");
+                fw.flush();
+                fw.close();
+            }catch (IOException err){
+                System.out.println("Could not load equations...");
+            }
+
         }
     }
 

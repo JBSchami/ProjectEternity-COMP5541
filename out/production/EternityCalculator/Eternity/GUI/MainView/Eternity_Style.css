@@ -161,6 +161,18 @@
     -fx-background-insets: 0 10px 0 0;
 }
 
+#nextHistory{
+    -fx-background-image: url("../../../icons/OpenFolder-01.png");
+    -fx-background-size: 80px 80px;
+    -fx-background-repeat: no-repeat;
+}
+
+#previousHistory{
+    -fx-background-image: url("../../../icons/function-01.png");
+    -fx-background-size: 80px 80px;
+    -fx-background-repeat: no-repeat;
+}
+
 #hamburgerMenu{
     -fx-padding: 5px 5px 5px 0px;
     -fx-background-color: transparent;

@@ -827,4 +827,12 @@ public class EternityController {
         if(menuSlide)
             navMenuSlide();
     }
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public String getSavePath(){
+        return equationLoaderController.getSavePath();
+    }
 }

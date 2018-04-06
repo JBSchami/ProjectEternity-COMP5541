@@ -22,7 +22,8 @@ public class Main extends Application {
         primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(e -> Platform.exit());
-        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("../../../icons/EternityLogo.png")));
+
+        primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/icons/EternityLogo.png")));
         primaryStage.show();
         root.requestFocus();
     }

@@ -14,17 +14,21 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class EquationLoaderController {
+    private static String savePath = new String();
     @FXML protected ListView<EternityEquation> equationLoader;
     @FXML private EternityController mainController;
 
@@ -45,7 +49,7 @@ public class EquationLoaderController {
             ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
 
             stage.setScene(new Scene(box, 450, 400));
-            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("../../../../icons/EternityLogo.png")));
+            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icons/EternityLogo.png")));
             stage.setOnHidden(e -> {
                 mainController.setEqLoaderActive(false);
             });
@@ -83,14 +87,33 @@ public class EquationLoaderController {
      * @return the list of all saved equation's details
      */
     private List<String> readEquations(){
-        List<String> lines = new ArrayList<>();
-        try{
-            Path file = Paths.get("./Equations/equations.txt");
-            lines = Files.readAllLines(file, Charset.forName("UTF-8"));
-        }catch (IOException err){
-            System.out.println("Could not load equations...");
+        if(savePath.equals("")) {
+            List<String> lines = new ArrayList<>();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select your equation repertoire.");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text files", "*.txt"));
+            File selectedFile = fileChooser.showOpenDialog(mainController.getPrimaryStage());
+            if (selectedFile != null) {
+                savePath = selectedFile.getAbsolutePath();
+                try (InputStream resource = this.getClass().getResourceAsStream(selectedFile.getAbsolutePath())) {
+                    Path file = Paths.get(selectedFile.getAbsolutePath());
+                    lines = Files.readAllLines(file, Charset.forName("UTF-8"));
+                } catch (IOException err) {
+                    System.out.println("Could not load equations...");
+                }
+            }
+            return lines;
         }
-        return lines;
+        else{
+            List<String> lines = new ArrayList<>();
+            try (InputStream resource = this.getClass().getResourceAsStream(savePath)) {
+                Path file = Paths.get(savePath);
+                lines = Files.readAllLines(file, Charset.forName("UTF-8"));
+            } catch (IOException err) {
+                System.out.println("Could not load equations...");
+            }
+            return lines;
+        }
     }
 
     /**
@@ -123,5 +146,9 @@ public class EquationLoaderController {
             vars.add(st);
         }
         return vars;
+    }
+
+    public String getSavePath() {
+        return savePath;
     }
 }
