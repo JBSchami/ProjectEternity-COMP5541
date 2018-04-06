@@ -18,27 +18,27 @@ public class SemanticsParserTest {
 
     @Test
     public void preFormatInputLn() {
-        assertEquals("eCos", parser.preFormatInput("cos"));
+        assertEquals("Cos", parser.preFormatInput("cos"));
     }
 
     @Test
     public void preFormatEulerExp() {
-        assertEquals("eEulerExp", parser.preFormatInput("e^"));
+        assertEquals("EulerExp", parser.preFormatInput("e^"));
     }
 
     @Test
     public void preFormatLog() {
-        assertEquals("eLog", parser.preFormatInput("log"));
+        assertEquals("Log", parser.preFormatInput("log"));
     }
 
     @Test
     public void preFormatBaseTenExp() {
-        assertEquals("eBaseTenExp", parser.preFormatInput("10^"));
+        assertEquals("BaseTenExp", parser.preFormatInput("10^"));
     }
 
     @Test
     public void preFormatEulerExpWithPreString() {
-        assertEquals("7eEulerExp3", parser.preFormatInput("7e^3"));
+        assertEquals("7EulerExp3", parser.preFormatInput("7e^3"));
     }
 
     @Test
