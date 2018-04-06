@@ -1,3 +1,7 @@
 .saverButton{
     -fx-background-color: #0045AA;;
 }
+
+.saver{
+    -fx-background-color: lightgrey;
+}
