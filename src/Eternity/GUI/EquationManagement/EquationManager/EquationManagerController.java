@@ -343,7 +343,7 @@ public class EquationManagerController {
             try{
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Select your equation repertoire.");
-                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text files", "*.txt"));
+                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Eternity Equation Files", "*.eeq"));
                 File selectedFile = fileChooser.showSaveDialog(eternityController.getPrimaryStage());
                 FileWriter fw = new FileWriter(selectedFile, true);
                 fw.write(lines.get(0));

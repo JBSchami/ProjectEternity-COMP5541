@@ -46,40 +46,39 @@ public class EquationLoaderController {
             stage.setTitle("Eternity Equation Loader");
 
             ArrayList<EternityEquation> equations = loadEquations();
-            ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
+            if(!equations.isEmpty()) {
+                ObservableList<EternityEquation> equationList = FXCollections.observableArrayList(equations);
+                stage.setScene(new Scene(box, 450, 400));
+                stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icons/EternityLogo.png")));
+                stage.setOnHidden(e -> {
+                    mainController.setEqLoaderActive(false);
+                });
+                box.getChildren().addAll(equationLoader);
+                VBox.setVgrow(equationLoader, Priority.ALWAYS);
 
-            stage.setScene(new Scene(box, 450, 400));
-            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/icons/EternityLogo.png")));
-            stage.setOnHidden(e -> {
-                mainController.setEqLoaderActive(false);
-            });
-            box.getChildren().addAll(equationLoader);
-            VBox.setVgrow(equationLoader, Priority.ALWAYS);
 
+                equationLoader.setItems(equationList);
+                equationLoader.setCellFactory(new Callback<ListView<EternityEquation>, ListCell<EternityEquation>>() {
+                    @Override
+                    public ListCell<EternityEquation> call(ListView<EternityEquation> list) {
+                        return new EquationCell();
+                    }
+                });
 
-            equationLoader.setItems(equationList);
-            equationLoader.setCellFactory(new Callback<ListView<EternityEquation>,ListCell<EternityEquation>>() {
-                   @Override
-            public ListCell<EternityEquation> call(ListView<EternityEquation> list) {
-                return new EquationCell();
+                equationLoader.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<EternityEquation>() {
+
+                    @Override
+                    public void changed(ObservableValue<? extends EternityEquation> observable, EternityEquation oldValue, EternityEquation newValue) {
+                        mainController.loadEquation(newValue);
+                        stage.hide();
+                    }
+                });
+
+                stage.show();
             }
-            });
-
-            equationLoader.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<EternityEquation>() {
-
-                @Override
-                public void changed(ObservableValue<? extends EternityEquation> observable, EternityEquation oldValue, EternityEquation newValue) {
-                    mainController.loadEquation(newValue);
-                    stage.hide();
-                }
-            });
-
-            stage.show();
-
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -91,7 +90,7 @@ public class EquationLoaderController {
             List<String> lines = new ArrayList<>();
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select your equation repertoire.");
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text files", "*.txt"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Eternity Equation Files", "*.eeq"));
             File selectedFile = fileChooser.showOpenDialog(mainController.getPrimaryStage());
             if (selectedFile != null) {
                 savePath = selectedFile.getAbsolutePath();
@@ -101,6 +100,9 @@ public class EquationLoaderController {
                 } catch (IOException err) {
                     System.out.println("Could not load equations...");
                 }
+            }
+            else{
+                mainController.setEqLoaderActive(false);
             }
             return lines;
         }
