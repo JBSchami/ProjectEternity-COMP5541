@@ -61,7 +61,7 @@
                             <Button fx:id="nextHistory"
                                     GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton, iconButton"
-                                    onAction="#BtnNextHistoryPress">
+                                    onAction="#BtnLoadEquationUI">
                                 <graphic>
                                     <ImageView fitHeight="40" fitWidth="40" preserveRatio="true" pickOnBounds="true">
                                         <image>
@@ -73,7 +73,7 @@
                             <Button fx:id="previousHistory"
                                     GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="1"
                                     styleClass="button, smallButton, fxButton, iconButton"
-                                    onAction="#BtnPreviousHistoryPress">
+                                    onAction="#BtnNewEquationUI">
                                 <graphic>
                                     <ImageView fitHeight="40" fitWidth="40" preserveRatio="true" pickOnBounds="true">
                                         <image>

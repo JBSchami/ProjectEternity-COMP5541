@@ -303,12 +303,19 @@ public class EternityController {
             eternityModel.setResult(expression.evaluate());
             updateWithResult();
         } catch (java.lang.IllegalArgumentException error) {
-            System.out.println(error.getMessage());
-            equationField.setText(error.getMessage());
-        } catch (ArithmeticException ex){
-            System.out.println("Cannot have" + ex.getMessage());
-            equationField.setText(ex.getMessage());
+            calculatorErrorPopup(error.getMessage(), error);
+        } catch (ArithmeticException error){
+            calculatorErrorPopup(error.getMessage(), error);
+
         }
+    }
+
+    private void calculatorErrorPopup(String message, Exception error) {
+        BtnClearPress();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Error");
+        alert.setHeaderText(message);
+        alert.showAndWait();
     }
 
     /**
@@ -325,8 +332,7 @@ public class EternityController {
             eternityModel.setResult(result);
             updateWithResult();
         } catch (java.lang.IllegalArgumentException error) {
-            System.out.println(error.getMessage());
-            equationField.setText(error.getMessage());
+            calculatorErrorPopup(error.getMessage(), error);
         }
     }
 
