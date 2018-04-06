@@ -49,19 +49,19 @@ public class EternityEngineTest {
 
     @Test
     public void eExpYWholeNumbers() {
-        assertEquals(8, engine.eExpY(2,3),0);
-        assertEquals(-8, engine.eExpY(-2,3), 0);
-        assertEquals(1, engine.eExpY(10,0), 0);
-        assertEquals(2.74877906944E11, engine.eExpY(4,19), 0);
-        assertEquals(1, engine.eExpY(10,0), 0);
+        assertEquals(8, engine.eExpY(2,3, false),0);
+        assertEquals(-8, engine.eExpY(-2,3, false), 0);
+        assertEquals(1, engine.eExpY(10,0, false), 0);
+        assertEquals(2.74877906944E11, engine.eExpY(4,19, false), 0);
+        assertEquals(1, engine.eExpY(10,0, false), 0);
     }
 
     @Test
     public void eExpYRationalNumbers() {
-        assertEquals(0.0064, engine.eExpY(12.5, (long)-2.1), engine.getPrecision());
-        assertEquals(3.161099313715693310847190458066637129267e-19, engine.eExpY(106.789,(long)-9.12), engine.getPrecision());
-        assertEquals(16.414354763489643725483508528328208471385691195116508, engine.eExpY(2.1351,(long)3.689), engine.getPrecision());
-        assertEquals(1158.1331234102452992200476628797011916017513606259170, engine.eExpY(3.12,(long)6.2), engine.getPrecision());
+        assertEquals(0.0049715175021806961352776946201804326650165796173974, engine.eExpY(12.5, -2.1), engine.getPrecision());
+        assertEquals(3.161099313715693310847190458066637129267e-19, engine.eExpY(106.789,-9.12), engine.getPrecision());
+        assertEquals(16.414354763489643725483508528328208471385691195116508, engine.eExpY(2.1351,3.689), engine.getPrecision());
+        assertEquals(1158.1331234102452992200476628797011916017513606259170, engine.eExpY(3.12,6.2), engine.getPrecision());
     }
 
     @Test
@@ -70,7 +70,6 @@ public class EternityEngineTest {
         assertEquals(36.598234443677987752594765899183657272888796075573936, engine.eEulerExp(3.6), engine.getPrecision());
         assertEquals(14.837236489292742467742774922904654643808792430024801, engine.eEulerExp(2.69714), engine.getPrecision());
         assertEquals(0.3678794411714423215955237701614608674458111310317678, engine.eEulerExp(-1), engine.getPrecision());
-        assertEquals(1.6692347094529326717708069767934718418460828887687e266, engine.eEulerExp(613), engine.getPrecision());
     }
 
     @Test
@@ -146,17 +145,5 @@ public class EternityEngineTest {
     @Test
     public void ePI() {
         assertEquals(3.141592653589793238462643383279502884197169399375105820974, engine.ePI(), engine.getPrecision());
-    }
-
-    @Test
-    public void isRads() {
-    }
-
-    @Test
-    public void eExpY() {
-    }
-
-    @Test
-    public void eExpY1() {
     }
 }

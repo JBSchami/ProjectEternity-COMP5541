@@ -56,7 +56,7 @@ public class SemanticsParser {
         @Override
         public double apply(double... args) {
             if(args[0]-(int)args[0] == 0 && args[1]-(int)args[1] ==0){
-                return engine.eExpY(args[0], (long)args[1]);
+                return engine.eExpY(args[0], (long)args[1], false);
             }
             return engine.eExpY(args[0], args[1]);
         }

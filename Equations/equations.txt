@@ -1,3 +1,4 @@
 My Name Is What%%_a_+_b_*_c_%%a+b*c%%_c_,_a_,_b_
 Something%%_alpha_-_gamma_%%alpha-gamma%%_gamma_,_alpha_
 The Third Law of No Dynamics%%_a__b_*_d__s_%%ab*ds%%_s_,_d_,_a_,_b_
+some random equation%%log(_a_*_m_/_c_)%%log(a*m/c)%%_m_,_s_,_c_,_d_,_a_,_b_

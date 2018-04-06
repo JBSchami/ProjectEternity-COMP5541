@@ -124,9 +124,10 @@ public class EternityEngine {
      * @author Julien Fagnan
      * @param x Base
      * @param y Exponent
+     * @param flag
      * @return x^y
      */
-	public double eExpY(double x, long y) {
+	public double eExpY(double x, long y, boolean flag) {
 		double z;
 		boolean neg = false;
 		//x^-y = 1/x^y
@@ -138,10 +139,10 @@ public class EternityEngine {
 		if (y == 0) {
 			z = 1;
 		} else if (y % 2 == 0) {
-			z = eExpY(x, y/2);
+			z = eExpY(x, y/2, flag);
 			z *= z;
 		} else {
-			z = eExpY(x, (y-1)/2);
+			z = eExpY(x, (y-1)/2, flag);
 			z *= x * z;
 		}
 		
@@ -160,11 +161,22 @@ public class EternityEngine {
      * @return x^y
      */
     public double eExpY(double x, double y){
-        //converting ln to log
-        //double lnInLog = eLog(x)/(0.43429448190325182765112891891661);
-        double values = y * eLn(x);
+        boolean negative = false;
+        if(y < 0){
+            negative = true;
+            y = -y;
+        }
 
-        return eEulerExp(values);
+        double temp = getPrecision();
+        setPrecision(0.0000000000000000001);
+        double values = y * eLn(x);
+        double result = eEulerExp(values);
+        setPrecision(temp);
+
+        if (negative) {
+            return 1/result;
+        }
+        return result;
     }
 
     /**
@@ -173,18 +185,20 @@ public class EternityEngine {
      * @param x Exponent
      * @return e^x
      */
-    public double eEulerExp(double x) {
-        double e = 0, res = 0;
-		long i=0;
-		do {
-		    //double temp = res;
-			res += (e=eExpY(x, i) / eFactorial(i));
-			i++;
-			//e = res-temp;
-			if(e < 0){e = -e;}
-		} while (precision < e);
+    public double eEulerExp(double x) throws IllegalArgumentException {
+        if(x > 60){
+            throw new IllegalArgumentException("Euler Exponent does not accept values larger than 60. Received value : " + x);
+        }
+        else {
+            double e = 0, res = 0;
+            long i = 0;
+            do {
+                res += (e = (eExpY(x, i, false) / eFactorial(i)));
+                i++;
+            } while ((precision < e || -precision > e));
 
-		return res;
+            return res;
+        }
 	}
     
     /**
@@ -195,7 +209,7 @@ public class EternityEngine {
      */
     public double eBaseTenExp(double x){
         if(x%1 == 0) //if x is integer
-    	    return eExpY(10.0,(long)x);
+    	    return eExpY(10.0,(long)x, false);
         else
             return eExpY(10.0,x);
     }
@@ -243,7 +257,7 @@ public class EternityEngine {
         do{
             temp = retVal;
             //Cosine taylor series expansion
-            retVal = temp + (eExpY((-1), n)*eExpY(x, 2*n))/eFactorial(2*n);
+            retVal = temp + (eExpY((-1), n, false)*eExpY(x, 2*n,false))/eFactorial(2*n);
             n++;
             //When retVal gets extremely small, it is zero
 
@@ -306,7 +320,7 @@ public class EternityEngine {
 			long i=0;
 			x = (x-1)/(x+1);
 			do {
-				res +=  (e = 2 * eExpY(x, (long)2*i + 1) / (2*i+1));
+				res += (e = 2 * eExpY(x, 2*i + 1, false)) / (2*i+1);
 				i++;
 			} while ((precision < e || -precision > e));
 			if (x<=2) {
@@ -329,7 +343,7 @@ public class EternityEngine {
         //Temporarily increase precision for pi calculation
         setPrecision(0.0000000001);
         for (int i = 0; i<5; i++) {
-            e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i), 4) * eExpY(396,4*i));
+            e += eFactorial(4*i) * (26390 * i + 1103) / (eExpY(eFactorial(i), 4, false) * eExpY(396,4*i, false));
         }
         res = 9801 / (e * eExpY(8, 0.5));
 
