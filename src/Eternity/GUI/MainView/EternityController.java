@@ -333,6 +333,8 @@ public class EternityController {
             updateWithResult();
         } catch (java.lang.IllegalArgumentException error) {
             calculatorErrorPopup(error.getMessage(), error);
+        } catch (EmptyStackException error){
+            calculatorErrorPopup("Mismatched parentheses detected. Please check the expression.", error);
         }
     }
 
