@@ -2,7 +2,7 @@ package Eternity.Logic;
 
 public class EternityEngine {
     static private double precision;
-    static private boolean rads;
+    static private boolean isAngleInRadians;
     static private long decimal;
 
     /**
@@ -10,7 +10,7 @@ public class EternityEngine {
      */
     public EternityEngine(){
         EternityEngine.precision = 0.000000001;
-        EternityEngine.rads = true;
+        EternityEngine.isAngleInRadians = true;
         EternityEngine.decimal = 0;
         setDecimal();
     }
@@ -23,27 +23,27 @@ public class EternityEngine {
     /**
      * Parametered constructo allows for precision to be set at initialization.
      */
-    public EternityEngine(double precision, boolean rads){
+    public EternityEngine(double precision, boolean isAngleInRadians){
         EternityEngine.precision = precision;
-        EternityEngine.rads = rads;
+        EternityEngine.isAngleInRadians = isAngleInRadians;
         EternityEngine.decimal = 0;
         setDecimal();
     }
 
     /**
      * Getter for radians setting
-     * @return a boolean, true if rads, false otherwise
+     * @return a boolean, true if isAngleInRadians, false otherwise
      */
     public boolean isRads() {
-        return rads;
+        return isAngleInRadians;
     }
 
     /**
      * Setter for radians
-     * @param rads true if rads, false if degrees
+     * @param rads true if isAngleInRadians, false if degrees
      */
     public void setRads(boolean rads) {
-        EternityEngine.rads = rads;
+        EternityEngine.isAngleInRadians = rads;
     }
 
     /**
@@ -222,67 +222,52 @@ public class EternityEngine {
      *  (((-1)^n)/(2n!))*(x^2n)
      *
      * @author Jonathan Bedard Schami
-     * @param x the angle in degree which we want to obtain the cosine of
+     * @param angle the angle in degree which we want to obtain the cosine of
      * @return the value to the precision determined.
      */
-    public double eCos(double x){
-        if(x < 0)
-            x *= -1;
-        boolean isLeftSideQuadrant = false;
-        double piVal = ePI();
-
-        //Pre processing of x, is it rads or degrees?
-        if(EternityEngine.rads){
-            x = x%(2*piVal);
+    public double eCos(double angle){
+        boolean isAngleInLeftSideQuadrant = false;
+        double valueOfPi = ePI();
+        //Cosine for negative angle is same as positive of that angle
+        if(angle < 0) {
+            angle *= -1;
+        }
+        if(EternityEngine.isAngleInRadians){
+            angle = angle%(2*valueOfPi);
         }
         else {
-            x = x % 360;
-            x = (x * piVal) / 180; //Convert degree to radians
+            angle = angle % 360;
+            angle = (angle * valueOfPi) / 180;
         }
-        //Pre processing of x, simplify the angle
-        //from 90 to 180 cos(x) = -cos(pi-x)
-        if(x > piVal/2 && x <= piVal){
-            x = piVal-x;
-            isLeftSideQuadrant = true;
+        //from 90 to 180 : cos(x) = -cos(pi-x)
+        if(angle > valueOfPi/2 && angle <= valueOfPi){
+            angle = valueOfPi-angle;
+            isAngleInLeftSideQuadrant = true;
         }
-        //from 180 to 270 cos(x) = -cos((-1)*(pi-x))
-        if(x > piVal && x <= 1.5*piVal){
-            isLeftSideQuadrant = true;
-            x = (-1)*(piVal-x);
+        //from 180 to 270 : cos(x) = -cos((-1)*(pi-x))
+        else if(angle > valueOfPi && angle <= 1.5*valueOfPi){
+            isAngleInLeftSideQuadrant = true;
+            angle = (-1)*(valueOfPi-angle);
+        }
+        //from 270 to 360 : cos(x) = cos(360-x)
+        else if(angle > 1.5*valueOfPi && angle <= 2*valueOfPi){
+            angle = 2*valueOfPi - angle;
         }
 
-        if(x > 1.5*piVal && x <= 2*piVal){
-            x = 2*piVal - x;
-        }
-
-        double temp;
-        double retVal = 0;
-        double delta;
-        int n = 0;
+        double returnValue = 0;
+        double nextSeriesTermValue = 0;
+        int iterationCount = 0;
         do{
-            temp = retVal;
             //Cosine taylor series expansion
-            retVal = temp + (eExpY((-1), n, false)*eExpY(x, 2*n,false))/eFactorial(2*n);
-            n++;
-            //When retVal gets extremely small, it is zero
+            returnValue += (nextSeriesTermValue = (eExpY((-1), iterationCount, false)*eExpY(angle, 2*iterationCount,false))/eFactorial(2*iterationCount));
+            iterationCount++;
+        }while( precision < nextSeriesTermValue || -precision > nextSeriesTermValue);
 
+        if(returnValue < precision){returnValue = 0;}
 
-            //Keep expanding the taylor series until desired precision is met
-            if (retVal-temp < 0)
-                delta = (-1)*(retVal-temp);
-            else
-                delta = retVal-temp;
+        if(isAngleInLeftSideQuadrant && returnValue != 0){returnValue = returnValue*(-1);}
 
-        }while((delta) > precision);
-
-        if(retVal < precision)
-            retVal = 0;
-
-        if(isLeftSideQuadrant && retVal != 0){
-            retVal = retVal*(-1);
-        }
-        //retVal = roundNumber(retVal);
-        return retVal;
+        return returnValue;
     }
 
     /**
